@@ -1,19 +1,11 @@
 package com.alvonellos.interview.util.sorting;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-
-public class BubbleSortGenerics<E> {
-
-    <E> void swap(E[] a, int i, int j) {
-        if (i != j) {
-            E temp = a[i];
-            a[i] = a[j];
-            a[j] = temp;
-        }
-    }
-
+public class BubbleSortGenerics<E> extends SortingAlgorithm {
+    /**
+     * Bubble sort algorithm. O(n^2) algorithm.
+     *
+     * @param a the array to sort
+     */
     public  <E extends Comparable<E>> void BubbleSort(E[] a) {
         for (int i = 0; i < a.length - 1; i++) {
             for (int j = 0; j < a.length - i - 1; j++) {

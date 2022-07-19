@@ -1,18 +1,6 @@
 package com.alvonellos.interview.util.sorting;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-
-public class ShellSortGenerics {
-
-    <E> void swap(E[] a, int i, int j) {
-        if (i != j) {
-            E temp = a[i];
-            a[i] = a[j];
-            a[j] = temp;
-        }
-    }
+public class ShellSortGenerics<E> extends SortingAlgorithm {
 
     public <E extends Comparable<E>> void ShellSort(E[] a) {
 
@@ -43,23 +31,5 @@ public class ShellSortGenerics {
                 a[j] = temp;
             }
         }
-    }
-   
-
-    public static void main(String[] args){
-        SelectionSortGenerics firstsort = new SelectionSortGenerics();
-
-        Integer[] arr = {3,4,1,5};
-        System.out.println("before sorting int: "+ Arrays.toString(arr));
-        firstsort.selectionSort(arr);
-        System.out.println("After sorting int : "+Arrays.toString(arr));
-         String[] arr1= {"acd","ded","dal","bad","cle"};
-         System.out.println("before sorting String: "+ Arrays.toString(arr1));
-         firstsort.selectionSort(arr1);
-         System.out.println("After sorting String : "+Arrays.toString(arr1));
-         Character[] arr2= {'c','e','a','d','c'};
-         System.out.println("before sorting char: "+ Arrays.toString(arr2));
-         firstsort.selectionSort(arr2);
-         System.out.println("After sorting char : "+Arrays.toString(arr2));
     }
 }

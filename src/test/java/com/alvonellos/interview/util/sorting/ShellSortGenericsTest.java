@@ -1,6 +1,7 @@
 package com.alvonellos.interview.util.sorting;
 
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
 import java.security.SecureRandom;
@@ -9,20 +10,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-class BubbleSortGenericsTest {
+class ShellSortGenericsTest {
     SecureRandom random = new SecureRandom();
     static final int STREAM_SIZE = 1024;
+
     @RepeatedTest(100)
     @Timeout(100)
-    void bubbleSort() {
+    void shellSort() {
 
         Integer[] a = random.ints(STREAM_SIZE).boxed().toArray(Integer[]::new);
         List<Integer> b = new ArrayList<>(Arrays.asList(a));
 
-        BubbleSortGenerics bubbleSort = new BubbleSortGenerics<Integer>();
-        bubbleSort.BubbleSort(a);
+        ShellSortGenerics<Integer> shellSort = new ShellSortGenerics<>();
+        shellSort.ShellSort(a);
 
         System.err.println(Arrays.stream(a).collect(Collectors.toList()));
         System.err.println(b.stream().sorted().collect(Collectors.toList()));

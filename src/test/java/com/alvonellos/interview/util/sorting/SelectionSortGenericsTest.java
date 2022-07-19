@@ -11,18 +11,19 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class BubbleSortGenericsTest {
+class SelectionSortGenericsTest<E extends Comparable<E>> {
     SecureRandom random = new SecureRandom();
     static final int STREAM_SIZE = 1024;
+
     @RepeatedTest(100)
     @Timeout(100)
-    void bubbleSort() {
+    void selectionSort() {
 
         Integer[] a = random.ints(STREAM_SIZE).boxed().toArray(Integer[]::new);
         List<Integer> b = new ArrayList<>(Arrays.asList(a));
 
-        BubbleSortGenerics bubbleSort = new BubbleSortGenerics<Integer>();
-        bubbleSort.BubbleSort(a);
+        SelectionSortGenerics<Integer> selectionSort = new SelectionSortGenerics();
+        selectionSort.selectionSort(a);
 
         System.err.println(Arrays.stream(a).collect(Collectors.toList()));
         System.err.println(b.stream().sorted().collect(Collectors.toList()));

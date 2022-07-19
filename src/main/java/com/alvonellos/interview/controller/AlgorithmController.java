@@ -9,6 +9,4 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class AlgorithmController {
     final AlgorithmsService algorithmsService;
-
-
 }

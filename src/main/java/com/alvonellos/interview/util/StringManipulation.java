@@ -26,23 +26,24 @@ public final class StringManipulation {
             return string;
         }
         return reverse(string.substring(1)) + string.charAt(0);
+        // reverse the string recursively and append the first character at the end
     }
 
     public static String reverse(String string) {
         if (string == null) {
-            return null;
+            return null; // if string is null, return null
         }
-        if (string.length() <= 1) {
+        if (string.length() <= 1) { //if string is empty or has only one character, then no reverse
             return string;
         }
 
-        StringBuffer b = new StringBuffer(string);
-        for(int i = 0; i < b.length() / 2; i++) {
-            char temp = b.charAt(i);
-            b.setCharAt(i, b.charAt(b.length() - i - 1));
-            b.setCharAt(b.length() - i - 1, temp);
+        StringBuffer b = new StringBuffer(string); //load string into buffer
+        for(int i = 0; i < b.length() / 2; i++) { // declare i as the length of the string divided by 2d to get the middle of the string
+            char temp = b.charAt(i); // declare temp as the character at index i
+            b.setCharAt(i, b.charAt(b.length() - i - 1)); // set the character at index i to the character at the end of the string minus i minus 1
+            b.setCharAt(b.length() - i - 1, temp); // set the character at the end of the string minus i minus 1 to temp
         }
-        return b.toString();
+        return b.toString(); // return the string buffer as a string
     }
 
 }
