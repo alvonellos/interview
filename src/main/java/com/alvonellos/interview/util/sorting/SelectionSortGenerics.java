@@ -6,7 +6,7 @@ public class SelectionSortGenerics<E> extends SortingAlgorithm {
      *
      * @param a the array to sort
      */
-    public <E extends Comparable<E>> void selectionSort(E[] a) {
+    public <E extends Comparable<E>> void sort(E[] a) {
         for (int i = 0; i < a.length - 1; i++) {
             // find index of smallest element
             int smallest = i;

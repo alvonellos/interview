@@ -22,7 +22,7 @@ class QuickSortGenericsTest {
         List<Integer> b = new ArrayList<>(Arrays.asList(a));
 
         QuickSortGenerics<Integer> quickSort = new QuickSortGenerics<>();
-        quickSort.QuickSort(a);
+        quickSort.sort(a);
 
         System.err.println(Arrays.stream(a).collect(Collectors.toList()));
         System.err.println(b.stream().sorted().collect(Collectors.toList()));

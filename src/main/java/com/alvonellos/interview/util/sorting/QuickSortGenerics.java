@@ -7,7 +7,7 @@ public class QuickSortGenerics<E> extends SortingAlgorithm {
      *
      * @param a the array to sort
      */
-    public <E extends Comparable<E>> void QuickSort(E[] a) {
+    public <E extends Comparable<E>> void sort(E[] a) {
         QuickSort(a, 0, a.length - 1);
     }
 

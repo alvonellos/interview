@@ -24,7 +24,7 @@ class ShellSortGenericsTest {
         List<Integer> b = new ArrayList<>(Arrays.asList(a));
 
         ShellSortGenerics<Integer> shellSort = new ShellSortGenerics<>();
-        shellSort.ShellSort(a);
+        shellSort.sort(a);
 
         System.err.println(Arrays.stream(a).collect(Collectors.toList()));
         System.err.println(b.stream().sorted().collect(Collectors.toList()));

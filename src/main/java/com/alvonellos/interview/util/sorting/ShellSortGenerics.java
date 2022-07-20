@@ -2,7 +2,7 @@ package com.alvonellos.interview.util.sorting;
 
 public class ShellSortGenerics<E> extends SortingAlgorithm {
 
-    public <E extends Comparable<E>> void ShellSort(E[] a) {
+    public <E extends Comparable<E>> void sort(E[] a) {
 
         int n = a.length;
  

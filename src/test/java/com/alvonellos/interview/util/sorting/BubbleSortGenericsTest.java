@@ -22,7 +22,7 @@ class BubbleSortGenericsTest {
         List<Integer> b = new ArrayList<>(Arrays.asList(a));
 
         BubbleSortGenerics bubbleSort = new BubbleSortGenerics<Integer>();
-        bubbleSort.BubbleSort(a);
+        bubbleSort.sort(a);
 
         System.err.println(Arrays.stream(a).collect(Collectors.toList()));
         System.err.println(b.stream().sorted().collect(Collectors.toList()));

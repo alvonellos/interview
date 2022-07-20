@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class SelectionSortGenericsTest<E extends Comparable<E>> {
+class SelectionSortGenericsTest {
     SecureRandom random = new SecureRandom();
     static final int STREAM_SIZE = 1024;
 
@@ -22,8 +22,8 @@ class SelectionSortGenericsTest<E extends Comparable<E>> {
         Integer[] a = random.ints(STREAM_SIZE).boxed().toArray(Integer[]::new);
         List<Integer> b = new ArrayList<>(Arrays.asList(a));
 
-        SelectionSortGenerics<Integer> selectionSort = new SelectionSortGenerics();
-        selectionSort.selectionSort(a);
+        SelectionSortGenerics<Integer> selectionSort = new SelectionSortGenerics<>();
+        selectionSort.sort(a);
 
         System.err.println(Arrays.stream(a).collect(Collectors.toList()));
         System.err.println(b.stream().sorted().collect(Collectors.toList()));
