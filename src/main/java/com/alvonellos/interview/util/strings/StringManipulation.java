@@ -60,7 +60,7 @@ public final class StringManipulation {
     }
 
     /**
-     * Checks if the given string is palindromic using a recursive method
+     * Checks if the given string is palindromic using an iterative method
      * @param word
      * @return
      */
@@ -78,5 +78,16 @@ public final class StringManipulation {
             buffer.deleteCharAt(buffer.length() - 1);
         }
         return true;
+    }
+
+    /**
+     * Checks if the given string contains vowels using regular expressions
+     * @param input the string to check
+     * @return a boolean indicating if it contains vowels or not
+     */
+    public static boolean stringContainsVowels(String input) {
+
+        return input.toLowerCase().matches(".*[aeiou].*");
+
     }
 }

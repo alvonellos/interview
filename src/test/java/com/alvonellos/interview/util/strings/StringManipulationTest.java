@@ -90,4 +90,11 @@ class StringManipulationTest {
             }
         }
     }
+
+    @Test
+    void stringContainsVowels() {
+        for(char c : "aeiou".toCharArray()) {
+            assertTrue(StringManipulation.stringContainsVowels(String.valueOf(c)));
+        }
+    }
 }
