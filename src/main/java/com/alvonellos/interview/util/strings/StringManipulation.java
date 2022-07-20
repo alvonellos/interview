@@ -1,4 +1,4 @@
-package com.alvonellos.interview.util;
+package com.alvonellos.interview.util.strings;
 
 public final class StringManipulation {
 
@@ -46,4 +46,16 @@ public final class StringManipulation {
         return b.toString(); // return the string buffer as a string
     }
 
+    /**
+     * Checks if the given string is palindromic using a recursive method
+     * @param word
+     * @return
+     */
+    public static boolean palindrome_recursive(String word) {
+        if (word == null)       return false;
+        if (word.length() == 1) return true;
+        if (word.length() == 2) return word.charAt(0) == word.charAt(1);
+
+        return word.charAt(word.length() - 1) == word.charAt(0) == palindrome_recursive(word.substring(1, word.length() - 1));
+    }
 }
