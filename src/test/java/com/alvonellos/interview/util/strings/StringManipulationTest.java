@@ -68,4 +68,26 @@ class StringManipulationTest {
             }
         }
     }
+
+    @Test
+    void palindromePositiveCase() {
+        for(int i = 1; i < 9; i++ ) {
+            for(int j = 1; j < 9; j++) {
+                Integer result = generatePalindromicNumber(i,j);
+                boolean isPalindrome = StringManipulation.palindrome(String.valueOf(result));
+                assert(isPalindrome);
+            }
+        }
+    }
+
+    @Test
+    void palindromeNegativeCase() {
+        System.err.println("Testing negative case");
+        for(int i = 1; i < 9; i++ ) {
+            for(int j = 1; j < 9; j++) {
+                if(StringManipulation.palindrome(String.valueOf(generatePalindromicNumber(i, j)+1)))
+                    fail("palindrome_recursive should not have returned true for: " + generatePalindromicNumber(i, j));
+            }
+        }
+    }
 }

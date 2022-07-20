@@ -58,4 +58,25 @@ public final class StringManipulation {
 
         return word.charAt(word.length() - 1) == word.charAt(0) == palindrome_recursive(word.substring(1, word.length() - 1));
     }
+
+    /**
+     * Checks if the given string is palindromic using a recursive method
+     * @param word
+     * @return
+     */
+    public static boolean palindrome(String word) {
+
+        StringBuffer buffer = new StringBuffer(word);
+        while(buffer.length() > 1) {
+            System.err.println(buffer);
+            if (buffer.length() == 1) return true;
+            if (buffer.length() == 2) return buffer.charAt(0) == buffer.charAt(1);
+            if (buffer.charAt(0) != buffer.charAt(buffer.length() - 1))
+                return false;
+
+            buffer.deleteCharAt(0);
+            buffer.deleteCharAt(buffer.length() - 1);
+        }
+        return true;
+    }
 }
