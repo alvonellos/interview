@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@EnableAutoConfiguration
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class SortingAlgorithmController {
     final SortingAlgorithmService sortingAlgorithmService;

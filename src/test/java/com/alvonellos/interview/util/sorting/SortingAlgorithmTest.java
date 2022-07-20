@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SortingAlgorithmTest {
     SecureRandom random = new SecureRandom();
-    static final int STREAM_SIZE = 10;
+    static final int STREAM_SIZE = 1024;
 
     @RepeatedTest(100)
     void swap() {
