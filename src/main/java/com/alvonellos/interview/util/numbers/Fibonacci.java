@@ -10,6 +10,10 @@ public class Fibonacci {
         if(a.equals(BigInteger.ZERO)) return BigInteger.ONE;
         if(a.equals(BigInteger.ONE)) return BigInteger.ONE;
         if(cache.containsKey(a)) return cache.get(a);
-        else return fib(a.subtract(BigInteger.valueOf(2))).add(fib(a.subtract(BigInteger.ONE)));
+        else {
+            BigInteger fibout = fib(a.subtract(BigInteger.valueOf(2))).add(fib(a.subtract(BigInteger.ONE)));
+            cache.put(a, fibout);
+            return fibout;
+        }
     }
 }
