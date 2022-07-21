@@ -1,6 +1,5 @@
 package com.alvonellos.interview.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
@@ -14,11 +13,6 @@ import static org.mockito.Mockito.mock;
 class SortingAlgorithmServiceTest {
     @InjectMocks
     SortingAlgorithmService sortingAlgorithmService = mock(SortingAlgorithmService.class);
-
-    @BeforeEach
-    void setUp() {
-
-    }
 
     @Test
     void bubbleSort() {
