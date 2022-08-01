@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FibonacciTest {
-    private static final Long EPSILON = Long.valueOf(1);
+    private static final Long EPSILON = Long.valueOf(4);//Four milliseconds
 
     @Test
     void fib() {
@@ -30,7 +30,7 @@ class FibonacciTest {
         Fibonacci.fib(BigInteger.valueOf(1001));
         Long timeoutCached = System.currentTimeMillis() - timeIn;
 
-        if(timeoutCached >= EPSILON || timeOutNonCached >= 10*EPSILON) // should be within 1ms
+        if(timeoutCached >= EPSILON || timeOutNonCached >= 10*EPSILON) // should be within 4ms
             fail();
 
         }

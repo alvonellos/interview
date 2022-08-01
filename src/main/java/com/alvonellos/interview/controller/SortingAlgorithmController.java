@@ -4,7 +4,6 @@ import com.alvonellos.interview.service.SortingAlgorithmService;
 import com.alvonellos.interview.util.sorting.SortingAlgorithm;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.List;
 
-@RestController
+@RestController // Because of SpringBoot ResponseBody implementation. We are not returning a view.
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class SortingAlgorithmController {
     final SortingAlgorithmService sortingAlgorithmService;
@@ -21,7 +20,7 @@ public class SortingAlgorithmController {
     public List<?> sort(@RequestBody List<String> body,
                         @RequestParam(value = "algorithm", required = false) SortingAlgorithm.Algorithm algorithm) {
 
-        String[] numbers = body.toArray(new String[body.size()]);
+        String[] numbers = body.toArray(new String[0]);
 
         switch(algorithm) {
             case BUBBLE:
