@@ -20,7 +20,7 @@ public class KVEntity {
     private String KVEntityKey;
 
 
-    @Column(name = "kv_entity_value") // NULLABLE
+    @Column(name = "kv_entity_value", length = 10000) // NULLABLE
     private String KVEntityValue;
 
     @Override
