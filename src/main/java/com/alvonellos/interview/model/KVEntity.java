@@ -1,21 +1,16 @@
 package com.alvonellos.interview.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 
 @Entity(name = "KVEntity")
 @Builder
-@Valid
+@NoArgsConstructor
+@AllArgsConstructor
 public class KVEntity {
-    public KVEntity() {
-    }
-
-    public KVEntity(String key, String value) {
-        this.KVEntityKey = key;
-        this.KVEntityValue = value;
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "kv_entity_id", nullable = false)
