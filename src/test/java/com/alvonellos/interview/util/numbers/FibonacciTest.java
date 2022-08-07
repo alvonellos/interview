@@ -19,6 +19,20 @@ class FibonacciTest {
         assertEquals(BigInteger.valueOf(3), Fibonacci.fib(BigInteger.valueOf(3)));
     }
 
+    //Test fib with random numbers
+    void fibRandom() {
+        for(int i = 0; i < 100; i++) {
+            BigInteger a = BigInteger.valueOf(Math.round(Math.random() * 100));
+            assertEquals(Fibonacci.fib(a), Fibonacci.fib(a));
+        }
+    }
+
+    @RepeatedTest(100)
+    @Timeout(value = 1)
+    void fibRandomTimeout() {
+        fibRandom();
+    }
+
     @RepeatedTest(100)
     @Timeout(100)
     void fib_timed() {
@@ -30,7 +44,7 @@ class FibonacciTest {
         Fibonacci.fib(BigInteger.valueOf(1001));
         Long timeoutCached = System.currentTimeMillis() - timeIn;
 
-        if(timeoutCached >= EPSILON || timeOutNonCached >= 10*EPSILON) // should be within 4ms
+        if(timeoutCached >= EPSILON || timeOutNonCached >= 10*EPSILON) // should be within 4ms for a cache hit
             fail();
 
         }

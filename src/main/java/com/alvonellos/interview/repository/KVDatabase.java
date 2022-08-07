@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KVDatabase extends JpaRepository<KVEntity, Integer> {
+    String getRandomValue(String key);
 }
