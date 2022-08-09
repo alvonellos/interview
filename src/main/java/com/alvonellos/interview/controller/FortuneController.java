@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+import static com.alvonellos.interview.util.numbers.NumberManipulation.randBetween;
+
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class FortuneController {
@@ -25,9 +27,5 @@ public class FortuneController {
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    private Long randBetween(Long min, Long max) {
-        return min + Math.round(Math.random() * (max - min));
     }
 }
