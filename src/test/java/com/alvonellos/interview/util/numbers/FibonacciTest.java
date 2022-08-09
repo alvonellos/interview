@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FibonacciTest {
-    private static final Long EPSILON = Long.valueOf(1);
+    private static final Long EPSILON = Long.valueOf(4);//Four milliseconds
 
     @Test
     void fib() {
@@ -17,6 +17,20 @@ class FibonacciTest {
         assertEquals(BigInteger.valueOf(1), Fibonacci.fib(BigInteger.valueOf(1)));
         assertEquals(BigInteger.valueOf(2), Fibonacci.fib(BigInteger.valueOf(2)));
         assertEquals(BigInteger.valueOf(3), Fibonacci.fib(BigInteger.valueOf(3)));
+    }
+
+    //Test fib with random numbers
+    void fibRandom() {
+        for(int i = 0; i < 100; i++) {
+            BigInteger a = BigInteger.valueOf(Math.round(Math.random() * 100));
+            assertEquals(Fibonacci.fib(a), Fibonacci.fib(a));
+        }
+    }
+
+    @RepeatedTest(100)
+    @Timeout(value = 1)
+    void fibRandomTimeout() {
+        fibRandom();
     }
 
     @RepeatedTest(100)
@@ -30,7 +44,7 @@ class FibonacciTest {
         Fibonacci.fib(BigInteger.valueOf(1001));
         Long timeoutCached = System.currentTimeMillis() - timeIn;
 
-        if(timeoutCached >= EPSILON || timeOutNonCached >= 10*EPSILON) // should be within 1ms
+        if(timeoutCached >= EPSILON || timeOutNonCached >= 10*EPSILON) // should be within 4ms for a cache hit
             fail();
 
         }
