@@ -1,10 +1,12 @@
 package com.alvonellos.interview.util.strings;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static com.alvonellos.interview.util.strings.LongestValidParenthesis.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SpringBootTest
 class LongestValidParenthesisTest {
     @Test
     void testLongestValidParenthesis() {
