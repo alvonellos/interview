@@ -3,11 +3,12 @@ package com.alvonellos.interview.util.numbers;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class FibonacciTest {
     private static final Long EPSILON = Long.valueOf(4);//Four milliseconds
 

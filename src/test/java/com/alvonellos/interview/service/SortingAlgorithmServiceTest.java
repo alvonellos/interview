@@ -2,6 +2,7 @@ package com.alvonellos.interview.service;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.mockito.Mockito.mock;
 
+@SpringBootTest
 class SortingAlgorithmServiceTest {
     @InjectMocks
     SortingAlgorithmService sortingAlgorithmService = mock(SortingAlgorithmService.class);

@@ -2,6 +2,7 @@ package com.alvonellos.interview.util.sorting;
 
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class SortingAlgorithmTest {
     SecureRandom random = new SecureRandom();
     static final int STREAM_SIZE = 1024;
