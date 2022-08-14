@@ -1,31 +1,66 @@
 package com.alvonellos.interview.util.strings;
 
+import java.util.Stack;
+
 public class LongestValidParenthesis {
-    public static int longestValidParentheses(String s) {
-        int max = 0;
-        int[] stack = new int[s.length()];
-        int top = -1;
+    public static int longestValidParenthesesDP(String s) {
+        int maxans = 0;
+        int dp[] = new int[s.length()];
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == ')') {
+                if (s.charAt(i - 1) == '(') {
+                    dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+                } else if (i - dp[i - 1] > 0 && s.charAt(i - dp[i - 1] - 1) == '(') {
+                    dp[i] = dp[i - 1] + ((i - dp[i - 1]) >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
+                }
+                maxans = Math.max(maxans, dp[i]);
+            }
+        }
+        return maxans;
+    }
+
+    public static boolean isValid(String s) {
+        Stack<Character> stack = new Stack<Character>();
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {
-                top++;
-                stack[top] = i;
+                stack.push('(');
+            } else if (!stack.empty() && stack.peek() == '(') {
+                stack.pop();
             } else {
-                if (top == -1) {
-                    stack[++top] = i;
-                } else {
-                    if (s.charAt(stack[top]) == '(') {
-                        top--;
-                        if (top == -1) {
-                            max = Math.max(max, i - stack[top]);
-                        } else {
-                            max = Math.max(max, i - stack[top]);
-                        }
-                    } else {
-                        stack[++top] = i;
-                    }
+                return false;
+            }
+        }
+        return stack.empty();
+    }
+    public static int longestValidParenthesesBF(String s) {
+        int maxlen = 0;
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i + 2; j <= s.length(); j+=2) {
+                if (isValid(s.substring(i, j))) {
+                    maxlen = Math.max(maxlen, j - i);
                 }
             }
         }
-        return max;
+        return maxlen;
     }
+
+    public static int longestValidParenthesesStack(String s) {
+        int maxans = 0;
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.push(i);
+            } else {
+                stack.pop();
+                if (stack.empty()) {
+                    stack.push(i);
+                } else {
+                    maxans = Math.max(maxans, i - stack.peek());
+                }
+            }
+        }
+        return maxans;
+    }
+
 }
