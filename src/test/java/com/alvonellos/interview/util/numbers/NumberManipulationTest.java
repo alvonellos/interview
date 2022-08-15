@@ -3,8 +3,7 @@ package com.alvonellos.interview.util.numbers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.alvonellos.interview.util.numbers.NumberManipulation.randBetween;
-import static com.alvonellos.interview.util.numbers.NumberManipulation.twoSum;
+import static com.alvonellos.interview.util.numbers.NumberManipulation.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -22,5 +21,15 @@ class NumberManipulationTest {
 
         int[] output = twoSum(actual, 9);
         assertArrayEquals(expected, output);
+    }
+
+    @Test
+    void xorSwapTest() {
+        int[] expected = {2,1};
+        int[] actual = {1,2};
+
+        xorSwap(actual);
+
+        assertArrayEquals(expected, actual);
     }
 }

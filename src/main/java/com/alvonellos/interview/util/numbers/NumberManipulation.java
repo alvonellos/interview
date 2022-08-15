@@ -30,4 +30,18 @@ public class NumberManipulation {
         }
         return new int[] {};
     }
+
+    /**
+     * Swap a number in place without using a temporary variable.
+     * @param numbers
+     */
+    public static void xorSwap(int[] numbers) {
+        assert(numbers.length == 2);
+
+        if (numbers[0] == numbers[1]) { return; }
+
+        numbers[0] = numbers[0] ^ numbers[1];
+        numbers[1] = numbers[0] ^ numbers[1];
+        numbers[0] = numbers[0] ^ numbers[1];
+    }
 }
