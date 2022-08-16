@@ -27,11 +27,17 @@ public abstract class SortingAlgorithm {
         }
     }
 
-    /* This function takes last element as pivot, places
-the pivot element at its correct position in sorted
- array, and places all smaller (smaller than pivot)
-to left of pivot and all greater elements to right
-of pivot */
+    /**
+     * This function takes last element as pivot, places
+     * the pivot element at its correct position in sorted
+     *  array, and places all smaller (smaller than pivot)
+     * to left of pivot and all greater elements to right
+     * of pivot
+     * @param arr the array to work with
+     * @param low the low index of the array
+     * @param high the high index of the array
+     * @return and integer specifying the pivot position
+     */
     static final int partition (Comparable[] arr, final int low, final int high)
     {
         // pivot (Element to be placed at right position);
