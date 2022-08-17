@@ -1,7 +1,9 @@
 package com.alvonellos.interview.util.numbers;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class NumberManipulation {
@@ -102,5 +104,23 @@ public class NumberManipulation {
                 factorialCached(n.subtract(k))
         );
         return numerator.divide(denominator);
+    }
+
+    /**
+     * Converts a list of a list of bigInteger to a list of regular integer
+     * @param items the items to convert
+     * @return the list of integers
+     * TODO: Move this to a separate list utilities class
+     */
+    public List<List<Integer>> convertBigIntegerToIntegerList(List<List<BigInteger>> items) {
+        List<List<Integer>> result = new ArrayList<>();
+        for (List<BigInteger> item : items) {
+            List<Integer> buffer = new ArrayList<>();
+            for (BigInteger i : item) {
+                buffer.add(i.intValue());
+            }
+            result.add(buffer);
+        }
+        return result;
     }
 }
