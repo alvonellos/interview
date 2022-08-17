@@ -1,5 +1,7 @@
 package com.alvonellos.interview.util.strings;
 
+import java.security.SecureRandom;
+
 public final class StringManipulation {
 
     public static String removeLastCharacter(String string) {
@@ -86,8 +88,6 @@ public final class StringManipulation {
      * @return a boolean indicating if it contains vowels or not
      */
     public static boolean stringContainsVowels(String input) {
-
         return input.toLowerCase().matches(".*[aeiou].*");
-
     }
 }
