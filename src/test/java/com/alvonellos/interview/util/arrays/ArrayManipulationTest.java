@@ -3,6 +3,7 @@ package com.alvonellos.interview.util.arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static com.alvonellos.interview.util.arrays.ArrayManipulation.triangularSum;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -19,5 +20,13 @@ class ArrayManipulationTest {
 
         assert(output.length == expected.length);
         assertArrayEquals(output, expected);
+    }
+
+    @Test
+    void triangularSumTest() {
+        int[] input = {1, 2, 3, 4, 5};
+        Integer expected = 8;
+        Integer actual = triangularSum(input);
+        assert(actual == expected);
     }
 }
