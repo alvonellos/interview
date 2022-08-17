@@ -2,7 +2,7 @@ package com.alvonellos.interview.util.sorting;
 
 public abstract class SortingAlgorithm {
     public enum Algorithm {
-        BUBBLE, QUICK, SELECTION, SHELL
+        BUBBLE, QUICK, SELECTION, SHELL, MERGE
     }
 
     /**

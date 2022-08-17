@@ -64,4 +64,16 @@ class SortingAlgorithmServiceTest {
 
         assertArrayEquals(expected, actual);
     }
+
+    @Test
+    void mergeSort() {
+        Integer[] expected = {1, 2, 3, 4, 5};
+        List<Integer> buffer = Arrays.asList(expected);
+        Collections.shuffle(Arrays.asList(buffer));
+        Integer[] actual = buffer.toArray(new Integer[0]);
+
+        sortingAlgorithmService.mergeSort(actual);
+
+        assertArrayEquals(expected, actual);
+    }
 }

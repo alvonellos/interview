@@ -53,14 +53,6 @@ class SortingAlgorithmControllerTest {
     void setUp() {
         SortingAlgorithmService sortingAlgorithmService = mock(SortingAlgorithmService.class);
 
-        /**
-        List<String> list = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
-        doReturn(list).when(sortingAlgorithmService).bubbleSort(any());
-        doReturn(list).when(sortingAlgorithmService).quickSort(any());
-        doReturn(list).when(sortingAlgorithmService).selectionSort(any());
-        doReturn(list).when(sortingAlgorithmService).shellSort(any());
-         **/
-
         ReflectionTestUtils.setField(controller, "sortingAlgorithmService", sortingAlgorithmService);
     }
 
@@ -94,6 +86,7 @@ class SortingAlgorithmControllerTest {
         verify(sortingAlgorithmService, atMostOnce()).quickSort(any());
         verify(sortingAlgorithmService, atMostOnce()).selectionSort(any());
         verify(sortingAlgorithmService, atMostOnce()).shellSort(any());
+        verify(sortingAlgorithmService, atMostOnce()).mergeSort(any());
     }
 
     @Test

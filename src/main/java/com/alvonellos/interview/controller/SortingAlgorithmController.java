@@ -35,6 +35,9 @@ public class SortingAlgorithmController {
             case SHELL:
                 sortingAlgorithmService.shellSort(numbers);
                 break;
+            case MERGE:
+                sortingAlgorithmService.mergeSort(numbers);
+                break;
             default:
                 throw new IllegalArgumentException("Unknown algorithm: " + algorithm);
         }

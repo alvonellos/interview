@@ -1,9 +1,6 @@
 package com.alvonellos.interview.service;
 
-import com.alvonellos.interview.util.sorting.BubbleSortGenerics;
-import com.alvonellos.interview.util.sorting.QuickSortGenerics;
-import com.alvonellos.interview.util.sorting.SelectionSortGenerics;
-import com.alvonellos.interview.util.sorting.ShellSortGenerics;
+import com.alvonellos.interview.util.sorting.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +13,8 @@ public class SortingAlgorithmService {
     final QuickSortGenerics<?> quickSortGenerics = new QuickSortGenerics();
     final SelectionSortGenerics<?> selectionSortGenerics = new SelectionSortGenerics();
     final ShellSortGenerics<?> shellSortGenerics = new ShellSortGenerics();
+    final MergeSortGenerics<?> mergeSortGenerics = new MergeSortGenerics();
+
 
     public <E extends Comparable<E>> E[] bubbleSort(E[] e) {
         bubbleSortGenerics.sort(e);
@@ -39,4 +38,9 @@ public class SortingAlgorithmService {
         shellSortGenerics.sort(e);
         return e;
     }
+    public <E extends Comparable<E>> E[] mergeSort(E[] e) {
+        mergeSortGenerics.sort(e);
+        return e;
+    }
+
 }
