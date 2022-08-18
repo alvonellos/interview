@@ -153,4 +153,13 @@ class NumberManipulationTest {
         assert((binomial(BigInteger.valueOf(100l), BigInteger.valueOf(3l)).equals(BigInteger.valueOf(161700l))));
 
     }
+
+    @Test
+    void maxPointsTest() {
+        int[][] input = {{1,1},{3,2},{5,3},{4,1},{2,3},{1,4}};
+        int expected = 4;
+
+        int actual = maxPoints(input);
+        assertEquals(expected, actual);
+    }
 }

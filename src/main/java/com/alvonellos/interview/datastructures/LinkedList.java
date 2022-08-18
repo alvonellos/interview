@@ -86,6 +86,7 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T>{
 		return size() == 0;
 	}
 
+
 	/**
 	 * Adds an object to the list
 	 * @param e the data to add

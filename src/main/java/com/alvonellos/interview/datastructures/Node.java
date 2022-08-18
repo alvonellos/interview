@@ -10,7 +10,7 @@ import static com.alvonellos.interview.util.java.AddressUtil.addrString;
  * @implNote Implements comparable through and through
  */
 public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>> {
-    private static boolean DEBUG = false;
+    private static final boolean DEBUG = false;
     private Node<T> next;
     private Node<T> prev;
 
@@ -32,7 +32,7 @@ public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>
     /**
      * Generic constructor for just one node with a datum;
      *
-     * @param datum
+     * @param datum the data to store in the node
      */
     public Node(T datum) {
         this(false, datum);
@@ -66,7 +66,7 @@ public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>
      * @param next the next node
      */
     public void setNext(Node<T> next) {
-        this.next = (next != null) ? next : null;
+        this.next = next;
     }
 
     /**
@@ -84,8 +84,7 @@ public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>
      * @param the node previous to this one
      */
     public void setPrev(Node<T> prev) {
-        this.prev = (prev != null) ? prev : null;
-        ;
+        this.prev = prev;
     }
 
     /**

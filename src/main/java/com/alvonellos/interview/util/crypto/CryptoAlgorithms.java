@@ -2,9 +2,63 @@ package com.alvonellos.interview.util.crypto;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class CryptoAlgorithms {
     private static final SecureRandom rand = new SecureRandom();
+
+    /**
+     * Decode a message from the given key
+     * @param key the alphabet to use (must be 26 characters long)
+     * @param message the message to decode
+     * @return the decoded message
+     */
+    public static String decodeMessage(String key, String message) {
+        final String abcd = "abcdefghijklmnopqrstuvwxyz";
+        assert(key.length() == 26);
+        assert(message.length() >= 1);
+
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put(' ', ' ');
+        for(int i = 0; i < key.length(); i++) {
+            map.put(key.charAt(i), abcd.charAt(i));
+        }
+
+
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < message.length(); i++) {
+            sb.append(map.get(message.charAt(i)));
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * Encode the given string into a cypher given the key
+     * @param key the alphabet to use for the encoding
+     * @param message the message to encode
+     * @return the encoded string
+     */
+    public static String encodeMessage(String key, String message) {
+        final String abcd = "abcdefghijklmnopqrstuvwxyz";
+        assert(key.length() == 26);
+        assert(message.length() >= 1);
+
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put(' ', ' ');
+        for(int i = 0; i < key.length(); i++) {
+            map.put(abcd.charAt(i), key.charAt(i));
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < message.length(); i++) {
+
+            sb.append(map.get(message.charAt(i)));
+        }
+
+        return sb.toString();
+    }
 
     /**
      * Generate a password of random characters using secure random
