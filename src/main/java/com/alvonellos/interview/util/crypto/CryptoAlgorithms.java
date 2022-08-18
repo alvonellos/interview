@@ -2,7 +2,6 @@ package com.alvonellos.interview.util.crypto;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class CryptoAlgorithms {
@@ -10,24 +9,27 @@ public class CryptoAlgorithms {
 
     /**
      * Decode a message from the given key
-     * @param key the alphabet to use (must be 26 characters long)
+     *
+     * @param key     the alphabet to use (must be 26*2 characters long)
      * @param message the message to decode
      * @return the decoded message
      */
     public static String decodeMessage(String key, String message) {
-        final String abcd = "abcdefghijklmnopqrstuvwxyz";
-        assert(key.length() == 26);
-        assert(message.length() >= 1);
+        String abcd = "abcdefghijklmnopqrstuvwxyz";
+        abcd += abcd.toUpperCase();
+
+        assert (key.length() == 26 * 2);
+        assert (message.length() >= 1);
 
         HashMap<Character, Character> map = new HashMap<>();
         map.put(' ', ' ');
-        for(int i = 0; i < key.length(); i++) {
+        for (int i = 0; i < key.length(); i++) {
             map.put(key.charAt(i), abcd.charAt(i));
         }
 
 
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < message.length(); i++) {
+        for (int i = 0; i < message.length(); i++) {
             sb.append(map.get(message.charAt(i)));
         }
 
@@ -35,24 +37,45 @@ public class CryptoAlgorithms {
     }
 
     /**
+     * Encode a message with rotational ciphering algorithm
+     *
+     * @param message the message to encode
+     * @return the encoded message
+     */
+    public static String rotate13Encode(String message) {
+        String rot13 = "nopqrstuvwxyzabcdefghijklm";
+        rot13 += rot13.toUpperCase();
+        return encodeMessage(rot13, message);
+    }
+
+    public static String rotate13Decode(String message) {
+        String rot13 = "nopqrstuvwxyzabcdefghijklm";
+        rot13 += rot13.toUpperCase();
+        return decodeMessage(rot13, message);
+    }
+
+    /**
      * Encode the given string into a cypher given the key
-     * @param key the alphabet to use for the encoding
+     *
+     * @param key     the alphabet to use for the encoding must be 26*2 chars long
      * @param message the message to encode
      * @return the encoded string
      */
     public static String encodeMessage(String key, String message) {
-        final String abcd = "abcdefghijklmnopqrstuvwxyz";
-        assert(key.length() == 26);
-        assert(message.length() >= 1);
+        String abcd = "abcdefghijklmnopqrstuvwxyz";
+        abcd += abcd.toUpperCase();
+
+        assert (key.length() == 26 * 2);
+        assert (message.length() >= 1);
 
         HashMap<Character, Character> map = new HashMap<>();
         map.put(' ', ' ');
-        for(int i = 0; i < key.length(); i++) {
+        for (int i = 0; i < key.length(); i++) {
             map.put(abcd.charAt(i), key.charAt(i));
         }
 
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < message.length(); i++) {
+        for (int i = 0; i < message.length(); i++) {
 
             sb.append(map.get(message.charAt(i)));
         }
@@ -92,11 +115,12 @@ public class CryptoAlgorithms {
     /**
      * Strong password checker that returns number of steps required to
      * meet the password requirements
+     *
      * @param s the string to check
      * @return an int that represents the number of steps required to meet the password requirements.
      * https://leetcode.com/problems/strong-password-checker/submissions/
      */
-    public int strongPasswordChecker(String s) {
+    public static int strongPasswordChecker(String s) {
         final int n = s.length();
         final char[] chars = s.toCharArray();
         final int missing = getMissing(chars);
@@ -107,7 +131,7 @@ public class CryptoAlgorithms {
         // # of seqs that can be substituted with 2 deletions, (3k + 1)-seqs
         int twoSeq = 0;
 
-        for (int i = 2; i < n;)
+        for (int i = 2; i < n; )
             if (chars[i] == chars[i - 1] && chars[i - 1] == chars[i - 2]) {
                 int length = 2; // length of repeating chars
                 while (i < n && chars[i] == chars[i - 1]) {
@@ -138,7 +162,7 @@ public class CryptoAlgorithms {
         return deletes + Math.max(replaces, missing);
     }
 
-    private int getMissing(final char[] chars) {
+    private static int getMissing(final char[] chars) {
         int missing = 3;
 
         for (final char c : chars)

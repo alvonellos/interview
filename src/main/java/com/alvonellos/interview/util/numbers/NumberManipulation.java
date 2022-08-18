@@ -123,4 +123,73 @@ public class NumberManipulation {
         }
         return result;
     }
+
+    /**
+     * Reverse an integer without using 64 big numbers
+     * @param x the number to reverse
+     * @return the number reversed, or 0 if the number reversed is too large
+     */
+    public static int reverse(int x) {
+        int result = 0;
+        while (x != 0) {
+            int lastDigit = x % 10;
+            x /= 10;
+            if (result > Integer.MAX_VALUE / 10 || (result == Integer.MAX_VALUE / 10 && lastDigit > 7)) {
+                return 0;
+            }
+            if (result < Integer.MIN_VALUE / 10 || (result == Integer.MIN_VALUE / 10 && lastDigit < -8)) {
+                return 0;
+            }
+            result = result * 10 + lastDigit;
+        }
+        return result;
+    }
+
+    public class ListNode {
+          int val;
+          ListNode next;
+
+        ListNode(int val) { this.val = val; }
+    }
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode result = new ListNode(0);
+        ListNode current = result;
+        int carry = 0;
+        while (l1 != null || l2 != null) {
+            int sum = carry;
+            if (l1 != null) {
+                sum += l1.val;
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+            carry = sum / 10;
+            current.next = new ListNode(sum % 10);
+            current = current.next;
+        }
+        if (carry > 0) {
+            current.next = new ListNode(carry);
+        }
+        return result.next;
+
+    }
+
+    /**
+     * Checks if the number is prime
+     * @param n the number to check
+     * @return true if the number is prime, false otherwise
+     */
+    public static boolean isPrime(int n) {
+        if (n <= 1) {
+            return false;
+        }
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
