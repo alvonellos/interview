@@ -3,6 +3,7 @@ package com.alvonellos.interview.util.arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static com.alvonellos.interview.util.arrays.ArrayManipulation.removeDuplicates;
 import static com.alvonellos.interview.util.arrays.ArrayManipulation.triangularSum;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,5 +29,24 @@ class ArrayManipulationTest {
         Integer expected = 8;
         Integer actual = triangularSum(input);
         assert(actual == expected);
+    }
+
+    @Test
+    void removeDuplicatesTest() {
+        int[] input = {1, 1, 2};
+        int[] expected = {1, 2, 2};
+
+        int output = removeDuplicates(input);
+
+        assert(output == 2);
+        assertArrayEquals(expected, input);
+    }
+
+    @Test
+    void transposeTest() {
+        int[][] input = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        int[][] expected = {{1, 4, 7}, {2, 5, 8}, {3, 6, 9}};
+        int[][] output = ArrayManipulation.transpose(input);
+        assertArrayEquals(expected, output);
     }
 }

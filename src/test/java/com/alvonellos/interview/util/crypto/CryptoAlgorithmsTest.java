@@ -2,8 +2,7 @@ package com.alvonellos.interview.util.crypto;
 
 import org.junit.jupiter.api.Test;
 
-import static com.alvonellos.interview.util.crypto.CryptoAlgorithms.nextPassword;
-import static com.alvonellos.interview.util.crypto.CryptoAlgorithms.shuffle;
+import static com.alvonellos.interview.util.crypto.CryptoAlgorithms.*;
 
 class CryptoAlgorithmsTest {
 

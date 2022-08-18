@@ -39,6 +39,16 @@ public class ArrayManipulation<T extends Comparable<T>> {
         return result;
     }
 
+    public static int[][] transpose(int[][] array)  {
+        int[][] result = new int[array[0].length][array.length];
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                result[j][i] = array[i][j];
+            }
+        }
+        return result;
+    }
+
     /**
      * Calculates the triangular sum of an array
      * @param nums The numbers to triangularly sum.
@@ -54,5 +64,22 @@ public class ArrayManipulation<T extends Comparable<T>> {
             nums = newNums;
         }
         return nums[0];
+    }
+
+    /**
+     * Remove duplicates from a list of integers
+     * https://leetcode.com/problems/remove-duplicates-from-sorted-array/submissions/
+     * @param nums The list of integers to remove duplicates from
+     * @return the number of duplicates
+     */
+    public static int removeDuplicates(int[] nums) {
+        int i = 0;
+        for(int j = 1; j < nums.length; j++) {
+            if(nums[i] != nums[j]) {
+                i++;
+                nums[i] = nums[j];
+            }
+        }
+        return i+1;
     }
 }
