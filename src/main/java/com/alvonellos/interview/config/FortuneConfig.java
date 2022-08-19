@@ -46,7 +46,7 @@ public class FortuneConfig implements InitializingBean {
         List<KVEntity> fortunes = new ArrayList<>();
         for(String line : data) {
                 fortunes.add(KVEntity.builder().KVEntityKey("FORTUNE").KVEntityValue(line).build());
-                log.info("Added fortune: " + line);
+               // log.info("Added fortune: " + line);
         }
 
         database.saveAll(fortunes);
