@@ -123,27 +123,4 @@ class HashTableTest {
         }
         assert(sb.length() == 3);
     }
-
-    @Test
-    void collisionTest() {
-        HashTable<String, String> hashTable = new HashTable<>();
-        hashTable.put("a", "b");
-        hashTable.put("b", "c");
-        hashTable.put("c", "d");
-        hashTable.put("d", "e");
-        hashTable.put("e", "f");
-        hashTable.put("f", "g");
-        hashTable.put("g", "h");
-        hashTable.put("h", "i");
-        hashTable.put("i", "j");
-        hashTable.put("j", "k");
-        hashTable.put("k", "l");
-        hashTable.put("l", "m");
-        hashTable.put("m", "n");
-        hashTable.put("n", "o");
-        hashTable.put("o", "p");
-
-        assert(hashTable.size() == 15);
-
-    }
 }
