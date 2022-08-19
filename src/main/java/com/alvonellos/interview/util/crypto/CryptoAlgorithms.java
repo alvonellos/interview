@@ -111,6 +111,21 @@ public class CryptoAlgorithms {
         return new String(chars);
     }
 
+    /**
+     * Shuffle a string using a secure random number generator.
+     *
+     * @param input the string to shuffle.
+     * @return the string shuffled.
+     */
+    public static void shuffle(Object[] input) {
+        for (int i = 0; i < input.length; i++) {
+            int randomPos = rand.nextInt(input.length);
+            Object temp = input[i];
+            input[i] = input[randomPos];
+            input[randomPos] = temp;
+        }
+    }
+
 
     /**
      * Strong password checker that returns number of steps required to

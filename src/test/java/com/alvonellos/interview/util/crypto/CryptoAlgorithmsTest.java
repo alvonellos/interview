@@ -54,4 +54,12 @@ class CryptoAlgorithmsTest {
     void strongPasswordCheckerTest() {
         assert(strongPasswordChecker("a") == 5);
     }
+
+    @Test
+    void shuffleTest2() {
+        Object[] input = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        CryptoAlgorithms.shuffle(input);
+        //assert array is different from input;
+        assert(input[0] != "1" && input[1] != "2" && input[2] != "3" && input[3] != "4" && input[4] != "5" && input[5] != "6" && input[6] != "7" && input[7] != "8" && input[8] != "9" && input[9] != "10");
+    }
 }
