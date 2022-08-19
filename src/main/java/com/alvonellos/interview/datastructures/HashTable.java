@@ -52,21 +52,21 @@ public class HashTable<K extends Comparable<K>, V extends Comparable<V>> impleme
     /**
      * Gets the value associated with the key.
      * @param key The key to search for.
-     * @return The value associated with the key.
+     * @return The value associated with the key or null if not found.
      */
     public V get(K key) {
         int hash = key.hashCode();
         int index = hash % capacity;
         if (keys[index] == hash) {
             return (V) values[index];
-        } else {
-            int i = 1;
-            while (keys[index] != hash) {
-                index = (index + i) % capacity;
-                i++;
+        } else { // there's no key at this index, perform exhaustive search
+            for(int i = 0; i < capacity; i++) {
+                if (keys[i] == hash) {
+                    return (V) values[i];
+                }
             }
-            return (V) values[index];
         }
+        return null;
     }
 
     /**
@@ -99,15 +99,15 @@ public class HashTable<K extends Comparable<K>, V extends Comparable<V>> impleme
             keys[index] = 0;
             values[index] = null;
             return true;
-        } else {
-            int i = 1;
-            while (keys[index] != hash) {
-                index = (index + i) % capacity;
-                i++;
+        } else { // perform a full linear search
+            for(int i = 0; i < capacity; i++) {
+                if (keys[i] == hash) {
+                    keys[i] = 0;
+                    values[i] = null;
+                    return true;
+                }
             }
-            keys[index] = 0;
-            values[index] = null;
-            return true;
+            return false;
         }
     }
 

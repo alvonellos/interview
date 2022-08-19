@@ -1,6 +1,7 @@
 package com.alvonellos.interview.datastructures;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Iterator;
 
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class HashTableTest {
 
     @Test
-    void put() {
+    void putTest() {
         HashTable<String, String> hashTable = new HashTable<>();
         assert(hashTable.isEmpty());
         hashTable.put("a", "b");
@@ -18,21 +19,36 @@ class HashTableTest {
     }
 
     @Test
-    void get() {
+    void getTest() {
         HashTable<String, String> hashTable = new HashTable<>();
         hashTable.put("a", "b");
         assert(hashTable.get("a").equals("b"));
     }
 
     @Test
-    void contains() {
+    void getTestAndFailMissingIndex() {
+        HashTable<String, String> hashTable = new HashTable<>();
+        hashTable.put("a", "b");
+        assert(hashTable.get("c") == null);
+    }
+
+
+    @Test
+    void containsTest() {
         HashTable<String, String> hashTable = new HashTable<>();
         hashTable.put("a", "b");
         assert(hashTable.contains("a"));
     }
 
     @Test
-    void remove() {
+    void containsTestAndFailMissingIndex() {
+        HashTable<String, String> hashTable = new HashTable<>();
+        hashTable.put("a", "b");
+        assert(!hashTable.contains("c"));
+    }
+
+    @Test
+    void removeTest() {
         HashTable<String, String> hashTable = new HashTable<>();
         hashTable.put("a", "b");
         assert(hashTable.contains("a"));
@@ -41,7 +57,38 @@ class HashTableTest {
     }
 
     @Test
-    void clear() {
+    void removeTestAndLinearSearch() {
+        HashTable<String, String> hashTable = new HashTable<>(10);
+        hashTable.put("a", "b");
+
+        //Use reflection to get the object array and the key array
+        Object[] values = (Object[]) ReflectionTestUtils.getField(hashTable, "values");
+        int[] keys = (int[]) ReflectionTestUtils.getField(hashTable, "keys");
+
+        // put it at wrong index as if there was a collision
+        keys[("c".hashCode() % 10) - 1] = "c".hashCode();
+        values["c".hashCode() % 10 - 1] = "d";
+
+        // Use reflection to set the object array and the key array
+        ReflectionTestUtils.setField(hashTable, "keys", keys);
+        ReflectionTestUtils.setField(hashTable, "values", values);
+
+        assert(hashTable.contains("a"));
+        assert(hashTable.remove("c")); // should work and it should go into the linear search
+        assert(hashTable.contains("a"));
+    }
+
+    @Test
+    void removeTestAndFailMissingIndex() {
+        HashTable<String, String> hashTable = new HashTable<>();
+        hashTable.put("a", "b");
+        assert(hashTable.contains("a"));
+        assert(!hashTable.remove("c")); // should not work and it should not go into the linear search
+        assert(hashTable.contains("a"));
+    }
+
+    @Test
+    void clearTest() {
         HashTable<String, String> hashTable = new HashTable<>();
         hashTable.put("a", "b");
         assert(!hashTable.isEmpty());
@@ -50,20 +97,20 @@ class HashTableTest {
     }
 
     @Test
-    void size() {
+    void sizeTest() {
         HashTable<String, String> hashTable = new HashTable<>();
         hashTable.put("a", "b");
         assert(hashTable.size() == 1);
     }
 
     @Test
-    void capacity() {
+    void capacityTest() {
         HashTable<String, String> hashTable = new HashTable<>(16);
         assert(hashTable.capacity() == 16);
     }
 
     @Test
-    void iterator() {
+    void iteratorTest() {
         HashTable<String, String> hashTable = new HashTable<>();
         hashTable.put("a", "b");
         hashTable.put("b", "c");
