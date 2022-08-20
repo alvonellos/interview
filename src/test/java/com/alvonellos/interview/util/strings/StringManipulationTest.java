@@ -99,4 +99,34 @@ class StringManipulationTest {
             assertTrue(StringManipulation.stringContainsVowels(String.valueOf(c)));
         }
     }
+
+    @Test
+    void lengthOfLongestSubstringTest() {
+        assert(StringManipulation.lengthOfLongestSubstringBF("abcabcbb") == 3);
+        assert(StringManipulation.lengthOfLongestSubstringBF("bbbbb") == 1);
+        assert(StringManipulation.lengthOfLongestSubstringBF("pwwkew") == 3);
+    }
+
+    @Test
+    void lengthOfLongestSubstringTestSlidingWindow() {
+        assert(StringManipulation.lengthOfLongestSubstring("abcabcbb") == 3);
+        assert(StringManipulation.lengthOfLongestSubstring("bbbbb") == 1);
+        assert(StringManipulation.lengthOfLongestSubstring("pwwkew") == 3);
+    }
+
+    @Test
+    void stringContainsUniqueCharacters() {
+        assert(StringManipulation.stringContainsUniqueCharacters("abc"));
+        assert(!StringManipulation.stringContainsUniqueCharacters("aabc"));
+        assert(StringManipulation.stringContainsUniqueCharacters(""));
+        assert(StringManipulation.stringContainsUniqueCharacters(" "));
+        assert(StringManipulation.stringContainsUniqueCharacters("a"));
+
+        assert(StringManipulation.stringContainsUniqueCharacters("abc"));
+    }
+
+    @Test
+    void substringsTest() {
+        assertEquals(6, StringManipulation.subStrings("abc").size());
+    }
 }
