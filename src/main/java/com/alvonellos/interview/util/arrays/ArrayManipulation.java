@@ -67,10 +67,10 @@ public class ArrayManipulation<T extends Comparable<T>> {
     }
 
     /**
-     * Remove duplicates from a list of integers
+     * Remove duplicates from a list of integers in place
      * https://leetcode.com/problems/remove-duplicates-from-sorted-array/submissions/
-     * @param nums The list of integers to remove duplicates from
-     * @return the number of duplicates
+     * @param nums The list of integers to remove duplicates from (in place)
+     * @return the length of the list
      */
     public static int removeDuplicates(int[] nums) {
         int i = 0;
