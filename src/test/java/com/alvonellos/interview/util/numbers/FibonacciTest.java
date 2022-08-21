@@ -49,4 +49,12 @@ class FibonacciTest {
             fail();
 
         }
+
+    @Test
+    void fib_squared() {
+        assertEquals(BigInteger.valueOf(1), Fibonacci.fib_squared(BigInteger.valueOf(0)));
+        assertEquals(BigInteger.valueOf(1), Fibonacci.fib_squared(BigInteger.valueOf(1)));
+        assertEquals(BigInteger.valueOf(4), Fibonacci.fib_squared(BigInteger.valueOf(2)));
+        assertEquals(BigInteger.valueOf(9), Fibonacci.fib_squared(BigInteger.valueOf(3)));
     }
+}
