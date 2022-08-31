@@ -13,6 +13,10 @@ public class Queue <T extends Comparable<T>> implements Iterable<T> {
         this.elements = (T[]) new Comparable[size];
     }
 
+    /**
+     * Adds an element to the queue.
+     * @param element
+     */
     public void enqueue(T element) {
         if (isFull()) {
             throw new IllegalStateException("Queue is full");
@@ -27,6 +31,9 @@ public class Queue <T extends Comparable<T>> implements Iterable<T> {
         elements[index] = element;
     }
 
+    /**
+     * @return the element at the front of the queue.
+     */
     public T dequeue() {
         if (isEmpty()) {
             throw new IllegalStateException("Queue is empty");
@@ -42,6 +49,9 @@ public class Queue <T extends Comparable<T>> implements Iterable<T> {
         return element;
     }
 
+    /**
+     * @return true if the queue is empty, false otherwise.
+     */
     public boolean isEmpty() {
         for (int i = 0; i < size; i++) {
             if (elements[i] != null) {
@@ -51,6 +61,10 @@ public class Queue <T extends Comparable<T>> implements Iterable<T> {
         return true;
     }
 
+    /**
+     * Check if the queue is full
+     * @return true if the queue is full, false otherwise
+     */
     public boolean isFull() {
         for (int i = 0; i < size; i++) {
             if (elements[i] == null) {
@@ -60,6 +74,11 @@ public class Queue <T extends Comparable<T>> implements Iterable<T> {
         return true;
     }
 
+    /**
+     *
+     * Look at the first element in the queue without removing it.
+     * @return
+     */
     public T peek() {
         if (isEmpty()) {
             throw new IllegalStateException("Queue is empty");

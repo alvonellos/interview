@@ -1,0 +1,7 @@
+Sr. No.	Key	HashMap	HashSet
+1	Implementation	Hashmap is the implementation of Map interface.	Hashset on other hand is the implementation of set interface.
+2	Internal implementation	Hashmap internally do not implements hashset or any set for its implementation.	Hashset internally uses Hashmap for its implementation.
+3	Storage of elements	HashMap Stores elements in form of key-value pair i.e each element has its corresponding key which is required for its retrieval during iteration.	HashSet stores only objects no such key value pairs maintained.
+4	Method to add element	Put method of hash map is used to add element in hashmap.	On other hand add method of hashset is used to add element in hashset.
+5	Index performance	Hashmap due to its unique key is faster in retrieval of element during its iteration.	HashSet is completely based on object so compared to hashmap is slower.
+6	Null Allowed	Single null key and any number of null value can be inserted in hashmap without any restriction.	On other hand Hashset allows only one null value in its collection,after which no null value is allowed to be added.
