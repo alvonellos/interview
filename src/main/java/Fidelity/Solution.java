@@ -5,6 +5,8 @@ import java.util.*;
 import java.text.*;
 import java.math.*;
 import java.util.regex.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Solution {
 
@@ -66,20 +68,19 @@ public class Solution {
     // Explaination: Looking at the execution result, transfers with id "3","4","5" are sending fund to addresses "D" and "E",
     // which are known addresses that we care about, so return those transfer ids.
     public static void main(String[] args) {
-        Set<String> addresses = Set.of("D", "E");
+        Set<String> addresses = new HashSet<String>(Arrays.asList("D", "E"));
         ExecutionResult seventhCall = new ExecutionResult(7, "Z", "E", 2, null);
-        ExecutionResult sixthCall = new ExecutionResult(6, "C", "Z", 2, List.of(seventhCall));
+        ExecutionResult sixthCall = new ExecutionResult(6, "C", "Z", 2, Collections.singletonList(seventhCall));
         ExecutionResult fifthCall = new ExecutionResult(5, "C", "D", 2, null);
         ExecutionResult fourthCall = new ExecutionResult(4, "B", "D", 2, null);
         ExecutionResult thirdCall = new ExecutionResult(3, "B", "E", 4, null);
-        ExecutionResult secondCall = new ExecutionResult(2, "B", "C", 4, List.of(fifthCall, sixthCall));
-        ExecutionResult firstCall = new ExecutionResult(1, "A", "B", 10, List.of(thirdCall, secondCall, fourthCall));
-
-        Set<String> addresses2 = Set.of("B", "Z");
-
+        ExecutionResult secondCall = new ExecutionResult(2, "B", "C", 4, Stream.of(fifthCall, sixthCall).collect(Collectors.toList()));
+        ExecutionResult firstCall = new ExecutionResult(1, "A", "B", 10, Stream.of(thirdCall, secondCall, fourthCall).collect(Collectors.toList()));
 
         List<Integer> result = listTransferIds(addresses, firstCall);
         System.out.println(result);
+
+        Set<String> addresses2 = new HashSet<String>(Arrays.asList("B", "C"));
 
         List<Integer> result2 = listTransferIds(addresses2, firstCall);
         System.out.println(result2);
