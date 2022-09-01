@@ -3,6 +3,7 @@ package com.alvonellos.interview.util.collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ListManipulation<T extends Comparable<T>> {
     public void removeDuplicates(List<T> list) {
@@ -24,5 +25,6 @@ public class ListManipulation<T extends Comparable<T>> {
 
     public List<T> removeDuplicatesStreams(List<T> list) {
         return list.stream().distinct().collect(Collectors.toList());
+        //stream of alphabe
     }
 }
