@@ -8,7 +8,7 @@ public abstract class SortingAlgorithm {
     /**
      * Sort the array by reference
      * @param a the array to sort
-     * @param <E> The type of the arrays inner elements.
+     * @param <E> The type of the collections inner elements.
      */
     public abstract <E extends Comparable<E>> void sort(E[] a);
 

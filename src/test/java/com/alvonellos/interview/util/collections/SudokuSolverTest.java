@@ -1,8 +1,8 @@
-package com.alvonellos.interview.util.arrays;
+package com.alvonellos.interview.util.collections;
 
 import org.junit.jupiter.api.Test;
 
-import static com.alvonellos.interview.util.arrays.SudokuSolver.solveSudoku;
+import static com.alvonellos.interview.util.collections.SudokuSolver.solveSudoku;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuSolverTest {

@@ -1,11 +1,11 @@
-package com.alvonellos.interview.util.arrays;
+package com.alvonellos.interview.util.collections;
 
 import java.util.function.IntFunction;
 
 public class ArrayManipulation<T extends Comparable<T>> {
 
     /**
-     * Take two arrays that are sorted and merge them together into one array.
+     * Take two collections that are sorted and merge them together into one array.
      * @param array1 The first array to merge
      * @param array2 The second array to merge
      * @param arrayCreator the initializer method to be called to create the new array

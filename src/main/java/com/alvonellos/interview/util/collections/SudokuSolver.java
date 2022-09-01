@@ -1,4 +1,4 @@
-package com.alvonellos.interview.util.arrays;
+package com.alvonellos.interview.util.collections;
 
 public class SudokuSolver {
     public static void solveSudoku(char[][] puzzleBoard) {

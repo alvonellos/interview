@@ -1,10 +1,10 @@
-package com.alvonellos.interview.util.arrays;
+package com.alvonellos.interview.util.collections;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.alvonellos.interview.util.arrays.ArrayManipulation.removeDuplicates;
-import static com.alvonellos.interview.util.arrays.ArrayManipulation.triangularSum;
+import static com.alvonellos.interview.util.collections.ArrayManipulation.removeDuplicates;
+import static com.alvonellos.interview.util.collections.ArrayManipulation.triangularSum;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
