@@ -8,6 +8,9 @@ public class Queue <T extends Comparable<T>> implements Iterable<T> {
     private final int size;
     private final T[] elements;
 
+    public Queue() {
+        this(100);
+    }
     public Queue(int size) {
         this.size = size;
         this.elements = (T[]) new Comparable[size];

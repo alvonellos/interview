@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MerkleTree" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.alvonellos.interview.datastructures.MerkleTree" />
+    <module name="interview" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

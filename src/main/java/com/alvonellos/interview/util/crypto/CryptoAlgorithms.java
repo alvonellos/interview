@@ -1,10 +1,14 @@
 package com.alvonellos.interview.util.crypto;
 
 import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.HashMap;
 
 public class CryptoAlgorithms {
+    private CryptoAlgorithms() {
+    }
     private static final SecureRandom rand = new SecureRandom();
 
     /**
@@ -154,18 +158,14 @@ public class CryptoAlgorithms {
                     ++i;
                 }
                 replaces += length / 3; // 'aaaaaaa' -> 'aaxaaxa'
-                if (length % 3 == 0)
-                    ++oneSeq;
-                if (length % 3 == 1)
-                    ++twoSeq;
+                if (length % 3 == 0) ++oneSeq;
+                if (length % 3 == 1) ++twoSeq;
             } else {
                 ++i;
             }
 
-        if (n < 6)
-            return Math.max(6 - n, missing);
-        if (n <= 20)
-            return Math.max(replaces, missing);
+        if (n < 6) return Math.max(6 - n, missing);
+        if (n <= 20) return Math.max(replaces, missing);
 
         final int deletes = n - 20;
         // each replacement in (3k)-seqs can be substituted with 1 deletions
@@ -199,5 +199,20 @@ public class CryptoAlgorithms {
             }
 
         return missing;
+    }
+
+    public static String sha512(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger no = new BigInteger(1, messageDigest);
+            StringBuffer hashtext = new StringBuffer(no.toString(16));
+            while (hashtext.length() < 32) {
+                hashtext.insert(0, '0' + hashtext.toString());
+            }
+            return hashtext.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

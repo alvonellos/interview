@@ -40,6 +40,35 @@ public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>
         debug("ctor: Node(T datum) " + this);
     }
 
+    /**
+     * Generic constructor for two nodes with a datum and a next node.
+     * @param leftOrPrev the left or previous node
+     * @param rightOrNext the right or next node
+     * @param datum the datum of the node
+     */
+    public Node(Node leftOrPrev, Node rightOrNext, T datum) {
+        this(false, datum);
+        this.setLeft(leftOrPrev);
+        this.setRight(rightOrNext);
+        debug("ctor: Node(Node left, Node right, T datum) " + this);
+    }
+
+    /**
+     * sets the right node of the current node
+     * @param right the node to set
+     */
+    private void setRight(Node right) {
+        this.setNext(right);
+    }
+
+    /**
+     * sets the left node of the current node
+     * @param left the node to set
+     */
+    private void setLeft(Node left) {
+        this.prev = left;
+    }
+
 
     /**
      * This constructor sets just a blank node with default values.
@@ -49,6 +78,15 @@ public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>
         this.isHead = false;
         this.datum = null;
         debug("ctor: Node() " + this);
+    }
+
+
+    public Node<T> getLeft() {
+        return this.getPrev();
+    }
+
+    public Node<T> getRight() {
+        return this.getNext();
     }
 
     /**
