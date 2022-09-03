@@ -1,5 +1,7 @@
 package com.alvonellos.interview.datastructures;
 
+import lombok.extern.java.Log;
+
 import static com.alvonellos.interview.util.java.AddressUtil.addrString;
 
 /**
@@ -9,6 +11,7 @@ import static com.alvonellos.interview.util.java.AddressUtil.addrString;
  * @author Alex Alvonellos
  * @implNote Implements comparable through and through
  */
+@Log
 public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>> {
     private static final boolean DEBUG = false;
     private Node<T> next;
@@ -46,7 +49,7 @@ public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>
      * @param rightOrNext the right or next node
      * @param datum the datum of the node
      */
-    public Node(Node leftOrPrev, Node rightOrNext, T datum) {
+    public Node(Node<T> leftOrPrev, Node<T> rightOrNext, T datum) {
         this(false, datum);
         this.setLeft(leftOrPrev);
         this.setRight(rightOrNext);
@@ -57,7 +60,7 @@ public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>
      * sets the right node of the current node
      * @param right the node to set
      */
-    private void setRight(Node right) {
+    private void setRight(Node<T> right) {
         this.setNext(right);
     }
 
@@ -65,7 +68,7 @@ public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>
      * sets the left node of the current node
      * @param left the node to set
      */
-    private void setLeft(Node left) {
+    private void setLeft(Node<T> left) {
         this.prev = left;
     }
 
@@ -119,7 +122,7 @@ public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>
     /**
      * Sets the previous node
      *
-     * @param the node previous to this one
+     * @param prev The previous node
      */
     public void setPrev(Node<T> prev) {
         this.prev = prev;
@@ -181,13 +184,18 @@ public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>
         return this.getDatum().compareTo(o.getDatum());
     }
 
-    public boolean equals(Node<T> o) {
-        return this.compareTo(o) == 0;
+    @Override
+    public boolean equals(Object o) {
+        try {
+            return this.compareTo((Node<T>) o) == 0;
+        } catch (ClassCastException e) {
+            return false;
+        }
     }
 
     private void debug(String message) {
         if (DEBUG) {
-            System.err.println("Message: " + message);
+            log.info(message);
         }
     }
 
