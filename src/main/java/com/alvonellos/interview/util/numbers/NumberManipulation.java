@@ -1,10 +1,7 @@
 package com.alvonellos.interview.util.numbers;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class NumberManipulation {
     public static Long randBetween(Long min, Long max) {
@@ -191,6 +188,37 @@ public class NumberManipulation {
             }
         }
         return true;
+    }
+
+    /*
+     * Complete the 'countOccurrences' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY array
+     *  2. INTEGER target
+     */
+
+    public static int countOccurrencesLinear(List<Integer> array, int target) {
+        int count = 0;
+        for (int i = 0; i < array.size(); i++) {
+            if (array.get(i) == target) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int countOccurrencesFast(List<Integer> array, int target) {
+        // pass by ref modify the original array.
+        Collections.sort(array);
+        return (int) array.parallelStream().filter(i -> i == target).count();
+    }
+
+    function normalizeErrors(options) {
+
+
+
     }
 
 
