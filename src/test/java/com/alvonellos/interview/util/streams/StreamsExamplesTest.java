@@ -67,4 +67,22 @@ class StreamsExamplesTest {
         assertEquals(abcd.length() * 2, mergedStream.size());
     }
 
+    @Test
+    void mergeWithNullsTest() {
+        val abcd = "abcdefghijklmnopqrstuvwxyz";
+        val stream = StreamsExamples.getAlphabetStream();
+        val stream2 = StreamsExamples.convertOptionalAlphabetStreamToStream(
+                StreamsExamples.getOptionalAlphabetStreamWithNulls());
+        val mergedStream = StreamsExamples.merge(stream, stream2).collect(Collectors.toList());
+        assertEquals(false, mergedStream.contains(null));
+    }
+
+    @Test
+    void filterByPredicateTest() {
+        val abcd = "abcdefghijklmnopqrstuvwxyz";
+        val stream = StreamsExamples.getAlphabetStream();
+        val filteredStream = StreamsExamples.filterByPredicate(stream, s -> s.equals("a")).collect(Collectors.toList());
+        assertEquals(1, filteredStream.size());
+        assertEquals("a", filteredStream.get(0));
+    }
 }

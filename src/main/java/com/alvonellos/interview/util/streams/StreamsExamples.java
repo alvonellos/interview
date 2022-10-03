@@ -1,6 +1,7 @@
 package com.alvonellos.interview.util.streams;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
@@ -36,10 +37,24 @@ public class StreamsExamples {
 
     public static Stream<String> merge(Stream<String> stream, Stream<String> stream2) {
         return Stream.concat(
-                stream.map(s -> Optional.of(s)),
-                stream2.map(s -> Optional.of(s))
+                stream.map(Optional::of),
+                stream2.map(Optional::of)
         ).flatMap(
                 optional -> optional.map(Stream::of).orElse(Stream.empty())
         );
+    }
+
+    public static Stream<String> mergeWithNulls(Stream<String> stream, Stream<String> stream2) {
+        return Stream.concat(
+                stream.map(Optional::of),
+                stream2.map(Optional::ofNullable)
+        ).flatMap(
+                optional -> optional.map(Stream::of).orElse(Stream.empty())
+        );
+    }
+
+
+    public static Stream<String> filterByPredicate(Stream<String> stream, Predicate<String> predicate) {
+        return stream.filter(predicate::test);
     }
 }

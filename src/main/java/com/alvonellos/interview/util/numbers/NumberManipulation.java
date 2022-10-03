@@ -211,15 +211,6 @@ public class NumberManipulation {
 
     public static int countOccurrencesFast(List<Integer> array, int target) {
         // pass by ref modify the original array.
-        Collections.sort(array);
         return (int) array.parallelStream().filter(i -> i == target).count();
     }
-
-    function normalizeErrors(options) {
-
-
-
-    }
-
-
 }
