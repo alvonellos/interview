@@ -23,6 +23,11 @@ public class KVEntity {
     @Column(name = "kv_entity_value", length = 10000) // NULLABLE
     private String KVEntityValue;
 
+    public KVEntity(String key, String value) {
+        this.KVEntityKey = key;
+        this.KVEntityValue = value;
+    }
+
     @Override
     public String toString() {
         return "KVEntity{" +
