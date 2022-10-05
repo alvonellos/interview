@@ -1,22 +1,16 @@
 package com.alvonellos.interview.exceptions;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class InterviewAPIError {
-    public String message;
-    public String logRef;
-
-public Exception cause;
-
-    public InterviewAPIError(String message, String logRef) {
-        super(message);
-        this.message = message;
-        this.logRef = logRef;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getLogRef() {
-        return logRef;
-    }
+    @JsonProperty("traceID")
+    private final  String logRef;
+    @JsonProperty("message")
+    private final  String message;
+    @JsonProperty("cause")
+    private final  Exception cause;
 }

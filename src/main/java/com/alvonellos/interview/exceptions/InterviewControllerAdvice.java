@@ -6,17 +6,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Optional;
 
-@ControllerAdvice(annotations = RequestMapping.class)
+@ControllerAdvice(annotations = RestController.class)
 @RequestMapping(produces = "application/api.error+json")
 @Log
 public class InterviewControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(InterviewIdNotFoundException.class)
     public ResponseEntity<InterviewAPIError> notFoundException(final InterviewIdNotFoundException e) {
-        log.info("KeyNotFoundException: " + e.getMessage() + " " +  e.getURI());
+        log.info("InterviewKeyNotFoundException: " + e.getMessage() + " " +  e.getId());
         return error(e, HttpStatus.NOT_FOUND, e.getId().toString());
     }
 
@@ -34,7 +35,7 @@ public class InterviewControllerAdvice extends ResponseEntityExceptionHandler {
 
     private ResponseEntity<InterviewAPIError> error(final Exception exception, final HttpStatus httpStatus, final String logRef) {
         final String message = Optional.of(exception.getMessage()).orElse(exception.getClass().getSimpleName());
-        return new ResponseEntity<>(new InterviewAPIError(logRef, message), httpStatus);
+        return new ResponseEntity<>(new InterviewAPIError(logRef, message, exception), httpStatus);
     }
 
 }

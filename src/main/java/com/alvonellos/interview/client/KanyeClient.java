@@ -40,10 +40,9 @@ public class KanyeClient {
             KanyeQuote response = restTemplate.exchange(url, HttpMethod.GET, null, KanyeQuote.class).getBody();
             log.info("Got kanye quote: " + response);
             return response.getQuote();
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             log.info("Error while getting kanye quote from " + kanyeClientURLProp.getBaseUrl());
-            throw e;
+            return null;
         }
     }
-
 }

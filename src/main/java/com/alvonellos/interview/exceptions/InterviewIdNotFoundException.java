@@ -1,13 +1,17 @@
 package com.alvonellos.interview.exceptions;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(of = "id", callSuper = true)
 public class InterviewIdNotFoundException extends InterviewAPIException {
-    public InterviewIdNotFoundException(String message) {
-        super(message);
-    }
-    public InterviewIdNotFoundException(String message, Exception cause) {
-        super(message, cause);
+    private Long id;
+
+    public InterviewIdNotFoundException(Long id) {
+        super("Interview with id " + id + " not found");
+        this.id = id;
     }
 }
