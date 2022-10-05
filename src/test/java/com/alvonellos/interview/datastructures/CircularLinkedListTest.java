@@ -41,24 +41,4 @@ class CircularLinkedListTest {
         list.remove(1);
         assertEquals(4, list.size());
     }
-
-    @Test
-    void compareToTest() {
-    }
-
-    @Test
-    void IteratorTest() {
-        CircularLinkedList<Integer> list = new CircularLinkedList<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        list.add(5);
-
-        int size = 5;
-        for(Integer i : list) {
-            size--;
-            log.info(i.toString());
-        }
-    }
 }
