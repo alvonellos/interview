@@ -1,6 +1,7 @@
 package com.alvonellos.interview.controller;
 
 import com.alvonellos.interview.model.KVEntity;
+import com.alvonellos.interview.model.client.KanyeQuote;
 import com.alvonellos.interview.repository.KVDatabase;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class CryptoAlgorithms {
@@ -128,6 +129,7 @@ public class CryptoAlgorithms {
             input[i] = input[randomPos];
             input[randomPos] = temp;
         }
+        Collections.shuffle(java.util.Arrays.asList(input));
     }
 
 
