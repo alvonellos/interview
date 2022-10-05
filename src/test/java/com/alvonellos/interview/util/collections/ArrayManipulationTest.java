@@ -49,4 +49,13 @@ class ArrayManipulationTest {
         int[][] output = ArrayManipulation.transpose(input);
         assertArrayEquals(expected, output);
     }
+
+    @Test
+    void findMedianSortedArraysTest() {
+        int[] nums1 = {1, 3};
+        int[] nums2 = {2};
+        double expected = 2.0;
+        double actual = ArrayManipulation.findMedianSortedArrays(nums1, nums2);
+        assertEquals(expected, actual);
+    }
 }

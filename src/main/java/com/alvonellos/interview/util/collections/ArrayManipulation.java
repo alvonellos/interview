@@ -1,5 +1,6 @@
 package com.alvonellos.interview.util.collections;
 
+import java.util.TreeMap;
 import java.util.function.IntFunction;
 
 public class ArrayManipulation<T extends Comparable<T>> {
@@ -81,5 +82,38 @@ public class ArrayManipulation<T extends Comparable<T>> {
             }
         }
         return i+1;
+    }
+
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int[] merged = new int[nums1.length + nums2.length]; // create a new array to hold the merged arrays
+        int i = 0; // index for nums1
+        int j = 0; // index for nums2
+        int k = 0; // index for merged
+        while (i < nums1.length && j < nums2.length) { // while both arrays have elements
+            if (nums1[i] < nums2[j]) { // if the current element in nums1 is less than the current element in nums2
+                merged[k] = nums1[i]; // add the current element in nums1 to the merged array
+                i++; // increment the index for nums1
+            } else { // if the current element in nums2 is less than the current element in nums1
+                merged[k] = nums2[j]; // add the current element in nums2 to the merged array
+                j++; // increment the index for nums2
+            }
+            k++; // increment the index for merged
+        }
+        while (i < nums1.length) { // if nums1 has elements left
+            merged[k] = nums1[i]; // add the current element in nums1 to the merged array
+            i++; // increment the index for nums1
+            k++; // increment the index for merged
+        }
+        while (j < nums2.length) { // if nums2 has elements left
+            merged[k] = nums2[j]; // add the current element in nums2 to the merged array
+            j++; // increment the index for nums2
+            k++; // increment the index for merged
+        }
+        if(merged.length % 2 == 0) { // if the merged array has an even number of elements
+            return (merged[merged.length/2] + merged[merged.length/2 - 1]) / 2.0;
+            // return the average of the two middle elements
+        } else {
+            return merged[merged.length/2]; // return the middle element
+        }
     }
 }
