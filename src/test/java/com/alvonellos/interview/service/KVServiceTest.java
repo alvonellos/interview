@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 
 @SpringBootTest
-public class KVServiceTest {
+class KVServiceTest {
 
     @MockBean
     KVDatabase kvDatabase;
@@ -53,7 +53,7 @@ public class KVServiceTest {
 
     @Test
     void getTest() throws InterviewAPIException {
-        when(kvDatabase.findById(eq(1L))).thenReturn(Optional.of(TEST_FOUND_KV_ENTITY));
+        when(kvDatabase.findById(1L)).thenReturn(Optional.of(TEST_FOUND_KV_ENTITY));
 
         KVEntity kvEntity = kvService.get(1L);
 
@@ -72,7 +72,7 @@ public class KVServiceTest {
     @Test
     void put() throws InterviewAPIException {
         doReturn(TEST_FOUND_KV_ENTITY).when(kvDatabase).save(any());
-        doReturn(Optional.of(TEST_FOUND_KV_ENTITY)).when(kvDatabase).findById(eq(1L));
+        doReturn(Optional.of(TEST_FOUND_KV_ENTITY)).when(kvDatabase).findById(1L);
 
         KVEntity kvEntity = kvService.put(TEST_FOUND_KV_ENTITY);
 

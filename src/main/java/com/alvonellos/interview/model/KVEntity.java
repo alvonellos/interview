@@ -3,7 +3,6 @@ package com.alvonellos.interview.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 

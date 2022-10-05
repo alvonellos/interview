@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class KVControllerTest {
+class KVControllerTest {
     private static final ObjectMapper mapper = new ObjectMapper();
     private static final SecureRandom random = new SecureRandom();
 
@@ -72,7 +72,7 @@ public class KVControllerTest {
     }
 
     @Test
-    public void contextLoads() throws Exception {
+    void contextLoads() throws Exception {
         assertNotNull(controller);
         assertNotNull(mockMvc);
     }

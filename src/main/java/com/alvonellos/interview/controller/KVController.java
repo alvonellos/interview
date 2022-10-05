@@ -28,7 +28,7 @@ public class KVController {
      * @param id The key to retrieve from the database.
      * @return the value associated with the key.
      */
-    @RequestMapping(value = "/kv/{id}", method = RequestMethod.GET)
+    @GetMapping("/kv/{id}")
     // Could use @GetMapping instead, but this is more explicit.
     public ResponseEntity<KVEntity> get(HttpServletRequest request, @PathVariable Long id) throws InterviewAPIException {
         log.entering(this.getClass().getName(), "get", id);
@@ -42,8 +42,8 @@ public class KVController {
      *
      * @return all records in the database.
      */
-    @RequestMapping(value = "/kv", method = RequestMethod.GET)
-    public ResponseEntity<List<KVEntity>> getAll() throws InterviewAPIException {
+    @GetMapping("/kv")
+    public ResponseEntity<List<KVEntity>> getAll() {
         log.entering(this.getClass().getName(), "getAll");
         val result = kvService.findAll();
         log.exiting(this.getClass().getName(), "getAll", result);
@@ -57,7 +57,7 @@ public class KVController {
      * @param value The value to store in the database.
      * @return the value associated with the key.
      */
-    @RequestMapping(value = "/kv", method = RequestMethod.POST, produces = "application/json")
+    @PostMapping("/kv")
     // Could use @PostMapping instead, but this is more explicit.
     public ResponseEntity<Long> post(@RequestParam String key, @RequestParam String value) throws InterviewAPIException {
         log.entering(this.getClass().getName(), "post", key);
@@ -72,13 +72,13 @@ public class KVController {
      * @param kvEntity The entity to update
      * @return the value associated with the key.
      */
-    @RequestMapping(value = "/kv", method = RequestMethod.PUT, produces = "application/json")
+    @PutMapping("/kv")
     // Could use @PutMapping instead, but this is more explicit.
-    public ResponseEntity<KVEntity> put(HttpServletRequest request, @RequestBody @Valid KVEntity kvEntity) throws InterviewAPIException {
+    public ResponseEntity<KVEntity> put(@RequestBody @Valid KVEntity kvEntity) throws InterviewAPIException {
         log.entering(this.getClass().getName(), "put", kvEntity);
         kvService.put(kvEntity);
         log.exiting(this.getClass().getName(), "put");
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     /**
@@ -87,13 +87,13 @@ public class KVController {
      * @param id The key to delete from the database.
      * @return the value associated with the key.
      */
-    @RequestMapping(value = "/kv/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/kv/{id}")
     // Could use @DeleteMapping instead, but this is more explicit.
-    public ResponseEntity<KVEntity> delete(HttpServletRequest request, @PathVariable Long id) throws InterviewAPIException {
+    public ResponseEntity<KVEntity> delete(@PathVariable Long id) throws InterviewAPIException {
         log.entering(this.getClass().getName(), "delete", id);
         kvService.delete(id);
         log.exiting(this.getClass().getName(), "delete");
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 

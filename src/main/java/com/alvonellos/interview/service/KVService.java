@@ -65,7 +65,7 @@ public class KVService {
     public List<KVEntity> searchByKey(String key) {
         KVEntity kvEntity = new KVEntity(null, key, null);
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("key", match -> match.contains())
+                .withMatcher("key", ExampleMatcher.GenericPropertyMatcher::contains)
                 .withIgnorePaths("id", "value");
         Example<KVEntity> example = Example.of(kvEntity, matcher);
         return kvDatabase.findAll(example);

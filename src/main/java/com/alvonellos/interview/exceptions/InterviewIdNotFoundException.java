@@ -8,9 +8,9 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(of = "id", callSuper = true)
 public class InterviewIdNotFoundException extends InterviewAPIException {
-    private Long id;
+    private final Long id;
 
-    public InterviewIdNotFoundException(Long id) {
+    public InterviewIdNotFoundException(final Long id) {
         super("Interview with id " + id + " not found");
         this.id = id;
     }
