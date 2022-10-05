@@ -58,4 +58,12 @@ class ArrayManipulationTest {
         double actual = ArrayManipulation.findMedianSortedArrays(nums1, nums2);
         assertEquals(expected, actual);
     }
+
+    @Test
+    void zigZagConversionTest() {
+        String input = "PAYPALISHIRING";
+        String expected = "PAHNAPLSIIGYIR";
+        String actual = ArrayManipulation.zigZagConversion(input, 3);
+        assertEquals(expected, actual);
+    }
 }

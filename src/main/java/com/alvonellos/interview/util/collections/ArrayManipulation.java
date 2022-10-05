@@ -116,4 +116,38 @@ public class ArrayManipulation<T extends Comparable<T>> {
             return merged[merged.length/2]; // return the middle element
         }
     }
+
+    /**
+     * Convert s to ZigZag format
+     * @param s The string to convert
+     * @param numRows the number of rows to use
+     * @return the converted string
+     * Link: https://leetcode.com/problems/zigzag-conversion/
+     */
+    public static String zigZagConversion(String s, int numRows) {
+        StringBuilder[] sb = new StringBuilder[numRows]; //generate a string builder for each row
+        for(int i = 0; i < sb.length; i++) { // initialize each string builder
+            sb[i] = new StringBuilder();
+        }
+
+        // loop through the string s and add each character to the appropriate string builder
+        int i = 0;
+        while(i < s.length()) {
+            for(int j = 0; j < numRows && i < s.length(); j++) {
+                sb[j].append(s.charAt(i++));
+            }
+            for(int j = numRows - 2; j > 0 && i < s.length(); j--) {
+                sb[j].append(s.charAt(i++));
+            }
+        }
+
+
+        // append all the string builders together
+        for(int j = 1; j < sb.length; j++) {
+            sb[0].append(sb[j]);
+        }
+
+        // return the string builder as a string
+        return sb[0].toString();
+    }
 }
