@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Log
@@ -44,5 +46,29 @@ public class KanyeClient {
             log.info("Error while getting kanye quote from " + kanyeClientURLProp.getBaseUrl());
             return null;
         }
+    }
+
+    public List<KanyeQuote> getKanyeQuote(final int numTimes){
+        KanyeClientURL kanyeClientURLProp = properties.getKanyeClientURL();
+        List<KanyeQuote> kanyeQuotes = new ArrayList<>(numTimes);
+
+        URI url =
+                UriComponentsBuilder.newInstance()
+                        .scheme(kanyeClientURLProp.getScheme())
+                        .host(kanyeClientURLProp.getBaseUrl())
+                        .pathSegment(kanyeClientURLProp.getResourcePath())
+                        .build()
+                        .toUri();
+            List<KanyeQuote> response = new ArrayList<>();
+        for (int i = 0; i < numTimes; i++) {
+            try {
+                KanyeQuote quote = restTemplate.exchange(url, HttpMethod.GET, null, KanyeQuote.class).getBody();
+                response.add(quote);
+            } catch (RestClientException e) {
+                log.info("Error while getting kanye quote from " + kanyeClientURLProp.getBaseUrl());
+            }
+        }
+        log.info("Got kanye quote: " + response);
+        return response;
     }
 }

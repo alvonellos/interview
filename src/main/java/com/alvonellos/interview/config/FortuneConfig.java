@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.*;
@@ -29,6 +31,13 @@ public class FortuneConfig implements InitializingBean {
     public void afterPropertiesSet() throws IOException {
     // fails if files have whitespaces or special characters, but this is only temporary
         URL resource = getClass().getClassLoader().getResource(FORTUNE_FILE);
+        if (database.count() > 0) {
+            log.info("Skipping initialization");
+            return;
+        }
+
+        database.deleteAll();
+
         if (resource == null) {
             throw new IllegalArgumentException("file not found!");
         } else {
