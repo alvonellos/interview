@@ -81,6 +81,14 @@ public class KVController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PatchMapping("/kv")
+    public ResponseEntity<KVEntity> patch(@RequestBody @Valid KVEntity kvEntity) throws InterviewAPIException {
+        log.entering(this.getClass().getName(), "patch", kvEntity);
+        kvService.patch(kvEntity);
+        log.exiting(this.getClass().getName(), "patch");
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     /**
      * This is a DELETE request. It is used to delete an existing record.
      *
