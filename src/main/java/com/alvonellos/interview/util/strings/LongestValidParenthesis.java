@@ -10,18 +10,24 @@ public class LongestValidParenthesis {
      * @return
      */
     public static int longestValidParenthesesDP(String s) {
-        int maxans = 0;
-        int dp[] = new int[s.length()];
-        for (int i = 1; i < s.length(); i++) {
-            if (s.charAt(i) == ')') {
-                if (s.charAt(i - 1) == '(') {
-                    dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+        int maxans = 0; // the longest valid parenthesis
+        int dp[] = new int[s.length()]; // the dynamic programming array
+        for (int i = 1; i < s.length(); i++) { // start from the second character
+            if (s.charAt(i) == ')') { // if the character is a closing parenthesis
+                if (s.charAt(i - 1) == '(') { // if the previous character is an opening parenthesis
+                    dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2; // set the current index to the previous index plus 2
                 } else if (i - dp[i - 1] > 0 && s.charAt(i - dp[i - 1] - 1) == '(') {
+                    // if the previous index minus the current index is greater than 0
+                    // and the character at the previous index minus the current index minus 1
+                    // is an opening parenthesis, then
+                    // set the current index to the previous index minus the current index plus 2
                     dp[i] = dp[i - 1] + ((i - dp[i - 1]) >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
                 }
+                // set the maxans to the max of the maxans and the current index
                 maxans = Math.max(maxans, dp[i]);
             }
         }
+        // return the maxans
         return maxans;
     }
 
@@ -50,14 +56,15 @@ public class LongestValidParenthesis {
      * @return
      */
     public static int longestValidParenthesesBF(String s) {
-        int maxlen = 0;
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = i + 2; j <= s.length(); j+=2) {
-                if (isValid(s.substring(i, j))) {
-                    maxlen = Math.max(maxlen, j - i);
+        int maxlen = 0; // the longest valid parenthesis
+        for (int i = 0; i < s.length(); i++) { // loop through the string one pointer
+            for (int j = i + 2; j <= s.length(); j+=2) {  // loop through the string another pointer
+                if (isValid(s.substring(i, j))) { // if the substring is valid
+                    maxlen = Math.max(maxlen, j - i); // set the max length to the max of the max length and the current length
                 }
             }
         }
+        // return the max length
         return maxlen;
     }
 
@@ -73,7 +80,7 @@ public class LongestValidParenthesis {
         stack.push(-1); // push to end of stack
         for (int i = 0; i < s.length(); i++) { // loop through the string
             if (s.charAt(i) == '(') { // if we see a ( then push it
-                stack.push(i); // push it real good
+                stack.push(i); // push it
             } else {
                 stack.pop(); // otherwise, just pop it.
                 if (stack.empty()) { //if the stack is empty, then push it back

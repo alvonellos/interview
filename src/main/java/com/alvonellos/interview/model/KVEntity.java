@@ -3,6 +3,7 @@ package com.alvonellos.interview.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 
@@ -18,7 +19,7 @@ import javax.validation.constraints.NotBlank;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Validated
 @NoArgsConstructor
-public class KVEntity {
+public class KVEntity implements Comparable<KVEntity>{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "kv_entity_id", nullable = false, unique = true)
@@ -48,5 +49,13 @@ public class KVEntity {
                 ", key='" + KVEntityKey + '\'' +
                 ", value='" + KVEntityValue + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NotNull KVEntity o) {
+        if (this.KVEntityId == null || o.KVEntityId == null) {
+            return 0;
+        }
+
     }
 }

@@ -7,6 +7,8 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toSet;
 
 public class StreamsExamples {
+    //0x09d80818156D11e0e5Cc58C2a927ABf8CB75ED5f
+
     public static Stream<String> getAlphabetStream() {
         return Stream.of("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
     }
