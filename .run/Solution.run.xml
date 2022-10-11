@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Solution" type="Application" factoryName="Application" nameIsGenerated="true">
+  <configuration default="false" name="Fidelity Solution" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="Fidelity.Solution" />
     <module name="interview" />
     <method v="2">

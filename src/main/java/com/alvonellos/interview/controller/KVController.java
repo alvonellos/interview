@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @Log
 public class KVController {
-    @Autowired
+   
     private final KVService kvService;
 
     /**
@@ -78,14 +78,6 @@ public class KVController {
         log.entering(this.getClass().getName(), "put", kvEntity);
         kvService.put(kvEntity);
         log.exiting(this.getClass().getName(), "put");
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @PatchMapping("/kv")
-    public ResponseEntity<KVEntity> patch(@RequestBody @Valid KVEntity kvEntity) throws InterviewAPIException {
-        log.entering(this.getClass().getName(), "patch", kvEntity);
-        kvService.patch(kvEntity);
-        log.exiting(this.getClass().getName(), "patch");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

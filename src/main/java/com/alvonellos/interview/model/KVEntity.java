@@ -19,7 +19,7 @@ import javax.validation.constraints.NotBlank;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Validated
 @NoArgsConstructor
-public class KVEntity implements Comparable<KVEntity>{
+public class KVEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "kv_entity_id", nullable = false, unique = true)
@@ -49,13 +49,5 @@ public class KVEntity implements Comparable<KVEntity>{
                 ", key='" + KVEntityKey + '\'' +
                 ", value='" + KVEntityValue + '\'' +
                 '}';
-    }
-
-    @Override
-    public int compareTo(@NotNull KVEntity o) {
-        if (this.KVEntityId == null || o.KVEntityId == null) {
-            return 0;
-        }
-
     }
 }
