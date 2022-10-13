@@ -1,6 +1,8 @@
 package com.alvonellos.interview.util.streams;
 
+import java.util.Collections;
 import java.util.Optional;
+import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -58,5 +60,18 @@ public class StreamsExamples {
 
     public static Stream<String> filterByPredicate(Stream<String> stream, Predicate<String> predicate) {
         return stream.filter(predicate::test);
+    }
+
+    public static Stream<String> reverseStream(Stream<String> stream) {
+        Stack<String> stack = new Stack<>();
+        stream.forEach(stack::push);
+        return stack.stream();
+    }
+
+    public static Stream<String> reverseStreamWithCollections(Stream<String> stream) {
+        Stack<String> stack = new Stack<>();
+        stream.forEach(stack::push);
+        Collections.reverse(stack);
+        return stack.stream();
     }
 }

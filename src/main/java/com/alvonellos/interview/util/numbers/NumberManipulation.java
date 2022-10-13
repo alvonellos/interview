@@ -213,4 +213,36 @@ public class NumberManipulation {
         // pass by ref modify the original array.
         return (int) array.parallelStream().filter(i -> i == target).count();
     }
+
+    public static boolean luhnsAlgorithm(String card) {
+        int sum = 0;
+        boolean alternate = false;
+        for (int i = card.length() - 1; i >= 0; i--) {
+            int n = Integer.parseInt(card.substring(i, i + 1));
+            if (alternate) {
+                n *= 2;
+                if (n > 9) {
+                    n = (n % 10) + 1;
+                }
+            }
+            sum += n;
+            alternate = !alternate;
+        }
+        return (sum % 10 == 0);
+    }
+
+    public static boolean happyNumber(String number) {
+        int sum = 0;
+        for (int i = 0; i < number.length(); i++) {
+            int digit = Integer.parseInt(number.substring(i, i + 1));
+            sum += digit * digit;
+        }
+        if (sum == 1) {
+            return true;
+        } else if (sum == 4) {
+            return false;
+        } else {
+            return happyNumber(Integer.toString(sum));
+        }
+    }
 }
