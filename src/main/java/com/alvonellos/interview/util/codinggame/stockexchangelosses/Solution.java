@@ -10,24 +10,6 @@ import java.math.*;
  **/
 class Solution {
 
-    public static int stockExchangeLosses(int[] values) {
-        int n = values.length;
-        int[] dp = new int[n];
-        int maxLoss = Integer.MIN_VALUE;
-
-        dp[0] = 0;
-        Arrays.fill(dp, Integer.MIN_VALUE);
-
-        for (int i = 0; i < n; i++) {
-            for(int j = i+1; j < n; j++) {
-                dp[i] = Math.max(dp[i], values[j] - values[i]);
-            }
-            maxLoss = Math.max(maxLoss, dp[i]);
-        }
-
-        return maxLoss;
-    }
-
     public static boolean bracketsExtemeEdition(String expression) {
         Stack<Character> stack = new Stack<Character>();
         for (int i = 0; i < expression.length(); i++) {

@@ -1,4 +1,4 @@
-package com.alvonellos.interview.Charter;
+package com.alvonellos.interview.Interviews.Charter;
 
 import java.util.Arrays;
 import java.util.BitSet;
