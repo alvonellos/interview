@@ -1,7 +1,9 @@
 package com.alvonellos.interview.util.streams;
 
+import java.math.BigInteger;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.Scanner;
 import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
