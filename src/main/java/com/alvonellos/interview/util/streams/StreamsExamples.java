@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Stack;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
@@ -63,15 +65,9 @@ public class StreamsExamples {
     }
 
     public static Stream<String> reverseStream(Stream<String> stream) {
-        Stack<String> stack = new Stack<>();
-        stream.forEach(stack::push);
-        return stack.stream();
-    }
-
-    public static Stream<String> reverseStreamWithCollections(Stream<String> stream) {
-        Stack<String> stack = new Stack<>();
-        stream.forEach(stack::push);
-        Collections.reverse(stack);
-        return stack.stream();
+        return stream.collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
+            Collections.reverse(list);
+            return list.stream();
+        }));
     }
 }
