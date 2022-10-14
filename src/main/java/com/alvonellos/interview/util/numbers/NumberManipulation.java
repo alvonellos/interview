@@ -213,4 +213,56 @@ public class NumberManipulation {
         // pass by ref modify the original array.
         return (int) array.parallelStream().filter(i -> i == target).count();
     }
+
+    public static boolean luhnsAlgorithm(final String card) {
+        //to hold the card numbers
+        final List<Integer> cardNumbers = new ArrayList<Integer>(16);
+
+        //for each character in the string, convert it to an integer and add to list
+        card.chars().forEach(s -> {
+            if(s != ' ')
+                cardNumbers.add(Character.getNumericValue(s));
+        });
+        System.err.println("parsed: " + cardNumbers.toString());
+
+        //Declare a stack to use to sum the odd card numbers in reverse order
+        Stack<Integer> oddCardNumbers = new Stack<Integer>();
+        int step2 = 0; //step 2 sum
+
+        //loop through each element in the list
+        for(int i=0; i<cardNumbers.size();i++){
+            int x = cardNumbers.get(i); //fetch the element
+            if(i % 2 == 0) {  //if the element is at an even index
+                step2 += (x*2 >= 10 ? (x*2)-9 : x*2); //if doubling it results in a double digit value, then subtract nine
+            } else {
+                oddCardNumbers.push(x); //push to the stack
+            }
+        }
+
+        //Sum each in the stack
+        int step3 = oddCardNumbers.stream().reduce(Integer::sum).get();
+
+        int step4 = step2 + step3;
+
+        boolean isValid = step4 % 10 == 0;
+
+
+        //x -> x*2 >= 10 ? (x*2)-9 : x*2;
+        return isValid;
+    }
+
+    public static boolean happyNumber(String number) {
+        int sum = 0;
+        for (int i = 0; i < number.length(); i++) {
+            int digit = Integer.parseInt(number.substring(i, i + 1));
+            sum += digit * digit;
+        }
+        if (sum == 1) {
+            return true;
+        } else if (sum == 4) {
+            return false;
+        } else {
+            return happyNumber(Integer.toString(sum));
+        }
+    }
 }

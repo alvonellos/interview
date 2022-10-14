@@ -85,4 +85,17 @@ class StreamsExamplesTest {
         assertEquals(1, filteredStream.size());
         assertEquals("a", filteredStream.get(0));
     }
+
+    @Test
+    void reverseStreamTest() {
+        val abcd = "abcdefghijklmnopqrstuvwxyz";
+        val stream = StreamsExamples.getAlphabetStream();
+        val reversedStream = StreamsExamples.reverseStream(stream).collect(Collectors.toList());
+        assertEquals(abcd.length(), reversedStream.size());
+        assertEquals("z", reversedStream.get(0));
+    }
+
+    @Test
+    void reverseStreamWithStream() {
+    }
 }
