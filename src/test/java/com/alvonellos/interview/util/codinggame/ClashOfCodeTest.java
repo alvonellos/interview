@@ -3,7 +3,6 @@ package com.alvonellos.interview.util.codinggame;
 import org.junit.jupiter.api.Test;
 
 import static com.alvonellos.interview.util.codinggame.ClashOfCode.isValidISBN;
-import static com.alvonellos.interview.util.codinggame.ClashOfCode.isbn;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClashOfCodeTest {

@@ -1,9 +1,6 @@
 package com.alvonellos.interview.util.codinggame;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ClashOfCode {
     public static List<Integer> listAllDivisors(int n) {
@@ -76,6 +73,31 @@ public class ClashOfCode {
             }
         } else {
             return false;
+        }
+    }
+
+    public static void isValidParenthesisAndBracesAndBrackets(String s) {
+        Stack<String> stack = new Stack<>();
+        char[] chars = s.toCharArray();
+        for(int i = 0; i < chars.length; i++) {
+            if(chars[i] == '(' || chars[i] == '{' || chars[i] == '[') {
+                stack.push(String.valueOf(chars[i]));
+            } else if(chars[i] == ')') {
+                if(stack.isEmpty() || !stack.pop().equals("(")) {
+                    System.out.println("false");
+                    return;
+                }
+            } else if(chars[i] == '}') {
+                if(stack.isEmpty() || !stack.pop().equals("{")) {
+                    System.out.println("false");
+                    return;
+                }
+            } else if(chars[i] == ']') {
+                if(stack.isEmpty() || !stack.pop().equals("[")) {
+                    System.out.println("false");
+                    return;
+                }
+            }
         }
     }
 
