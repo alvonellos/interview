@@ -1,4 +1,4 @@
-package com.alvonellos.interview.util.codinggame;
+package com.alvonellos.interview.games.codinggame;
 
 import java.util.*;
 
