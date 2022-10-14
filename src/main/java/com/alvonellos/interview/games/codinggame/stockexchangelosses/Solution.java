@@ -1,4 +1,4 @@
-package com.alvonellos.interview.util.codinggame.stockexchangelosses;
+package com.alvonellos.interview.games.codinggame.stockexchangelosses;
 
 import java.util.*;
 import java.io.*;
