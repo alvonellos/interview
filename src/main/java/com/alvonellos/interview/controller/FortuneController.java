@@ -27,6 +27,7 @@ public class FortuneController {
     private final KVDatabase database;
     private final KanyeClient kanyeClient;
 
+
     //get mapping for the database
     @GetMapping("/fortune")
     public ResponseEntity<String> getFortune() {

@@ -1,4 +1,4 @@
-package com.alvonellos.interview.games.codechef.validstackoperations;
+package com.alvonellos.interview.Games.codechef.validstackoperations;
 
 /**
  * Problem
@@ -49,6 +49,7 @@ class Codechef
             int n2 = in.nextInt();
 
             Stack<Integer> nums = new Stack<Integer>();
+
 
             for(int j=0;j<n2;j++) {
                 int num = in.nextInt();
