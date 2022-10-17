@@ -8,10 +8,13 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import twitter4j.Query;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.alvonellos.interview.util.numbers.NumberManipulation.randBetween;
 
@@ -19,6 +22,8 @@ import static com.alvonellos.interview.util.numbers.NumberManipulation.randBetwe
 @Log
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class TwitterService implements InitializingBean {
+
+    private static final Query query = new Query("quote");
 
     private final Twitter twitter;
     private final KVDatabase database;
@@ -35,6 +40,10 @@ public class TwitterService implements InitializingBean {
         } else {
            throw new TwitterException("Failed to post message");
         }
+    }
+
+    public List<String> getFortunes() throws TwitterException {
+        return twitter.search(query).getTweets().stream().map(x -> x.getText().toString()).collect(Collectors.toList());
     }
 
 

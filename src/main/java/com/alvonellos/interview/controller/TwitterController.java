@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import twitter4j.TwitterException;
 
@@ -26,8 +27,13 @@ public class TwitterController {
     private final TwitterService twitterService;
 
     //get mapping for the database
-    @GetMapping("/twitter/fortune")
+    @PostMapping("/twitter/fortune")
     public ResponseEntity<String> getFortune() throws TwitterException {
         return ResponseEntity.ok(this.twitterService.postFortune());
+    }
+
+    @GetMapping("/twitter/fortune")
+    public ResponseEntity<List<String>> getFortunes() throws TwitterException {
+        return ResponseEntity.ok(this.twitterService.getFortunes());
     }
 }
