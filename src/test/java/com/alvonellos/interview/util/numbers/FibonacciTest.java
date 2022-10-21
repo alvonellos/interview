@@ -57,4 +57,16 @@ class FibonacciTest {
         assertEquals(BigInteger.valueOf(4), Fibonacci.fib_squared(BigInteger.valueOf(2)));
         assertEquals(BigInteger.valueOf(9), Fibonacci.fib_squared(BigInteger.valueOf(3)));
     }
+
+    @Test
+    void tripleFibTest() {
+        assertEquals(BigInteger.valueOf(1), Fibonacci.tripleFib(BigInteger.valueOf(0)));
+        assertEquals(BigInteger.valueOf(1), Fibonacci.tripleFib(BigInteger.valueOf(1)));
+        assertEquals(BigInteger.valueOf(1), Fibonacci.tripleFib(BigInteger.valueOf(2)));
+        assertEquals(BigInteger.valueOf(3), Fibonacci.tripleFib(BigInteger.valueOf(3)));
+        assertEquals(BigInteger.valueOf(5), Fibonacci.tripleFib(BigInteger.valueOf(4)));
+        assertEquals(BigInteger.valueOf(9), Fibonacci.tripleFib(BigInteger.valueOf(5)));
+        assertEquals(BigInteger.valueOf(17), Fibonacci.tripleFib(BigInteger.valueOf(6)));
+
+    }
 }

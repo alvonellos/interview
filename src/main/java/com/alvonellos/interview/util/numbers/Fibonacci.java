@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 public class Fibonacci {
     static final HashMap<BigInteger, BigInteger> cache = new HashMap<>();
+    static final HashMap<BigInteger, BigInteger> triple = new HashMap<>();
     static final HashMap<BigInteger, BigInteger> mul_cache = new HashMap<>();
 
     public static BigInteger fib(BigInteger a) {
@@ -14,6 +15,19 @@ public class Fibonacci {
         else {
             BigInteger fibout = fib(a.subtract(BigInteger.valueOf(2))).add(fib(a.subtract(BigInteger.ONE)));
             cache.put(a, fibout);
+            return fibout;
+        }
+    }
+
+    public static BigInteger tripleFib(BigInteger a) {
+        if(a.equals(BigInteger.ZERO)) return BigInteger.ONE;
+        if(a.equals(BigInteger.ONE)) return BigInteger.ONE;
+        if(a.equals(BigInteger.valueOf(2))) return BigInteger.ONE;
+        if(a.equals(BigInteger.valueOf(3))) return BigInteger.valueOf(3);
+        if(triple.containsKey(a)) return triple.get(a);
+        else {
+            BigInteger fibout = tripleFib(a.subtract(BigInteger.valueOf(3))).add(tripleFib(a.subtract(BigInteger.valueOf(2)))).add(tripleFib(a.subtract(BigInteger.ONE)));
+            triple.put(a, fibout);
             return fibout;
         }
     }
