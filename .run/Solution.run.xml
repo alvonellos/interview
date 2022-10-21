@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Fidelity Solution" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="Fidelity.Solution" />
+    <option name="MAIN_CLASS_NAME" value="com.alvonellos.interview.Interviews.Charter.Fidelity.Solution" />
     <module name="interview" />
     <method v="2">
       <option name="Make" enabled="true" />

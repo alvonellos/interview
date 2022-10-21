@@ -50,6 +50,7 @@ class Web3jControllerTest {
 
     @Test
     public void contextLoads() throws Exception {
+        assertNotNull(web3jController);
     }
 
     @Test

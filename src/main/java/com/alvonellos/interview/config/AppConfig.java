@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
 
 import java.time.Clock;
 
@@ -25,7 +27,6 @@ public class AppConfig {
 
     return restTemplate;
   }
-
   @Bean
   public Clock clock() {
     return Clock.systemDefaultZone();
