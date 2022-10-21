@@ -1,68 +1,47 @@
 package com.alvonellos.interview.datastructures;
+import java.util.*;
 
-import org.jetbrains.annotations.NotNull;
+class Graph {
+    private LinkedList<Integer> adjLists[];
+    private boolean visited[];
 
-public class Graph<T extends Comparable<? super T>> implements Comparable<Graph<T>> {
-    private GraphNode<T> head = null;
-    private int vertexCount = 0;
-    private int edgeCount = 0;
+    // Graph creation
+    Graph(int vertices) {
+        adjLists = new LinkedList[vertices];
+        visited = new boolean[vertices];
 
-    private boolean allowCycles = true;
-
-
-    public Graph() {
-        head = new GraphNode<T>(null);
+        for (int i = 0; i < vertices; i++)
+            adjLists[i] = new LinkedList<Integer>();
     }
 
-    /**
-     * Add a link between two nodes.
-     * @param source
-     * @param destination
-     */
-    public boolean addEdge(GraphNode<T> source, GraphNode<T> destination) {
-        if (source == null || destination == null)      return false;
-        if (source == destination && !allowCycles)      return false;
-
-        edgeCount++;
-        source.links.add(destination);
-        destination.links.add(source);
-        return true;
+    // Add edges
+    void addEdge(int src, int dest) {
+        adjLists[src].add(dest);
     }
 
-    /**
-     * Add a node to the graph.
-     * @param vertex
-     */
-    public void addVertex(int vertex) {
-        vertexCount++;
+    // DFS algorithm
+    void DFS(int vertex) {
+        visited[vertex] = true;
+        System.out.print(vertex + " ");
+
+        Iterator<Integer> ite = adjLists[vertex].iterator();
+        while (ite.hasNext()) {
+            int adj = ite.next();
+            if (!visited[adj])
+                DFS(adj);
+        }
     }
 
-    /**
-     * Remove a link between two nodes.
-     * @param source
-     * @param destination
-     */
-    public void removeEdge(int source, int destination) {
+    public static void main(String args[]) {
+        Graph g = new Graph(4);
 
-    }
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 2);
+        g.addEdge(2, 3);
 
-    /**
-     * Remove a node from the graph.
-     * @param vertex
-     */
-    public void removeVertex(int vertex) {
+        System.out.println("Following is Depth First Traversal");
 
-    }
-
-
-
-
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
-
-    @Override
-    public int compareTo(@NotNull final Graph<T> o) {
-        return 0;
+        g.DFS(2);
     }
 }

@@ -1,10 +1,12 @@
 package com.alvonellos.interview.datastructures;
 
+import lombok.extern.java.Log;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Log
 public class GraphNode<T extends Comparable<? super T>> implements Comparable<GraphNode<T>> {
     T data;
     List<GraphNode<T>> links;
@@ -13,6 +15,7 @@ public class GraphNode<T extends Comparable<? super T>> implements Comparable<Gr
      * Constructor for the GraphNode class
      */
     public GraphNode() {
+        log.info("Constructor for GraphNode: " + this);
         this.data = null;
         this.links = new ArrayList<GraphNode<T>>();
     }
@@ -23,6 +26,7 @@ public class GraphNode<T extends Comparable<? super T>> implements Comparable<Gr
      * @param links the links
      */
     public GraphNode(T data) {
+        log.info("Constructor for GraphNode: " + this + " with data: " + data);
         this.data = data;
         this.links = new ArrayList<GraphNode<T>>();
     }
@@ -34,6 +38,7 @@ public class GraphNode<T extends Comparable<? super T>> implements Comparable<Gr
      * @param links the links
      */
     public GraphNode(T data, List<GraphNode<T>> links) {
+        log.info("Constructor for GraphNode: " + this + " with data: " + data + " and links: " + links);
         this.data = data;
         this.links = links;
     }
