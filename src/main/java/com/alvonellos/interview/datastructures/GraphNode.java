@@ -7,14 +7,14 @@ import java.util.List;
 
 public class GraphNode<T extends Comparable<? super T>> implements Comparable<GraphNode<T>> {
     T data;
-    List<Node<T>> links;
+    List<GraphNode<T>> links;
 
     /**
      * Constructor for the GraphNode class
      */
     public GraphNode() {
         this.data = null;
-        this.links = new ArrayList<Node<T>>();
+        this.links = new ArrayList<GraphNode<T>>();
     }
 
     /**
@@ -24,7 +24,7 @@ public class GraphNode<T extends Comparable<? super T>> implements Comparable<Gr
      */
     public GraphNode(T data) {
         this.data = data;
-        this.links = new ArrayList<Node<T>>();
+        this.links = new ArrayList<GraphNode<T>>();
     }
 
 
@@ -33,7 +33,7 @@ public class GraphNode<T extends Comparable<? super T>> implements Comparable<Gr
      * @param data the data objects
      * @param links the links
      */
-    public GraphNode(T data, List<Node<T>> links) {
+    public GraphNode(T data, List<GraphNode<T>> links) {
         this.data = data;
         this.links = links;
     }
@@ -58,7 +58,7 @@ public class GraphNode<T extends Comparable<? super T>> implements Comparable<Gr
      * Get the links
      * @return the links
      */
-    public List<Node<T>> getLinks() {
+    public List<GraphNode<T>> getLinks() {
         return links;
     }
 
@@ -66,7 +66,7 @@ public class GraphNode<T extends Comparable<? super T>> implements Comparable<Gr
      * Set the links
      * @param links the links
      */
-    public void setLinks(List<Node<T>> links) {
+    public void setLinks(List<GraphNode<T>> links) {
         this.links = links;
     }
 

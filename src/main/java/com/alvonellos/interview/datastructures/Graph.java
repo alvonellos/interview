@@ -1,9 +1,13 @@
 package com.alvonellos.interview.datastructures;
 
-public class Graph {
+import org.jetbrains.annotations.NotNull;
+
+public class Graph<T extends Comparable<? super T>> implements Comparable<Graph<T>> {
     private GraphNode<T> head = null;
     private int vertexCount = 0;
     private int edgeCount = 0;
+
+    private boolean allowCycles = true;
 
 
     public Graph() {
@@ -15,8 +19,14 @@ public class Graph {
      * @param source
      * @param destination
      */
-    public void addEdge() {
+    public boolean addEdge(GraphNode<T> source, GraphNode<T> destination) {
+        if (source == null || destination == null)      return false;
+        if (source == destination && !allowCycles)      return false;
 
+        edgeCount++;
+        source.links.add(destination);
+        destination.links.add(source);
+        return true;
     }
 
     /**
@@ -24,7 +34,7 @@ public class Graph {
      * @param vertex
      */
     public void addVertex(int vertex) {
-
+        vertexCount++;
     }
 
     /**
@@ -49,5 +59,10 @@ public class Graph {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
+    }
+
+    @Override
+    public int compareTo(@NotNull final Graph<T> o) {
+        return 0;
     }
 }
