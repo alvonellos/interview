@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KVDatabase extends JpaRepository<KVEntity, Long> {
+    KVEntity findByKVEntityKey(String key);
+
 }
