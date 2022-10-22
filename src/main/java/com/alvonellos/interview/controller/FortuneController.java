@@ -6,6 +6,7 @@ import com.alvonellos.interview.model.client.KanyeQuote;
 import com.alvonellos.interview.repository.KVDatabase;
 import com.alvonellos.interview.service.KVService;
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -22,6 +23,7 @@ import static com.alvonellos.interview.util.numbers.NumberManipulation.randBetwe
 
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
+@Log
 public class FortuneController {
     //autowire the database connection
     private final KVDatabase database;
@@ -32,11 +34,17 @@ public class FortuneController {
     @GetMapping("/fortune")
     public ResponseEntity<String> getFortune() {
         Optional<KVEntity> fortune = database.findById(randBetween(1L, database.count()));
+        while(fortune == null || !fortune.get().getKVEntityKey().equals("FORTUNE")) {
+            log.info("Searching for fortune...");
+            fortune = database.findById(randBetween(1L, database.count()));
+        }
+
         if (fortune.isPresent()) {
             return ResponseEntity.ok(fortune.get().toString());
         } else {
             return ResponseEntity.notFound().build();
         }
+
     }
 
     @GetMapping("/kanyeQuotes/{numTimes}")
