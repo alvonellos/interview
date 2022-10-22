@@ -56,6 +56,17 @@ class ArrayManipulationTest {
         expected = new int[][] {{1, 4}, {2, 5}, {3, 6}};
         output = ArrayManipulation.transpose(input);
 
+        input = new int[][] {{1, 2, 3, 4, 5, 6, 7, 8, 9}, {10, 11, 12, 13, 14, 15, 16, 17, 18}, {19, 20, 21, 22, 23, 24, 25, 26, 27}};
+        expected = new int[][] {{1, 10, 19}, {2, 11, 20}, {3, 12, 21}, {4, 13, 22}, {5, 14, 23}, {6, 15, 24}, {7, 16, 25}, {8, 17, 26}, {9, 18, 27}};
+        output = ArrayManipulation.transpose(input);
+
+
+
+        expected = new int[][] {{1, 2, 3, 4, 5, 6, 7, 8, 9}, {10, 11, 12, 13, 14, 15, 16, 17, 18}, {19, 20, 21, 22, 23, 24, 25, 26, 27}};
+        input = new int[][] {{1, 10, 19}, {2, 11, 20}, {3, 12, 21}, {4, 13, 22}, {5, 14, 23}, {6, 15, 24}, {7, 16, 25}, {8, 17, 26}, {9, 18, 27}};
+        output = ArrayManipulation.transpose(input);
+
+
         assertArrayEquals(expected, output);
     }
 
