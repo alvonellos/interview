@@ -1,5 +1,7 @@
 package com.alvonellos.interview.util.collections;
 
+import java.io.PrintStream;
+import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.function.IntFunction;
 
@@ -40,6 +42,31 @@ public class ArrayManipulation<T extends Comparable<T>> {
         return result;
     }
 
+    public static int[][] loadArray(Scanner in) {
+        int rows = in.nextInt();
+        int cols = in.nextInt();
+        int[][] array = new int[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                int value = in.nextInt();
+                array[i][j] = value;
+            }
+        }
+        return array;
+    }
+
+    public static void saveArray(PrintStream printStream, int[][] array) {
+        int rows = array.length;
+        int cols = array[0].length;
+        printStream.println(rows + " " + cols);
+        for(int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                printStream.print(array[i][j] + (j == cols - 1 ? "" : " "));
+            }
+            printStream.println();
+        }
+    }
+
     public static int[][] transpose(int[][] array)  {
         int[][] result = new int[array[0].length][array.length];
         for (int i = 0; i < array.length; i++) {
@@ -47,6 +74,11 @@ public class ArrayManipulation<T extends Comparable<T>> {
                 result[j][i] = array[i][j];
             }
         }
+
+        saveArray(System.err, array);
+        System.out.println();
+        saveArray(System.err, result);
+
         return result;
     }
 
