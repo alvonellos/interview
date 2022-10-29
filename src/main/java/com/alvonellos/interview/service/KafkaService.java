@@ -5,6 +5,7 @@ import com.alvonellos.interview.config.KafkaProducerConfig;
 import com.alvonellos.interview.config.KafkaTopicConfig;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @Log
-public class KafkaService {
+public class KafkaService implements InitializingBean {
 
     private final KafkaTopicConfig kafkaTopicConfig;
     private final KafkaTemplate kafkaTemplate;
@@ -30,4 +31,31 @@ public class KafkaService {
             log.info("Received message: " + message);
             log.exiting(this.getClass().getName(), "receive");
         }
+
+    /**
+     * @throws Exception
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        log.entering(this.getClass().getName(), "afterPropertiesSet");
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                log.entering(this.getClass().getName(), "run");
+                while(true) {
+                    send("Hello World");
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+
+        Thread t = new Thread(r);
+        t.start();
+        log.exiting(this.getClass().getName(), "afterPropertiesSet");
+
+    }
 }

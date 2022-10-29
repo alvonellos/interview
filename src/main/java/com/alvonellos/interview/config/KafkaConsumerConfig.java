@@ -9,6 +9,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class KafkaConsumerConfig {
     @Value(value = "${bootstrap.servers}")
     private String bootstrapAddress;
 
-    public static final String GROUP_ID = "com.alvonellos.interview";
+    public static final String GROUP_ID = "0";
 
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
@@ -49,4 +50,5 @@ public class KafkaConsumerConfig {
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
+
 }
