@@ -1,19 +1,13 @@
 package com.alvonellos.interview.controller;
 
 import com.alvonellos.interview.config.TwilioConfig;
-import com.alvonellos.interview.service.TwitterService;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.lookups.v1.PhoneNumber;
 import lombok.AllArgsConstructor;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import twitter4j.TwitterException;
-
-import java.util.Arrays;
-import java.util.List;
 
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
