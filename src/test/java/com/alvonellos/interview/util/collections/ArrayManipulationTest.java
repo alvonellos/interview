@@ -101,7 +101,8 @@ class ArrayManipulationTest {
         PrintStream pout = new PrintStream(out, true, java.nio.charset.StandardCharsets.UTF_8);
 
         int[][] input = new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        String expected = "3 3" + "\n" + "1 2 3" + "\n" + "4 5 6" + "\n" + "7 8 9" + "\n";
+        String n = System.lineSeparator();
+        String expected = "3 3" + n + "1 2 3" + n + "4 5 6" + n + "7 8 9" + n;
         ArrayManipulation.saveArray(pout, input);
         assertEquals(expected, new String(out.toByteArray(), java.nio.charset.StandardCharsets.UTF_8));
 
