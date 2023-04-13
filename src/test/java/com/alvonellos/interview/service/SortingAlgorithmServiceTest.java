@@ -1,8 +1,12 @@
 package com.alvonellos.interview.service;
 
+import com.alvonellos.interview.repository.KVDatabase;
+import com.alvonellos.interview.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.mockito.Mockito.mock;
 
 @SpringBootTest
+@AutoConfigureMockMvc
+@MockBean({KVDatabase.class, PersonRepository.class})
 class SortingAlgorithmServiceTest {
     @InjectMocks
     SortingAlgorithmService sortingAlgorithmService = mock(SortingAlgorithmService.class);

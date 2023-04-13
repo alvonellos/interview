@@ -2,6 +2,7 @@ package com.alvonellos.interview.controller;
 
 import com.alvonellos.interview.model.KVEntity;
 import com.alvonellos.interview.repository.KVDatabase;
+import com.alvonellos.interview.repository.PersonRepository;
 import com.alvonellos.interview.service.Web3jService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.val;
@@ -27,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@MockBean({PersonRepository.class})
 class Web3jControllerTest {
 
     @MockBean

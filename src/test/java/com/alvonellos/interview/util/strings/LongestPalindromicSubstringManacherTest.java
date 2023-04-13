@@ -1,6 +1,11 @@
 package com.alvonellos.interview.util.strings;
 
+import com.alvonellos.interview.repository.KVDatabase;
+import com.alvonellos.interview.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +13,9 @@ import java.util.Map;
 import static com.alvonellos.interview.util.strings.LongestPalindromicSubstringManacher.getLongestPalindromicSubstring;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SpringBootTest
+@AutoConfigureMockMvc
+@MockBean({KVDatabase.class, PersonRepository.class})
 class LongestPalindromicSubstringManacherTest {
     @Test
     void longestPalindromeTest() {

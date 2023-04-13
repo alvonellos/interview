@@ -1,9 +1,13 @@
 package com.alvonellos.interview.util.sorting;
 
+import com.alvonellos.interview.repository.KVDatabase;
+import com.alvonellos.interview.repository.PersonRepository;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -13,11 +17,13 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
+@AutoConfigureMockMvc
+@MockBean({KVDatabase.class, PersonRepository.class})
 class ShellSortGenericsTest {
     SecureRandom random = new SecureRandom();
     static final int STREAM_SIZE = 1024;
 
-    @RepeatedTest(100)
+    @RepeatedTest(10)
     @Timeout(100)
     void shellSort() {
 

@@ -2,6 +2,7 @@ package com.alvonellos.interview.controller;
 
 import com.alvonellos.interview.model.KVEntity;
 import com.alvonellos.interview.repository.KVDatabase;
+import com.alvonellos.interview.repository.PersonRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.val;
 import org.junit.jupiter.api.AfterEach;
@@ -28,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@MockBean({PersonRepository.class})
 class FortuneControllerTest {
     private static final ObjectMapper mapper = new ObjectMapper();
     private static final SecureRandom random = new SecureRandom();

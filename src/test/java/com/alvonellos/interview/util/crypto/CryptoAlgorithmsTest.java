@@ -1,11 +1,19 @@
 package com.alvonellos.interview.util.crypto;
 
+import com.alvonellos.interview.repository.KVDatabase;
+import com.alvonellos.interview.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Locale;
 
 import static com.alvonellos.interview.util.crypto.CryptoAlgorithms.*;
 
+@SpringBootTest
+@AutoConfigureMockMvc
+@MockBean({KVDatabase.class, PersonRepository.class})
 class CryptoAlgorithmsTest {
 
     @Test

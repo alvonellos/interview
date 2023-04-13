@@ -1,5 +1,7 @@
 package com.alvonellos.interview.controller;
 
+import com.alvonellos.interview.repository.KVDatabase;
+import com.alvonellos.interview.repository.PersonRepository;
 import com.alvonellos.interview.service.SortingAlgorithmService;
 import com.alvonellos.interview.util.sorting.SortingAlgorithm;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,6 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@MockBean({PersonRepository.class, KVDatabase.class})
 class SortingAlgorithmControllerTest {
     private static final ObjectMapper mapper = new ObjectMapper();
     private static final SecureRandom random = new SecureRandom();

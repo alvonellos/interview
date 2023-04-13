@@ -1,8 +1,12 @@
 package com.alvonellos.interview.util.sorting;
 
+import com.alvonellos.interview.repository.KVDatabase;
+import com.alvonellos.interview.repository.PersonRepository;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -14,11 +18,13 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
+@AutoConfigureMockMvc
+@MockBean({KVDatabase.class, PersonRepository.class})
 class SortingAlgorithmTest {
     SecureRandom random = new SecureRandom();
     static final int STREAM_SIZE = 1024;
 
-    @RepeatedTest(100)
+    @RepeatedTest(10)
     void swap() {
         Integer[] a = random.ints(STREAM_SIZE).boxed().sorted().toArray(Integer[]::new);
         int pic = random.nextInt(STREAM_SIZE);

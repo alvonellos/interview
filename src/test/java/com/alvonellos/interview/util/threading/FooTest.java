@@ -1,6 +1,11 @@
 package com.alvonellos.interview.util.threading;
 
+import com.alvonellos.interview.repository.KVDatabase;
+import com.alvonellos.interview.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +16,9 @@ import java.util.stream.Stream;
  * <a href="https://leetcode.com/problems/print-in-order/">...</a>
  *
  */
+@SpringBootTest
+@AutoConfigureMockMvc
+@MockBean({KVDatabase.class, PersonRepository.class})
 class FooTest {
 
     @Test
