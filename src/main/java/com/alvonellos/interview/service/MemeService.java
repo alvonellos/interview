@@ -28,4 +28,8 @@ public class MemeService {
     public List<MemeTemplateDTO> memeList() {
         return memeClient.getTopMemes();
     }
+
+    public void saveImage(String path) {
+
+    }
 }

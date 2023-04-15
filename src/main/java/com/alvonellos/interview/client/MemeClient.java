@@ -111,7 +111,7 @@ public class MemeClient {
 
     }
 
-    public List<MemeTemplateDTO> parseHtmlPage(String htmlResponse) {
+    List<MemeTemplateDTO> parseHtmlPage(String htmlResponse) {
         Document doc = Jsoup.parse(htmlResponse); // parse HTML response with Jsoup
 
         // select table element with class "admin-table"
