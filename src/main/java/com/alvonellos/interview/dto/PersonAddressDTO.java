@@ -1,11 +1,13 @@
 package com.alvonellos.interview.dto;
 
 import com.alvonellos.interview.model.Person;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@AllArgsConstructor
 public class PersonAddressDTO {
 
     private Long personId;

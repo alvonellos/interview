@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Integer> {
-    @Query("SELECT new com.alvonellos.interview.dto.PersonAddressDTO(p.firstName, p.lastName, a.city, a.state) " +
+    @Query("SELECT new com.alvonellos.interview.dto.PersonAddressDTO(p.personId, a.addressId, p.firstName, p.lastName, a.city, a.state) " +
             "FROM Person p LEFT JOIN Address a ON p.personId = a.personId")
     List<PersonAddressDTO> findAllWithAddress();
 }

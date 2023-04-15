@@ -18,9 +18,7 @@ import java.util.Arrays;
 @SpringBootApplication
 @ComponentScan("com.alvonellos.interview")
 @Log
-public class InterviewApplication extends SpringBootServletInitializer implements InitializingBean {
-	@Autowired
-	KanyeClient kanyeClient;
+public class InterviewApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 
 		SpringApplication.run(InterviewApplication.class, args);
@@ -35,13 +33,5 @@ public class InterviewApplication extends SpringBootServletInitializer implement
 			Arrays.stream(beans).sorted().forEach(System.err::println);
 
 		};
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		log.info("Interview Application Running, kanye says: " + kanyeClient.getKanyeQuote());
 	}
 }

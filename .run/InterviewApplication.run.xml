@@ -1,5 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="InterviewApplication" type="Application" factoryName="Application">
+    <envs>
+      <env name="IMGFLIP_USERNAME" value="AlexanderAlvonellos" />
+      <env name="IMGFLIP_KEY" value="MemesHaha123!!!" />
+    </envs>
     <option name="MAIN_CLASS_NAME" value="com.alvonellos.interview.InterviewApplication" />
     <module name="interview" />
     <method v="2">
