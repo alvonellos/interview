@@ -3,6 +3,7 @@ package com.alvonellos.interview.client;
 
 import com.alvonellos.interview.config.MemeClientURL;
 import com.alvonellos.interview.dto.MemeTemplateDTO;
+import com.alvonellos.interview.dto.response.AiMemeResponseDTO;
 import com.alvonellos.interview.dto.response.CaptionImageResponseDTO;
 import com.alvonellos.interview.dto.response.MemeResponseDTO;
 import lombok.AllArgsConstructor;
@@ -90,6 +91,117 @@ public class MemeClient {
             return response;
         } catch (Exception e) {
             log.info("Error while creating meme using template ID " + templateId);
+            return null;
+        }
+    }
+
+    public MemeResponseDTO searchMeme(String query, Boolean includeNsfw) {
+        final MemeClientURL memeClientURLProp = properties.getMemeClientURL();
+
+        // build URL for meme creation endpoint
+        URI url = UriComponentsBuilder.newInstance()
+                .scheme(memeClientURLProp.getScheme())
+                .host(memeClientURLProp.getBaseUrl())
+                .pathSegment(memeClientURLProp.getSearchMemesPath())
+                .build()
+                .toUri();
+
+        // create request body with template ID and caption text
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("username", memeClientURLProp.getEmail());
+        requestBody.add("password", memeClientURLProp.getPassword());
+        requestBody.add("query", query);
+        requestBody.add("include_nsfw", includeNsfw.toString());
+
+        // create HTTP headers with content type application/x-www-form-urlencoded
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        // create HTTP entity with request body and headers
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(requestBody, headers);
+
+        // send POST request and get response
+        log.info("Searching meme using query");
+        try {
+            MemeResponseDTO response = restTemplate.exchange(url, HttpMethod.POST, entity, MemeResponseDTO.class).getBody();
+            log.info("Searched memes with URL " + response.isSuccess());
+            return response;
+        } catch (Exception e) {
+            log.info("Error while searching for memes");
+            return null;
+        }
+    }
+
+    public CaptionImageResponseDTO autoMeme(String text, Boolean removeWaterMark) {
+        final MemeClientURL memeClientURLProp = properties.getMemeClientURL();
+
+        // build URL for meme creation endpoint
+        URI url = UriComponentsBuilder.newInstance()
+                .scheme(memeClientURLProp.getScheme())
+                .host(memeClientURLProp.getBaseUrl())
+                .pathSegment(memeClientURLProp.getAutoMemePath())
+                .build()
+                .toUri();
+
+        // create request body with template ID and caption text
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("username", memeClientURLProp.getEmail());
+        requestBody.add("password", memeClientURLProp.getPassword());
+        requestBody.add("text", text);
+        requestBody.add("no_watermark", removeWaterMark.toString());
+
+        // create HTTP headers with content type application/x-www-form-urlencoded
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        // create HTTP entity with request body and headers
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(requestBody, headers);
+
+        // send POST request and get response
+        log.info("Automeme meme using text");
+        try {
+            CaptionImageResponseDTO response = restTemplate.exchange(url, HttpMethod.POST, entity, CaptionImageResponseDTO.class).getBody();
+            log.info("Automeme memes with URL " + response.isSuccess());
+            return response;
+        } catch (Exception e) {
+            log.info("Error while automeming");
+            return null;
+        }
+    }
+
+    public AiMemeResponseDTO aiMeme(Boolean removeWaterMark) {
+        final MemeClientURL memeClientURLProp = properties.getMemeClientURL();
+
+        // build URL for meme creation endpoint
+        URI url = UriComponentsBuilder.newInstance()
+                .scheme(memeClientURLProp.getScheme())
+                .host(memeClientURLProp.getBaseUrl())
+                .pathSegment(memeClientURLProp.getAiMemePath())
+                .build()
+                .toUri();
+
+        // create request body with template ID and caption text
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("username", memeClientURLProp.getEmail());
+        requestBody.add("password", memeClientURLProp.getPassword());
+        //requestBody.add("template_id", templateId);
+        requestBody.add("no_watermark", removeWaterMark.toString());
+
+        // create HTTP headers with content type application/x-www-form-urlencoded
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        // create HTTP entity with request body and headers
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(requestBody, headers);
+
+        // send POST request and get response
+        log.info("Aimeme meme using text");
+        try {
+            AiMemeResponseDTO response = restTemplate.exchange(url, HttpMethod.POST, entity, AiMemeResponseDTO.class).getBody();
+            log.info("Aimeme memes with URL " + response.isSuccess());
+            return response;
+        } catch (Exception e) {
+            log.info("Error while Aimeme");
             return null;
         }
     }

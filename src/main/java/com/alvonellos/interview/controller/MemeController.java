@@ -3,6 +3,7 @@ package com.alvonellos.interview.controller;
 
 import com.alvonellos.interview.client.ImageReaderClient;
 import com.alvonellos.interview.client.MemeClient;
+import com.alvonellos.interview.dto.response.AiMemeResponseDTO;
 import com.alvonellos.interview.dto.response.CaptionImageResponseDTO;
 import com.alvonellos.interview.dto.response.MemeResponseDTO;
 import com.alvonellos.interview.service.MemeService;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,5 +46,20 @@ public class MemeController {
     @GetMapping(value = "/test", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getImage(@RequestParam String path) throws IOException {
         return new ResponseEntity<>(bufferedImageToBytes(imageReaderClient.getJpgImageFromUrl(path)), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "search_memes")
+    public ResponseEntity<MemeResponseDTO> searchMemes(@RequestParam String query, @Nullable @RequestParam(required = false, defaultValue = "0") Boolean includeNsfw) {
+        return ResponseEntity.ok(memeClient.searchMeme(query, includeNsfw));
+    }
+
+    @GetMapping(value = "automeme")
+    public ResponseEntity<CaptionImageResponseDTO> automeme(@RequestParam String text, @Nullable @RequestParam(required = false, defaultValue = "0") Boolean removeWatermark) {
+        return ResponseEntity.ok(memeClient.autoMeme(text, removeWatermark));
+    }
+
+    @GetMapping(value = "aimeme")
+    public ResponseEntity<AiMemeResponseDTO> aimeme(@Nullable @RequestParam(required = false, defaultValue = "0") Boolean removeWatermark) {
+        return ResponseEntity.ok(memeClient.aiMeme(removeWatermark));
     }
 }
