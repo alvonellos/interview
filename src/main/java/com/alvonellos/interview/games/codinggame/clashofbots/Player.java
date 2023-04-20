@@ -23,9 +23,9 @@ class Player {
                 // Write an action using System.out.println()
                 // To debug: System.err.println("Debug messages...");
 
-                //Action action = robot.getAction();
-                //commands.append(action.getActionString());
-                //commands.append(System.lineSeparator());
+                Action action = Engine.predictAction(gameState, robot);
+                commands.append(action.getActionString());
+                commands.append(System.lineSeparator());
             }
             System.out.print(commands.toString());
         }
@@ -212,7 +212,16 @@ class Player {
             this.directionString = directionString;
         }
 
-        public Direction getDirectionTo(int yourX, int yourY, int theirX, int theirY) {
+        public static Direction getDirectionTo(Point yourPoint, Point theirPoint) {
+            return getDirectionTo(
+                    yourPoint.x,
+                    yourPoint.y,
+                    theirPoint.x,
+                    theirPoint.y
+            );
+        }
+
+        public static Direction getDirectionTo(int yourX, int yourY, int theirX, int theirY) {
             if (yourX < theirX) {
                 return RIGHT;
             } else if (yourX > theirX) {
@@ -278,10 +287,41 @@ class Player {
                     return Action.GUARD;
                 } else {
                     Robot enemy = neighbors.stream().filter(j -> j.getType() == RobotType.ENEMY).findAny().get();
-                    switch (getDirectionTo(robot.getPosition()))
+                    switch (Direction.getDirectionTo(robot.getPosition(), enemy.getPosition())) {
+                        case UP:
+                            return Action.MOVE_UP;
+                        case DOWN:
+                            return Action.MOVE_DOWN;
+                        case LEFT:
+                            return Action.MOVE_LEFT;
+                        case RIGHT:
+                            return Action.MOVE_RIGHT;
+                        default:
+                            return Action.GUARD;
+                    }
                 }
 
             }
+
+            //if there are immediate enemies, attack
+            if(numEnemies > 0) {
+                List<Robot> neighbors = robot.getNeighbors(false);
+                Robot enemy = neighbors.stream().filter(j -> j.getType() == RobotType.ENEMY).findAny().get();
+                switch (Direction.getDirectionTo(robot.getPosition(), enemy.getPosition())) {
+                    case UP:
+                        return Action.ATTACK_UP;
+                    case DOWN:
+                        return Action.ATTACK_DOWN;
+                    case LEFT:
+                        return Action.ATTACK_LEFT;
+                    case RIGHT:
+                        return Action.ATTACK_RIGHT;
+                    default:
+                        return Action.GUARD;
+                }
+            }
+
+            return Action.GUARD;
         }
 
     }
