@@ -11,18 +11,20 @@ import java.awt.Point;
  **/
 class Player {
 
+    public static void log(String... msg) {
+        Arrays.stream(msg).forEach(x -> System.err.print(x));
+        System.err.println();
+    }
+
     public static void main(String args[]) {
         Scanner in = new Scanner(System.in);
-
+        log("init");
         // game loop
         while (true) {
             GameState gameState = GameState.parseInput(in);
+            log("parsed game state");
             StringBuffer commands = new StringBuffer();
             for (Robot robot : gameState.robots) {
-
-                // Write an action using System.out.println()
-                // To debug: System.err.println("Debug messages...");
-
                 Action action = Engine.predictAction(gameState, robot);
                 commands.append(action.getActionString());
                 commands.append(System.lineSeparator());
@@ -32,16 +34,10 @@ class Player {
     }
 
     static class GameState {
-        private GameBoard board;
         private List<Robot> robots;
 
-        public GameState(GameBoard board, List<Robot> robots) {
-            this.board = board;
+        public GameState(List<Robot> robots) {
             this.robots = robots;
-        }
-
-        public GameBoard getBoard() {
-            return board;
         }
 
         public List<Robot> getRobots() {
@@ -50,6 +46,7 @@ class Player {
 
         public static GameState parseInput(Scanner in) {
             int numberOfRobots = in.nextInt();
+            log("identified: ", String.valueOf(numberOfRobots), " robots");
             int[][] cells = new int[5][5];
             List<Robot> robots = new ArrayList<>(numberOfRobots);
 
@@ -58,24 +55,12 @@ class Player {
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
                         cells[i][j] = in.nextInt();
-                        if (cells[i][j] > 0) {
-                            // create an ally robot with coordinates relative to the center
-                            int dx = j - cx;
-                            int dy = i - cy;
-                            robots.add(new Robot(RobotType.ALLY, new Point(dx, dy), null));
-                        } else if (cells[i][j] < 0) {
-                            // create an enemy robot with coordinates relative to the center
-                            int dx = j - cx;
-                            int dy = i - cy;
-                            robots.add(new Robot(RobotType.ENEMY, new Point(dx, dy), null));
-                        }
                     }
                 }
+                robots.add(new Robot(RobotType.ALLY, new GameBoard(cells)));
                 in.nextLine(); // consume the rest of the line after the integers
             }
-
-            GameBoard board = new GameBoard(cells); // board is not used in the example implementation
-            return new GameState(board, robots);
+            return new GameState(robots);
         }
     }
 
@@ -85,33 +70,45 @@ class Player {
         private GameBoard board;
 
         private static final int[][] crit_points = new int[][]{
-                {2, 2, 2, 2, 2},
-                {0, 1, 1, 1, 2},
-                {2, 1, 0, 1, 2},
-                {2, 1, 1, 1, 2},
-                {2, 2, 2, 2, 2}
+                {3, 3, 3, 3, 3},
+                {3, 2, 1, 2, 3},
+                {3, 1, 0, 1, 3},
+                {3, 2, 1, 2, 3},
+                {3, 3, 3, 3, 3}
         };
 
         private static final int centerX = 2;
         private static final int centerY = 2;
 
+        public Robot(RobotType type, GameBoard board) {
+            this(type, new Point(centerX, centerY), board);
+        }
+
         public Robot(RobotType type, Point position, GameBoard board) {
             this.type = type;
             this.position = position;
             this.board = board;
+            log("new robot: ", type.toString(), position.toString(), board != null ? board.toString() : "null");
         }
 
         public List<Robot> getNeighbors(boolean immediate) {
             List<Robot> neighbors = new ArrayList<>();
+            if(board == null) {
+                log("board is null");
+                return Collections.EMPTY_LIST;
+            }
+
             for (int i = 0; i < board.getHeight(); i++) {
                 for (int j = 0; j < board.getWidth(); j++) {
                     if (crit_points[i][j] == 1 && immediate) {
                         int cell = board.getCell(j, i);
                         switch(RobotType.getRobotType(cell)) {
                             case ENEMY:
+                                log("identified enemy nearby: ", "" + j, "" + i);
                                 neighbors.add(new Robot(RobotType.ENEMY, new Point(j, i), board));
                                 break;
                             case ALLY:
+                                log("identified ally nearby: ", "" + j, "" + i);
                                 neighbors.add(new Robot(RobotType.ALLY, new Point(j, i), board));
                                 break;
                             default:
@@ -121,21 +118,38 @@ class Player {
                         int cell = board.getCell(j, i);
                         switch(RobotType.getRobotType(cell)) {
                             case ENEMY:
+                                log("identified enemy one step away: ", "" + j, "" + i);
                                 neighbors.add(new Robot(RobotType.ENEMY, new Point(j, i), board));
                                 break;
                             case ALLY:
+                                log("identified ally one step away: ", "" + j, "" + i);
+                                neighbors.add(new Robot(RobotType.ALLY, new Point(j, i), board));
+                                break;
+                            default:
+                                break;
+                        }
+                    } else if (crit_points[i][j] == 3 && !immediate) {
+                        int cell = board.getCell(j, i);
+                        switch(RobotType.getRobotType(cell)) {
+                            case ENEMY:
+                                log("identified enemy far far away: ", "" + j, "" + i);
+                                neighbors.add(new Robot(RobotType.ENEMY, new Point(j, i), board));
+                                break;
+                            case ALLY:
+                                log("identified ally far far away: ", "" + j, "" + i);
                                 neighbors.add(new Robot(RobotType.ALLY, new Point(j, i), board));
                                 break;
                             default:
                                 break;
                         }
                     } else {
-                        return Collections.EMPTY_LIST;
+                        continue;
                     }
                 }
             }
             return neighbors;
         }
+
 
         public RobotType getType() {
             return type;
@@ -269,10 +283,12 @@ class Player {
         public static Action predictAction(GameState state, Robot robot) {
             int x = (int) robot.getPosition().getX();
             int y = (int) robot.getPosition().getY();
+            log("predict action: ", String.valueOf(x), ", ", String.valueOf(y));
 
             List<Robot> immediateNeighbors = robot.getNeighbors(true);
             int numAllies = (int) immediateNeighbors.stream().filter(j -> j.getType() == RobotType.ALLY).count();
-            int numEnemies = (int) immediateNeighbors.stream().filter(j -> j.getType() == RobotType.ALLY).count();
+            int numEnemies = (int) immediateNeighbors.stream().filter(j -> j.getType() == RobotType.ENEMY).count();
+            log("Immediate neighbors: ", String.valueOf(immediateNeighbors.size()), "numEnemies, numAllies: ", String.valueOf(numEnemies), ", ", String.valueOf(numAllies));
 
             //self destruct if health is low and there's more enemies than allies
             if(numAllies < numEnemies && robot.getHealth() < 4) {
@@ -286,7 +302,10 @@ class Player {
                 if(numEnemies == 0) {
                     return Action.GUARD;
                 } else {
-                    Robot enemy = neighbors.stream().filter(j -> j.getType() == RobotType.ENEMY).findAny().get();
+                    Robot enemy = neighbors.stream().filter(j -> j.getType() == RobotType.ENEMY).findAny().orElse(null);
+                    if(enemy == null)
+                        return Action.GUARD;
+
                     switch (Direction.getDirectionTo(robot.getPosition(), enemy.getPosition())) {
                         case UP:
                             return Action.MOVE_UP;
@@ -306,7 +325,11 @@ class Player {
             //if there are immediate enemies, attack
             if(numEnemies > 0) {
                 List<Robot> neighbors = robot.getNeighbors(false);
-                Robot enemy = neighbors.stream().filter(j -> j.getType() == RobotType.ENEMY).findAny().get();
+                Robot enemy = neighbors.stream().filter(j -> j.getType() == RobotType.ENEMY).findAny().orElse(null);
+                if(enemy == null)
+                    return Action.GUARD;
+
+                log("identified enemy: ", enemy.toString());
                 switch (Direction.getDirectionTo(robot.getPosition(), enemy.getPosition())) {
                     case UP:
                         return Action.ATTACK_UP;
