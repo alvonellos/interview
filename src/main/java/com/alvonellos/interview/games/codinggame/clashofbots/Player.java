@@ -47,11 +47,10 @@ class Player {
         public static GameState parseInput(Scanner in) {
             int numberOfRobots = in.nextInt();
             log("identified: ", String.valueOf(numberOfRobots), " robots");
-            int[][] cells = new int[5][5];
             List<Robot> robots = new ArrayList<>(numberOfRobots);
 
             for (int r = 0; r < numberOfRobots; r++) {
-                int cx = 2, cy = 2; // center of the grid
+                int[][] cells = new int[5][5];
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
                         cells[i][j] = in.nextInt();
@@ -65,6 +64,29 @@ class Player {
     }
 
     static class Robot {
+        // A helper class to store a robot and its score
+        class RobotScore implements Comparable<RobotScore> {
+            private Robot robot;
+            private double score;
+
+            public RobotScore(Robot robot, double score) {
+                this.robot = robot;
+                this.score = score;
+            }
+
+            public Robot getRobot() {
+                return robot;
+            }
+
+            public double getScore() {
+                return score;
+            }
+
+            @Override
+            public int compareTo(RobotScore other) {
+                return Double.compare(other.getScore(), this.score);
+            }
+        }
         private RobotType type;
         private Point position;
         private GameBoard board;
@@ -88,7 +110,33 @@ class Player {
             this.type = type;
             this.position = position;
             this.board = board;
-            log("new robot: ", type.toString(), position.toString(), board != null ? board.toString() : "null");
+            log("new robot: ", type.toString(), position.toString(), type.equals(RobotType.ALLY) && board != null ? this.getBoard().printBoard() : "");
+        }
+
+        public Robot getNextTarget(List<Robot> neighbors) {
+            // Determine the criteria for selecting the target
+            double maxDistance = 100; // Maximum distance from robot to target
+            double maxHealth = 100; // Maximum health of a target
+            double maxOffense = 100; // Maximum offensive capability of a target
+
+            // Assign scores to each potential target based on the criteria
+            List<RobotScore> scores = new ArrayList<>();
+            for (Robot target : neighbors) {
+                double distanceScore = 1 - (this.distanceTo(target) / maxDistance);
+                double healthScore = target.getHealth() / maxHealth;
+                double totalScore = distanceScore + healthScore;
+                scores.add(new RobotScore(target, totalScore));
+            }
+
+            // Sort the list of neighbors by score
+            Collections.sort(scores);
+
+            // Return the highest-scoring target
+            if (scores.size() > 0) {
+                return scores.get(0).getRobot();
+            } else {
+                return null;
+            }
         }
 
         public List<Robot> getNeighbors(boolean immediate) {
@@ -148,6 +196,12 @@ class Player {
                 }
             }
             return neighbors;
+        }
+
+        public double distanceTo(Robot target) {
+            double xDiff = Math.abs(target.getPosition().getX() - this.getPosition().getX());
+            double yDiff = Math.abs(target.getPosition().getY() - this.getPosition().getY());
+            return Math.sqrt(xDiff*xDiff + yDiff*yDiff);
         }
 
 
@@ -211,6 +265,17 @@ class Player {
 
         public int getHeight() {
             return cells.length;
+        }
+
+        public String printBoard() {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < cells.length; i++) {
+                for (int j = 0; j < cells[0].length; j++) {
+                    sb.append(cells[i][j]).append(" ");
+                }
+                sb.append(System.lineSeparator());
+            }
+            return sb.toString();
         }
     }
 
@@ -292,17 +357,22 @@ class Player {
 
             //self destruct if health is low and there's more enemies than allies
             if(numAllies < numEnemies && robot.getHealth() < 4) {
+                log(robot.toString(), "case health below four");
                 return Action.SELFDESTRUCTION;
             }
 
             //if there's no immediate enemies, seek enemies
             if(numEnemies == 0) {
+                log(robot.toString(),"case no nearby enemies");
                 List<Robot> neighbors = robot.getNeighbors(false);
+                neighbors.removeIf(r -> r.getType().equals(RobotType.ALLY));
                 numEnemies = (int) neighbors.stream().filter(j -> j.getType() == RobotType.ENEMY).count();
                 if(numEnemies == 0) {
+                    log(robot.toString(), "case no extended enemies");
                     return Action.GUARD;
                 } else {
-                    Robot enemy = neighbors.stream().filter(j -> j.getType() == RobotType.ENEMY).findAny().orElse(null);
+                    log(robot.toString(), "case extended enemies present");
+                    Robot enemy = robot.getNextTarget(neighbors);
                     if(enemy == null)
                         return Action.GUARD;
 
@@ -325,7 +395,7 @@ class Player {
             //if there are immediate enemies, attack
             if(numEnemies > 0) {
                 List<Robot> neighbors = robot.getNeighbors(false);
-                Robot enemy = neighbors.stream().filter(j -> j.getType() == RobotType.ENEMY).findAny().orElse(null);
+                Robot enemy = robot.getNextTarget(neighbors);
                 if(enemy == null)
                     return Action.GUARD;
 
