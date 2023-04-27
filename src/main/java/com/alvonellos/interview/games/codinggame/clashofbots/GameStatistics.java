@@ -1,8 +1,10 @@
 package com.alvonellos.interview.games.codinggame.clashofbots;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 
-public class GameStatistics {
+public class GameStatistics implements Comparable<GameStatistics> {
     int[][] cells;
 
     public GameStatistics(int[][] cells) {
@@ -71,6 +73,40 @@ public class GameStatistics {
             } else {
                 return false;
             }
+        }
+    }
+
+
+    @Override
+    public int compareTo(@NotNull GameStatistics o) {
+        if (this.isWinning() && o.isWinning()) {
+            // Compare number of allies
+            int numAlliesDiff = this.numAllies() - o.numAllies();
+            if (numAlliesDiff != 0) {
+                return numAlliesDiff;
+            }
+
+            // Compare sum of ally health
+            int sumAllyHealthDiff = this.sumAllyHealth() - o.sumAllyHealth();
+            if (sumAllyHealthDiff != 0) {
+                return sumAllyHealthDiff;
+            }
+
+            // Compare number of enemies
+            int numEnemiesDiff = this.numEnemies() - o.numEnemies();
+            if (numEnemiesDiff != 0) {
+                return numEnemiesDiff;
+            }
+
+            // Compare sum of enemy health
+            int sumEnemyHealthDiff = this.sumEnemyHealth() - o.sumEnemyHealth();
+            if (sumEnemyHealthDiff != 0) {
+                return sumEnemyHealthDiff;
+            }
+
+            return 0;
+        } else {
+            return 0;
         }
     }
 }

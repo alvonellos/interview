@@ -35,8 +35,8 @@ class RobotTest {
 
     @Test
     public void testDistanceTo_AdjacentPosition() {
-        Robot robot1 = new Robot(new Coordinate(2, 2));
-        Robot robot2 = new Robot(new Coordinate(2, 3));
+        Robot robot1 = new Robot(RobotType.ALLY, new Point(2, 2), board);
+        Robot robot2 = new Robot(new Point(2, 3));
         double expectedDistance = 1.0;
         double actualDistance = robot1.distanceTo(robot2);
         assertEquals(expectedDistance, actualDistance, 0.001);

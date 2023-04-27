@@ -1,86 +1,39 @@
 package com.alvonellos.interview.games.codinggame.clashofbots;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import static com.alvonellos.interview.games.codinggame.clashofbots.Player.log;
 
 public class Engine {
     private GameState state;
 
+    private RedBlackBST<GameStatistics, GameState> optimalTree = new RedBlackBST<GameStatistics, GameState>();
+
     public Engine(GameState state) {
         this.state = state;
     }
 
     public static Action predictAction(GameState state, Robot robot) {
-        int x = (int) robot.getPosition().getX();
-        int y = (int) robot.getPosition().getY();
-        log("predict action: ", String.valueOf(x), ", ", String.valueOf(y));
-
-        List<Robot> immediateNeighbors = robot.getNeighbors(true);
-        int numAllies = (int) immediateNeighbors.stream().filter(j -> j.getType() == RobotType.ALLY).count();
-        int numEnemies = (int) immediateNeighbors.stream().filter(j -> j.getType() == RobotType.ENEMY).count();
-        log("Immediate neighbors: ", String.valueOf(immediateNeighbors.size()), "numEnemies, numAllies: ", String.valueOf(numEnemies), ", ", String.valueOf(numAllies));
-
-        //self destruct if health is low and there's more enemies than allies
-        if(numAllies < numEnemies && robot.getHealth() < 4) {
-            log(robot.toString(), "case health below four");
-            return Action.SELFDESTRUCTION;
+        List<Action> possibleActions = state.getPossibleActions(robot);
+        if (possibleActions.size() == 0) {
+            return Action.GUARD;
         }
+        return possibleActions.get(0);
+    }
 
-        //if there's no immediate enemies, seek enemies
-        if(numEnemies == 0) {
-            log(robot.toString(),"case no nearby enemies");
-            List<Robot> neighbors = robot.getNeighbors(false);
-            neighbors.removeIf(r -> r.getType().equals(RobotType.ALLY));
-            numEnemies = (int) neighbors.stream().filter(j -> j.getType() == RobotType.ENEMY).count();
-            if(numEnemies == 0) {
-                log(robot.toString(), "case no extended enemies");
-                return Action.GUARD;
-            } else {
-                log(robot.toString(), "case extended enemies present");
-                Robot enemy = robot.getNextTarget(neighbors);
-                if(enemy == null)
-                    return Action.GUARD;
-
-                switch (Direction.getDirectionTo(robot.getPosition(), enemy.getPosition())) {
-                    case UP:
-                        return Action.MOVE_UP;
-                    case DOWN:
-                        return Action.MOVE_DOWN;
-                    case LEFT:
-                        return Action.MOVE_LEFT;
-                    case RIGHT:
-                        return Action.MOVE_RIGHT;
-                    default:
-                        return Action.GUARD;
+    private int[][] applyEffect(int[][] map, int[][] effect, Predicate<Integer> predicate) {
+        int[][] newMap = new int[map.length][map[0].length];
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[0].length; j++) {
+                if (predicate.test(map[i][j])) {
+                    newMap[i][j] = map[i][j] + effect[i][j];
+                } else {
+                    newMap[i][j] = map[i][j];
                 }
             }
-
         }
-
-        //if there are immediate enemies, attack
-        if(numEnemies > 0) {
-            List<Robot> neighbors = robot.getNeighbors(false);
-            Robot enemy = robot.getNextTarget(neighbors);
-            if(enemy == null)
-                return Action.GUARD;
-
-            log("identified enemy: ", enemy.toString());
-            switch (Direction.getDirectionTo(robot.getPosition(), enemy.getPosition())) {
-                case UP:
-                    return Action.ATTACK_UP;
-                case DOWN:
-                    return Action.ATTACK_DOWN;
-                case LEFT:
-                    return Action.ATTACK_LEFT;
-                case RIGHT:
-                    return Action.ATTACK_RIGHT;
-                default:
-                    return Action.GUARD;
-            }
-        }
-
-        return Action.GUARD;
+        return newMap;
     }
 
 }
