@@ -1,6 +1,9 @@
 package com.alvonellos.interview.games.codinggame.clashofbots;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 enum Direction {
     UP("UP"),
@@ -34,6 +37,19 @@ enum Direction {
             return UP;
         } else {
             return NONE;
+        }
+    }
+
+
+    private static boolean isCollision(int x, int y, int[][] map) {
+        if (x < 0 || x >= map.length || y < 0 || y >= map[0].length) {
+            // Out of bounds
+            return true;
+        } else if (map[y][x] != 0) {
+            // Collision with another robot
+            return true;
+        } else {
+            return false;
         }
     }
 }

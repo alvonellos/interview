@@ -22,14 +22,6 @@ public class GameState {
         return robots;
     }
 
-    public Map<> getPossibleActions() {
-        Map<Robot, List<Action>> actions = new ArrayList<>();
-        for (Robot robot : state.getRobots()) {
-            actions.add(robot.getActions());
-        }
-        return actions;
-    }
-
     public static GameState parseInput(Scanner in) {
         int numberOfRobots = in.nextInt();
         log("identified: ", String.valueOf(numberOfRobots), " robots");
@@ -46,5 +38,14 @@ public class GameState {
             in.nextLine(); // consume the rest of the line after the integers
         }
         return new GameState(robots);
+    }
+
+    public String calculateCommands() {
+        StringBuilder sb = new StringBuilder();
+        for (Robot robot : robots) {
+            sb.append(Engine.getOptimalAction(this, robot));
+            sb.append(System.lineSeparator());
+        }
+        return sb.toString();
     }
 }

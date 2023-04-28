@@ -11,7 +11,6 @@ import static com.alvonellos.interview.util.java.AddressUtil.addrString;
  * @author Alex Alvonellos
  * @implNote Implements comparable through and through
  */
-@Log
 public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>> {
     private static final boolean DEBUG = false;
     private Node<T> next;
@@ -195,7 +194,7 @@ public class Node<T extends Comparable<? super T>> implements Comparable<Node<T>
 
     private void debug(String message) {
         if (DEBUG) {
-            log.info(message);
+            System.err.println(message);
         }
     }
 

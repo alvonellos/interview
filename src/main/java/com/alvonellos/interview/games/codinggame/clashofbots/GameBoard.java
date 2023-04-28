@@ -11,10 +11,6 @@ public class GameBoard {
         this.cells[2][2] = 10;
     }
 
-    public void addSprite(int x, int y, int value) {
-        cells[y][x] = value;
-    }
-
     public GameBoard(int[][] cells) {
         this.cells = cells;
     }
@@ -33,6 +29,10 @@ public class GameBoard {
 
     public int getHeight() {
         return cells.length;
+    }
+
+    public int[][] getCells() {
+        return cells;
     }
 
     @Override

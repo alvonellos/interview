@@ -1,5 +1,6 @@
 package com.alvonellos.interview.games.codinggame.clashofbots;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -8,32 +9,31 @@ import static com.alvonellos.interview.games.codinggame.clashofbots.Player.log;
 public class Engine {
     private GameState state;
 
-    private RedBlackBST<GameStatistics, GameState> optimalTree = new RedBlackBST<GameStatistics, GameState>();
-
     public Engine(GameState state) {
         this.state = state;
     }
 
-    public static Action predictAction(GameState state, Robot robot) {
-        List<Action> possibleActions = state.getPossibleActions(robot);
-        if (possibleActions.size() == 0) {
-            return Action.GUARD;
-        }
-        return possibleActions.get(0);
-    }
+    public static Action getOptimalAction(GameState state, Robot robot) {
+        RedBlackBST<GameStatistics, Action> possibleActions = new RedBlackBST<>();
+        Arrays
+                .stream(Action.values())
+                .forEach(action -> {
+                    int[][] currentMap = robot.getBoard().getCells();
+                    int[][] newMap = action.applyAction(currentMap, x -> true);
 
-    private int[][] applyEffect(int[][] map, int[][] effect, Predicate<Integer> predicate) {
-        int[][] newMap = new int[map.length][map[0].length];
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
-                if (predicate.test(map[i][j])) {
-                    newMap[i][j] = map[i][j] + effect[i][j];
-                } else {
-                    newMap[i][j] = map[i][j];
-                }
-            }
-        }
-        return newMap;
+                    GameStatistics currentState = new GameStatistics(currentMap);
+                    GameStatistics newState = new GameStatistics(newMap);
+
+                    //if the current state is worse or equal than the new state
+                    if(currentState.compareTo(newState) <= 0) {
+                        possibleActions.put(currentState, action);
+                    }
+
+                });
+
+        //TODO: prune tree with heuristic
+
+        return possibleActions.get(possibleActions.max());
     }
 
 }

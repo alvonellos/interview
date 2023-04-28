@@ -105,8 +105,30 @@ public class GameStatistics implements Comparable<GameStatistics> {
             }
 
             return 0;
+        } else if(this.isWinning() && !o.isWinning()) {
+            return -1;
+        } else if(!this.isWinning() && o.isWinning()) {
+            return 1;
         } else {
-            return 0;
+            //no clear answer, so calculate scores
+            int numAllies = this.numAllies();
+            int numEnemies = this.numEnemies();
+            int sumAllyHealth = this.sumAllyHealth();
+            int sumEnemyHealth = this.sumEnemyHealth();
+
+            if (numAllies > numEnemies) {
+                return 1;
+            } else if (numAllies < numEnemies) {
+                return -1;
+            } else {
+                if (sumAllyHealth > sumEnemyHealth) {
+                    return 1;
+                } else if (sumAllyHealth < sumEnemyHealth) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
         }
     }
 }

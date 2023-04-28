@@ -75,6 +75,46 @@ public class Robot {
         return isBlocked(position.x + 1, position.y);
     }
 
+    public boolean isAllyRight() {
+        return board.getCell(position.x + 1, position.y) > 0;
+    }
+
+    public boolean isAllyLeft() {
+        return board.getCell(position.x - 1, position.y) > 0;
+    }
+
+    public boolean isEnemyRight() {
+        return board.getCell(position.x + 1, position.y + 1) > 0;
+    }
+
+    public boolean isEnemyLeft() {
+        return board.getCell(position.x - 1, position.y + 1) > 0;
+    }
+
+    public boolean isAllyTop() {
+        return board.getCell(position.x, position.y - 1) > 0;
+    }
+
+    public boolean isAllyBottom() {
+        return board.getCell(position.x, position.y + 1) > 0;
+    }
+
+    public boolean isEnemyTop() {
+        return board.getCell(position.x, position.y - 1) > 0;
+    }
+
+    public boolean isEnemyBottom() {
+        return board.getCell(position.x, position.y + 1) > 0;
+    }
+
+    public boolean isAllySurrounded() {
+        return isAllyRight() && isAllyLeft() && isAllyTop() && isAllyBottom();
+    }
+
+    public boolean isEnemySurrounded() {
+        return isEnemyRight() && isEnemyLeft() && isEnemyTop() && isEnemyBottom();
+    }
+
     public boolean isBlockedTotally() {
         return isBlockedTop() && isBlockedBottom() && isBlockedLeft() && isBlockedRight();
     }
@@ -83,31 +123,4 @@ public class Robot {
         return this.board.getCell(x, y) != 0;
     }
 
-    public Map<Action, Effect> getPossibleAffect() {
-        Map<Action, Effect> possibleAffect = new HashMap<>();
-        for(Action action : Action.values()) {
-            possibleAffect.put(action, calculateEffect(action, board));
-        }
-    }
-
-    private GameStatistics calculateEffect(Action action, GameBoard board) {
-        switch(action) {
-            case MOVE_DOWN:
-            case MOVE_LEFT:
-            case MOVE_RIGHT:
-            case MOVE_UP:
-                return new MoveEffect(this, board);
-            case ATTACK_LEFT:
-            case ATTACK_RIGHT:
-            case ATTACK_UP:
-            case ATTACK_DOWN:
-                return new AttackEffect(this, board);
-            case GUARD:
-                return new GuardEffect(this, board);
-            case SELFDESTRUCTION:
-                return new SelfDestructionEffect(this, board);
-            default:
-                return new MoveEffect(this, board);
-        }
-    }
 }
