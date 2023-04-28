@@ -1,5 +1,3 @@
-package com.alvonellos.interview.games.codinggame.clashofbots;
-
 import java.util.*;
 import java.awt.Point;
 import java.util.function.Function;
@@ -12,17 +10,17 @@ import java.util.function.Predicate;
  **/
 class Player {
     static class BotPlayer {
+        Scanner in;
         Engine engine;
 
         public BotPlayer(Scanner in) {
+            this.in = in;
             this.engine = new Engine(in);
         }
 
         public void play() {
-            while (true) {
-                String commands = engine.calculateCommands();
-                System.out.println(commands);
-            }
+            String commands = engine.calculateCommands();
+            System.out.println(commands);
         }
 
         public enum RobotType {
@@ -108,6 +106,138 @@ class Player {
                     }
                 }
 
+                boolean isCollision = Direction.isCollision(2,1, cell);
+
+                if(isCollision) {
+                    if(newState[2][1] > 0) { // ally
+                        newState[2][1] -= Effect.COLLISION.getEffectValue();
+                        newState[2][2] -= Effect.COLLISION.getEffectValue();
+                    } else { // enemy
+                        newState[2][1] += Effect.COLLISION.getEffectValue();
+                        newState[2][2] -= Effect.COLLISION.getEffectValue();
+                    }
+                } else {
+                    //no collision, so the cell is safe to move,
+                    newState[2][1] = newState[2][2];
+                    newState[2][2] = 0;
+                }
+
+                return newState;
+            }),
+            MOVE_RIGHT("MOVE RIGHT", Effect.COLLISION, new boolean[][]{
+                    {false, false, false, false, false},
+                    {false, false, false, false, false},
+                    {false, false, false, true, false},
+                    {false, false, false, false, false},
+                    {false, false, false, false, false},
+            }, (Function<int[][], int[][]>) cell -> {
+                int[][] newState = new int[cell.length][cell.length];
+
+                for (int i = 0; i < cell.length; i++) {
+                    for (int j = 0; j < cell.length; j++) {
+                        newState[i][j] = cell[i][j];
+                    }
+                }
+
+                boolean isCollision = Direction.isCollision(2,3, cell);
+
+                if(isCollision) {
+                    if(newState[2][3] > 0) { // ally
+                        newState[2][3] -= Effect.COLLISION.getEffectValue();
+                        newState[2][2] -= Effect.COLLISION.getEffectValue();
+                    } else { // enemy
+                        newState[2][3] += Effect.COLLISION.getEffectValue();
+                        newState[2][2] -= Effect.COLLISION.getEffectValue();
+                    }
+                } else {
+                    //no collision, so the cell is safe to move,
+                    newState[2][3] = newState[2][2];
+                    newState[2][2] = 0;
+                }
+
+                return newState;
+            }),
+            MOVE_UP("MOVE UP", Effect.COLLISION, new boolean[][]{
+                    {false, false, false, false, false},
+                    {false, false, true, false, false},
+                    {false, false, false, false, false},
+                    {false, false, false, false, false},
+                    {false, false, false, false, false},
+            }, (Function<int[][], int[][]>) cell -> {
+                int[][] newState = new int[cell.length][cell.length];
+
+                for (int i = 0; i < cell.length; i++) {
+                    for (int j = 0; j < cell.length; j++) {
+                        newState[i][j] = cell[i][j];
+                    }
+                }
+
+                boolean isCollision = Direction.isCollision(1,2, cell);
+
+                if(isCollision) {
+                    if(newState[1][2] > 0) { // ally
+                        newState[1][2] -= Effect.COLLISION.getEffectValue();
+                        newState[2][2] -= Effect.COLLISION.getEffectValue();
+                    } else { // enemy
+                        newState[1][2] += Effect.COLLISION.getEffectValue();
+                        newState[2][2] -= Effect.COLLISION.getEffectValue();
+                    }
+                } else {
+                    //no collision, so the cell is safe to move,
+                    newState[1][2] = newState[2][2];
+                    newState[2][2] = 0;
+                }
+
+                return newState;
+            }),
+            MOVE_DOWN("MOVE DOWN", Effect.COLLISION, new boolean[][]{
+                    {false, false, false, false, false},
+                    {false, false, false, false, false},
+                    {false, false, false, false, false},
+                    {false, false, true, false, false},
+                    {false, false, false, false, false},
+            }, (Function<int[][], int[][]>) cell -> {
+                int[][] newState = new int[cell.length][cell.length];
+
+                for (int i = 0; i < cell.length; i++) {
+                    for (int j = 0; j < cell.length; j++) {
+                        newState[i][j] = cell[i][j];
+                    }
+                }
+
+                boolean isCollision = Direction.isCollision(3,2, cell);
+
+                if(isCollision) {
+                    if(newState[3][2] > 0) { // ally
+                        newState[3][2] -= Effect.COLLISION.getEffectValue();
+                        newState[2][2] -= Effect.COLLISION.getEffectValue();
+                    } else { // enemy
+                        newState[3][2] += Effect.COLLISION.getEffectValue();
+                        newState[2][2] -= Effect.COLLISION.getEffectValue();
+                    }
+                } else {
+                    //no collision, so the cell is safe to move,
+                    newState[3][2] = newState[2][2];
+                    newState[2][2] = 0;
+                }
+
+                return newState;
+            }),
+            ATTACK_LEFT("ATTACK LEFT", Effect.ATTACK, new boolean[][]{
+                    {false, false, false, false, false},
+                    {false, false, false, false, false},
+                    {false, true, false, false, false},
+                    {false, false, false, false, false},
+                    {false, false, false, false, false},
+            }, (Function<int[][], int[][]>) cell -> {
+                int[][] newState = new int[cell.length][cell.length];
+
+                for (int i = 0; i < cell.length; i++) {
+                    for (int j = 0; j < cell.length; j++) {
+                        newState[i][j] = cell[i][j];
+                    }
+                }
+
                 final int[][] crit_points = new int[][]{
                         {3, 3, 3, 3, 3},
                         {3, 2, 1, 2, 3},
@@ -130,57 +260,11 @@ class Player {
                     }
                 }
 
-                int possibleDamageWithoutGuard = (int) (enemyCount * Effect.ATTACK.effectValue);
-                int possibleDamageWithGuard = (int) (possibleDamageWithoutGuard * Effect.GUARD.effectValue);
-
-                if (allyCount == 0 && enemyCount > 0) {
-                    newState[2][2] = 0;
-                } else {
-                    if (possibleDamageWithGuard <= possibleDamageWithoutGuard) {
-                        newState[2][2] = possibleDamageWithGuard;
-                        cell[2][2] = possibleDamageWithoutGuard;
-                    } else {
-                        newState[2][2] = possibleDamageWithoutGuard;
-                    }
+                if(cell[2][1] < 0) {
+                    newState[2][1] = (int) (newState[2][1] + Effect.ATTACK.effectValue);
                 }
 
                 return newState;
-            }),
-            MOVE_RIGHT("MOVE RIGHT", Effect.COLLISION, new boolean[][]{
-                    {false, false, false, false, false},
-                    {false, false, false, false, false},
-                    {false, false, false, true, false},
-                    {false, false, false, false, false},
-                    {false, false, false, false, false},
-            }, (Function<int[][], int[][]>) cell -> {
-                return cell;
-            }),
-            MOVE_UP("MOVE UP", Effect.COLLISION, new boolean[][]{
-                    {false, false, false, false, false},
-                    {false, false, true, false, false},
-                    {false, false, false, false, false},
-                    {false, false, false, false, false},
-                    {false, false, false, false, false},
-            }, (Function<int[][], int[][]>) cell -> {
-                return cell;
-            }),
-            MOVE_DOWN("MOVE DOWN", Effect.COLLISION, new boolean[][]{
-                    {false, false, false, false, false},
-                    {false, false, false, false, false},
-                    {false, false, false, false, false},
-                    {false, false, true, false, false},
-                    {false, false, false, false, false},
-            }, (Function<int[][], int[][]>) cell -> {
-                return cell;
-            }),
-            ATTACK_LEFT("ATTACK LEFT", Effect.ATTACK, new boolean[][]{
-                    {false, false, false, false, false},
-                    {false, false, false, false, false},
-                    {false, true, false, false, false},
-                    {false, false, false, false, false},
-                    {false, false, false, false, false},
-            }, (Function<int[][], int[][]>) cell -> {
-                return cell;
             }),
             ATTACK_RIGHT("ATTACK RIGHT", Effect.ATTACK, new boolean[][]{
                     {false, false, false, false, false},
@@ -189,7 +273,41 @@ class Player {
                     {false, false, false, false, false},
                     {false, false, false, false, false},
             }, (Function<int[][], int[][]>) cell -> {
-                return cell;
+                int[][] newState = new int[cell.length][cell.length];
+
+                for (int i = 0; i < cell.length; i++) {
+                    for (int j = 0; j < cell.length; j++) {
+                        newState[i][j] = cell[i][j];
+                    }
+                }
+
+                final int[][] crit_points = new int[][]{
+                        {3, 3, 3, 3, 3},
+                        {3, 2, 1, 2, 3},
+                        {3, 1, 0, 1, 3},
+                        {3, 2, 1, 2, 3},
+                        {3, 3, 3, 3, 3}
+                };
+
+                int enemyCount = 0;
+                int allyCount = 0;
+                for (int i = 0; i < crit_points.length; i++) {
+                    for (int j = 0; j < crit_points[i].length; j++) {
+                        if (cell[i][j] < 0 && crit_points[i][j] == 1) {
+                            enemyCount++;
+                        }
+
+                        if (cell[i][j] > 0 && crit_points[i][j] <= 2) {
+                            allyCount++;
+                        }
+                    }
+                }
+
+                if(cell[2][3] < 0) {
+                    newState[2][3] = (int) (newState[2][3] + Effect.ATTACK.effectValue);
+                }
+
+                return newState;
             }),
             ATTACK_UP("ATTACK UP", Effect.ATTACK, new boolean[][]{
                     {false, false, false, false, false},
@@ -198,7 +316,41 @@ class Player {
                     {false, false, false, false, false},
                     {false, false, false, false, false},
             }, (Function<int[][], int[][]>) cell -> {
-                return cell;
+                int[][] newState = new int[cell.length][cell.length];
+
+                for (int i = 0; i < cell.length; i++) {
+                    for (int j = 0; j < cell.length; j++) {
+                        newState[i][j] = cell[i][j];
+                    }
+                }
+
+                final int[][] crit_points = new int[][]{
+                        {3, 3, 3, 3, 3},
+                        {3, 2, 1, 2, 3},
+                        {3, 1, 0, 1, 3},
+                        {3, 2, 1, 2, 3},
+                        {3, 3, 3, 3, 3}
+                };
+
+                int enemyCount = 0;
+                int allyCount = 0;
+                for (int i = 0; i < crit_points.length; i++) {
+                    for (int j = 0; j < crit_points[i].length; j++) {
+                        if (cell[i][j] < 0 && crit_points[i][j] == 1) {
+                            enemyCount++;
+                        }
+
+                        if (cell[i][j] > 0 && crit_points[i][j] <= 2) {
+                            allyCount++;
+                        }
+                    }
+                }
+
+                if(cell[2][2] < 0) {
+                    newState[1][2] = (int) (newState[1][2] + Effect.ATTACK.effectValue);
+                }
+
+                return newState;
             }),
             ATTACK_DOWN("ATTACK DOWN", Effect.ATTACK, new boolean[][]{
                     {false, false, false, false, false},
@@ -250,7 +402,31 @@ class Player {
                     {false, true, true, true, false},
                     {false, false, false, false, false},
             }, (Function<int[][], int[][]>) cell -> {
-                return cell;
+                if(cell[2][2] > 4) {
+                    return cell;  //only want to consider self destruct if
+                    //health is low.
+                }
+
+
+                int[][] newState = new int[cell.length][cell.length];
+                for (int i = 0; i < cell.length; i++) {
+                    for (int j = 0; j < cell.length; j++) {
+                        newState[i][j] = cell[i][j];
+                    }
+                }
+
+                for(int i = 1; i <= 3; i++) {
+                    for(int j = 1; j <= 3; j++) {
+                        if(cell[i][j] < 0) {
+                            newState[i][j] = (int) (newState[i][j] + Effect.SELFDESTRUCTION.effectValue);
+                        } else if(cell[i][j] > 0) {
+                            newState[i][j] = (int) (newState[i][j] - Effect.SELFDESTRUCTION.effectValue);
+                        }
+                    }
+                }
+
+                newState[2][2] = 0;
+                return newState;
             });
 
             private final String actionString;
@@ -339,7 +515,7 @@ class Player {
                 if (x < 0 || x >= map.length || y < 0 || y >= map[0].length) {
                     // Out of bounds
                     return true;
-                } else if (map[y][x] != 0) {
+                } else if (map[x][y] != 0) {
                     // Collision with another robot
                     return true;
                 } else {
@@ -376,19 +552,12 @@ class Player {
 
             public boolean checkCells() {
                 return Arrays.stream(cells).flatMapToInt(Arrays::stream).allMatch(
-                        cell -> cell > -10 && cell < 10 && (cell > 0 || cell < 0 || cell == 0)
+                        cell -> cell >= -10 && cell <= 10 && (cell > 0 || cell < 0 || cell == 0)
                 );
             }
 
             public boolean isGameOver() {
-                for (int i = 0; i < cells.length; i++) {
-                    for (int j = 0; j < cells[0].length; j++) {
-                        if (cells[i][j] > 0) {
-                            return false;
-                        }
-                    }
-                }
-                return true;
+                return cells[2][2] == 0;
             }
 
             public boolean isGameWon() {
@@ -533,13 +702,7 @@ class Player {
 
                             log("calculated current state: ", currentState.toString(), " new state: ", newState.toString());
 
-                            if (currentState.compareTo(newState) <= 0) {
-                                log("seems current state is worse than new state");
-                                possibleActions.put(currentState, action);
-                            } else {
-                                log("seems current state is better than new state");
-                            }
-
+                            possibleActions.put(newState, action);
                         });
 
                 log("possible actions are: ", String.valueOf(possibleActions.size()));
@@ -561,9 +724,9 @@ class Player {
                             board[i][j] = in.nextInt();
                         }
                     }
-                    robots.add(new Robot(board));
-                    in.nextLine(); // consume the rest of the line after the integers
+                    robots.add(new Robot(board));// consume the rest of the line after the integers
                 }
+                in.nextLine();
                 return robots;
             }
 
@@ -1855,10 +2018,12 @@ class Player {
 
     public static void main(String args[]) {
         Scanner in = new Scanner(System.in);
-        BotPlayer botPlayer;
-        botPlayer = new BotPlayer(in);
-        log("init");
-        botPlayer.play();
+        while(in.hasNext()) {
+            BotPlayer botPlayer;
+            botPlayer = new BotPlayer(in);
+            log("init");
+            botPlayer.play();
+        }
     }
 }
 
