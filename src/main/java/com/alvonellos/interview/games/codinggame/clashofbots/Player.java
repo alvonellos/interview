@@ -1,20 +1,16 @@
 package com.alvonellos.interview.games.codinggame.clashofbots;
 
-import java.security.SecureRandom;
 import java.util.*;
-import java.io.*;
-import java.math.*;
 import java.awt.Point;
-import java.util.function.IntFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * Auto-generated code below aims at helping you parse
  * the standard input according to the problem statement.
- * https://www.codingame.com/ide/puzzle/clash-of-bots
+ * <a href="https://www.codingame.com/ide/puzzle/clash-of-bots">...</a>
  **/
-public class Player {
+class Player {
     static class BotPlayer {
         Engine engine;
 
@@ -25,7 +21,7 @@ public class Player {
         public void play() {
             while (true) {
                 String commands = engine.calculateCommands();
-                System.err.println(commands);
+                System.out.println(commands);
             }
         }
 
@@ -52,11 +48,50 @@ public class Player {
                     {false, false, true, false, false},
                     {false, false, false, false, false},
                     {false, false, false, false, false},
-            }, new IntFunction<Integer>() {
-                @Override
-                public Integer apply(int cell) {
-                    return 0;
+            }, cell -> {
+                int[][] newState = new int[cell.length][cell.length];
+
+                for (int i = 0; i < cell.length; i++) {
+                    System.arraycopy(cell[i], 0, newState[i], 0, cell.length);
                 }
+
+                final int[][] crit_points = new int[][]{
+                        {3, 3, 3, 3, 3},
+                        {3, 2, 1, 2, 3},
+                        {3, 1, 0, 1, 3},
+                        {3, 2, 1, 2, 3},
+                        {3, 3, 3, 3, 3}
+                };
+
+                int enemyCount = 0;
+                int allyCount = 0;
+                for (int i = 0; i < crit_points.length; i++) {
+                    for (int j = 0; j < crit_points[i].length; j++) {
+                        if (cell[i][j] < 0 && crit_points[i][j] == 1) {
+                            enemyCount++;
+                        }
+
+                        if (cell[i][j] > 0 && crit_points[i][j] <= 2) {
+                            allyCount++;
+                        }
+                    }
+                }
+
+                int possibleDamageWithoutGuard = (int) (enemyCount * Effect.ATTACK.effectValue);
+                int possibleDamageWithGuard = (int) (possibleDamageWithoutGuard * Effect.GUARD.effectValue);
+
+                if (allyCount == 0 && enemyCount > 0) {
+                    newState[2][2] = 0;
+                } else {
+                    if (possibleDamageWithGuard <= possibleDamageWithoutGuard) {
+                        newState[2][2] = possibleDamageWithGuard;
+                        cell[2][2] = possibleDamageWithoutGuard;
+                    } else {
+                        newState[2][2] = possibleDamageWithoutGuard;
+                    }
+                }
+
+                return newState;
             }),
             MOVE_LEFT("MOVE LEFT", Effect.COLLISION, new boolean[][]{
                     {false, false, false, false, false},
@@ -64,17 +99,52 @@ public class Player {
                     {false, true, false, false, false},
                     {false, false, false, false, false},
                     {false, false, false, false, false},
-            }, new IntFunction<Integer>() {
-                @Override
-                public Integer apply(int cell) {
-                    if (cell == 0) {
-                        return 0;
-                    } else if (cell > 0) {
-                        return cell - 1;
-                    } else { // cell < 0
-                        return cell + 1;
+            }, (Function<int[][], int[][]>) cell -> {
+                int[][] newState = new int[cell.length][cell.length];
+
+                for (int i = 0; i < cell.length; i++) {
+                    for (int j = 0; j < cell.length; j++) {
+                        newState[i][j] = cell[i][j];
                     }
                 }
+
+                final int[][] crit_points = new int[][]{
+                        {3, 3, 3, 3, 3},
+                        {3, 2, 1, 2, 3},
+                        {3, 1, 0, 1, 3},
+                        {3, 2, 1, 2, 3},
+                        {3, 3, 3, 3, 3}
+                };
+
+                int enemyCount = 0;
+                int allyCount = 0;
+                for (int i = 0; i < crit_points.length; i++) {
+                    for (int j = 0; j < crit_points[i].length; j++) {
+                        if (cell[i][j] < 0 && crit_points[i][j] == 1) {
+                            enemyCount++;
+                        }
+
+                        if (cell[i][j] > 0 && crit_points[i][j] <= 2) {
+                            allyCount++;
+                        }
+                    }
+                }
+
+                int possibleDamageWithoutGuard = (int) (enemyCount * Effect.ATTACK.effectValue);
+                int possibleDamageWithGuard = (int) (possibleDamageWithoutGuard * Effect.GUARD.effectValue);
+
+                if (allyCount == 0 && enemyCount > 0) {
+                    newState[2][2] = 0;
+                } else {
+                    if (possibleDamageWithGuard <= possibleDamageWithoutGuard) {
+                        newState[2][2] = possibleDamageWithGuard;
+                        cell[2][2] = possibleDamageWithoutGuard;
+                    } else {
+                        newState[2][2] = possibleDamageWithoutGuard;
+                    }
+                }
+
+                return newState;
             }),
             MOVE_RIGHT("MOVE RIGHT", Effect.COLLISION, new boolean[][]{
                     {false, false, false, false, false},
@@ -82,17 +152,8 @@ public class Player {
                     {false, false, false, true, false},
                     {false, false, false, false, false},
                     {false, false, false, false, false},
-            }, new IntFunction<Integer>() {
-                @Override
-                public Integer apply(int cell) {
-                    if (cell == 0) {
-                        return 0;
-                    } else if (cell > 0) {
-                        return cell - 1;
-                    } else { // cell < 0
-                        return cell + 1;
-                    }
-                }
+            }, (Function<int[][], int[][]>) cell -> {
+                return cell;
             }),
             MOVE_UP("MOVE UP", Effect.COLLISION, new boolean[][]{
                     {false, false, false, false, false},
@@ -100,17 +161,8 @@ public class Player {
                     {false, false, false, false, false},
                     {false, false, false, false, false},
                     {false, false, false, false, false},
-            }, new IntFunction<Integer>() {
-                @Override
-                public Integer apply(int cell) {
-                    if (cell == 0) {
-                        return 0;
-                    } else if (cell > 0) {
-                        return cell - 1;
-                    } else { // cell < 0
-                        return cell + 1;
-                    }
-                }
+            }, (Function<int[][], int[][]>) cell -> {
+                return cell;
             }),
             MOVE_DOWN("MOVE DOWN", Effect.COLLISION, new boolean[][]{
                     {false, false, false, false, false},
@@ -118,17 +170,8 @@ public class Player {
                     {false, false, false, false, false},
                     {false, false, true, false, false},
                     {false, false, false, false, false},
-            }, new IntFunction<Integer>() {
-                @Override
-                public Integer apply(int cell) {
-                    if (cell == 0) {
-                        return 0;
-                    } else if (cell > 0) {
-                        return cell - 1;
-                    } else { // cell < 0
-                        return cell + 1;
-                    }
-                }
+            }, (Function<int[][], int[][]>) cell -> {
+                return cell;
             }),
             ATTACK_LEFT("ATTACK LEFT", Effect.ATTACK, new boolean[][]{
                     {false, false, false, false, false},
@@ -136,17 +179,8 @@ public class Player {
                     {false, true, false, false, false},
                     {false, false, false, false, false},
                     {false, false, false, false, false},
-            }, new IntFunction<Integer>() {
-                @Override
-                public Integer apply(int cell) {
-                    if (cell == 0) {
-                        return 0;
-                    } else if (cell > 0) {
-                        return cell - 2;
-                    } else { // cell < 0
-                        return cell + 2;
-                    }
-                }
+            }, (Function<int[][], int[][]>) cell -> {
+                return cell;
             }),
             ATTACK_RIGHT("ATTACK RIGHT", Effect.ATTACK, new boolean[][]{
                     {false, false, false, false, false},
@@ -154,17 +188,8 @@ public class Player {
                     {false, false, false, true, false},
                     {false, false, false, false, false},
                     {false, false, false, false, false},
-            }, new IntFunction<Integer>() {
-                @Override
-                public Integer apply(int cell) {
-                    if (cell == 0) {
-                        return 0;
-                    } else if (cell > 0) {
-                        return cell - 2;
-                    } else { // cell < 0
-                        return cell + 2;
-                    }
-                }
+            }, (Function<int[][], int[][]>) cell -> {
+                return cell;
             }),
             ATTACK_UP("ATTACK UP", Effect.ATTACK, new boolean[][]{
                     {false, false, false, false, false},
@@ -172,17 +197,8 @@ public class Player {
                     {false, false, false, false, false},
                     {false, false, false, false, false},
                     {false, false, false, false, false},
-            }, new IntFunction<Integer>() {
-                @Override
-                public Integer apply(int cell) {
-                    if (cell == 0) {
-                        return 0;
-                    } else if (cell > 0) {
-                        return cell - 2;
-                    } else { // cell < 0
-                        return cell + 2;
-                    }
-                }
+            }, (Function<int[][], int[][]>) cell -> {
+                return cell;
             }),
             ATTACK_DOWN("ATTACK DOWN", Effect.ATTACK, new boolean[][]{
                     {false, false, false, false, false},
@@ -190,17 +206,42 @@ public class Player {
                     {false, false, false, false, false},
                     {false, false, true, false, false},
                     {false, false, false, false, false},
-            }, new IntFunction<Integer>() {
-                @Override
-                public Integer apply(int cell) {
-                    if (cell == 0) {
-                        return 0;
-                    } else if (cell > 0) {
-                        return cell - 2;
-                    } else { // cell < 0
-                        return cell + 2;
+            }, (Function<int[][], int[][]>) cell -> {
+                int[][] newState = new int[cell.length][cell.length];
+
+                for (int i = 0; i < cell.length; i++) {
+                    for (int j = 0; j < cell.length; j++) {
+                        newState[i][j] = cell[i][j];
                     }
                 }
+
+                final int[][] crit_points = new int[][]{
+                        {3, 3, 3, 3, 3},
+                        {3, 2, 1, 2, 3},
+                        {3, 1, 0, 1, 3},
+                        {3, 2, 1, 2, 3},
+                        {3, 3, 3, 3, 3}
+                };
+
+                int enemyCount = 0;
+                int allyCount = 0;
+                for (int i = 0; i < crit_points.length; i++) {
+                    for (int j = 0; j < crit_points[i].length; j++) {
+                        if (cell[i][j] < 0 && crit_points[i][j] == 1) {
+                            enemyCount++;
+                        }
+
+                        if (cell[i][j] > 0 && crit_points[i][j] <= 2) {
+                            allyCount++;
+                        }
+                    }
+                }
+
+                if(cell[3][2] < 0) {
+                    newState[3][2] = (int) (newState[3][2] + Effect.ATTACK.effectValue);
+                }
+
+                return newState;
             }),
             SELFDESTRUCTION("SELFDESTRUCTION", Effect.SELFDESTRUCTION, new boolean[][]{
                     {false, false, false, false, false},
@@ -208,17 +249,8 @@ public class Player {
                     {false, true, true, true, false},
                     {false, true, true, true, false},
                     {false, false, false, false, false},
-            }, new IntFunction<Integer>() {
-                @Override
-                public Integer apply(int cell) {
-                    if (cell == 0) {
-                        return 0;
-                    } else if (cell > 0) {
-                        return cell - 4;
-                    } else { // cell < 0
-                        return cell + 4;
-                    }
-                }
+            }, (Function<int[][], int[][]>) cell -> {
+                return cell;
             });
 
             private final String actionString;
@@ -227,10 +259,10 @@ public class Player {
 
             private final boolean[][] effectRadius;
 
-            private IntFunction<Integer> effectPredicate;
+            private Function<int[][], int[][]> effectPredicate;
 
 
-            Action(String actionString, Effect effect, boolean[][] effectRadius, IntFunction<Integer> effectPredicate) {
+            Action(String actionString, Effect effect, boolean[][] effectRadius, Function<int[][], int[][]> effectPredicate) {
                 this.actionString = actionString;
                 this.effect = effect;
                 this.effectRadius = effectRadius;
@@ -249,22 +281,21 @@ public class Player {
                 return effectRadius;
             }
 
-            public IntFunction<Integer> getEffectPredicate() {
+            public Function<int[][], int[][]> getEffectPredicate() {
                 return effectPredicate;
             }
 
             public int[][] applyAction(int[][] map, Predicate<Integer> filter) {
-                int[][] newMap = Arrays.stream(map).map(el -> el.clone()).toArray($ -> map.clone());
-                boolean[][] effectRadius = this.getEffectRadius();
-
+                int[][] newMap = new int[map.length][map.length];
                 for (int i = 0; i < map.length; i++) {
-                    for (int j = 0; j < map[0].length; j++) {
-                        if (filter.test(map[i][j]) && effectRadius[i][j]) {
-                            newMap[i][j] = this.getEffectPredicate().apply(map[i][j]);
-                        }
+                    for (int j = 0; j < map.length; j++) {
+                        newMap[i][j] = map[i][j];
                     }
                 }
+
+                newMap = this.effectPredicate.apply(newMap);
                 return newMap;
+
             }
         }
 
@@ -319,7 +350,7 @@ public class Player {
 
         public enum Effect {
             NONE(0.0f),
-            GUARD(1.0f),
+            GUARD(0.5f),
             COLLISION(1.0f),
             ATTACK(2.0f),
             SELFDESTRUCTION(4.0f);
@@ -372,11 +403,11 @@ public class Player {
             }
 
             public int numAllies() {
-                return Arrays.stream(cells).flatMapToInt(Arrays::stream).filter(x -> x > 0).sum();
+                return (int) Arrays.stream(cells).flatMapToInt(Arrays::stream).filter(x -> x > 0).count();
             }
 
             public int numEnemies() {
-                return Arrays.stream(cells).flatMapToInt(Arrays::stream).filter(x -> x < 0).sum();
+                return (int) Arrays.stream(cells).flatMapToInt(Arrays::stream).filter(x -> x < 0).count();
             }
 
             public int sumAllyHealth() {
@@ -411,7 +442,7 @@ public class Player {
 
             @Override
             public int compareTo(GameStatistics o) {
-                if(o == null) {
+                if (o == null) {
                     return 1;
                 }
 
@@ -441,9 +472,9 @@ public class Player {
                     }
 
                     return 0;
-                } else if(this.isWinning() && !o.isWinning()) {
+                } else if (this.isWinning() && !o.isWinning()) {
                     return -1;
-                } else if(!this.isWinning() && o.isWinning()) {
+                } else if (!this.isWinning() && o.isWinning()) {
                     return 1;
                 } else {
                     //no clear answer, so calculate scores
@@ -486,22 +517,32 @@ public class Player {
             }
 
             public Action getOptimalAction(GameState state, Robot robot) {
+                log("Getting optimal action: ", state.toString(), robot.toString());
+
                 RedBlackBST<GameStatistics, Action> possibleActions = new RedBlackBST<>();
                 Arrays
                         .stream(Action.values())
                         .forEach(action -> {
+                            log("evaluating: ", action.getActionString());
+
                             int[][] currentMap = robot.getBoard().getCells();
                             int[][] newMap = action.applyAction(currentMap, x -> true);
 
                             GameStatistics currentState = new GameStatistics(currentMap);
                             GameStatistics newState = new GameStatistics(newMap);
 
-                            //if the current state is worse or equal than the new state
+                            log("calculated current state: ", currentState.toString(), " new state: ", newState.toString());
+
                             if (currentState.compareTo(newState) <= 0) {
+                                log("seems current state is worse than new state");
                                 possibleActions.put(currentState, action);
+                            } else {
+                                log("seems current state is better than new state");
                             }
 
                         });
+
+                log("possible actions are: ", String.valueOf(possibleActions.size()));
 
                 //TODO: prune tree with heuristic
 
@@ -529,7 +570,7 @@ public class Player {
             public String calculateCommands() {
                 StringBuilder sb = new StringBuilder();
                 for (Robot robot : state.robots) {
-                    sb.append(getOptimalAction(this.state, robot));
+                    sb.append(getOptimalAction(this.state, robot).actionString);
                     sb.append(System.lineSeparator());
                 }
                 return sb.toString();
@@ -541,12 +582,14 @@ public class Player {
             private int[][] cells;
 
             public GameBoard() {
+                log("GameBoad(): init()");
                 this.cells = new int[5][5];
                 Arrays.fill(cells, 0);
                 this.cells[2][2] = 10;
             }
 
             public GameBoard(int[][] cells) {
+                log("GameBoard(cells): ", cells.toString());
                 this.cells = cells;
             }
 
@@ -587,6 +630,7 @@ public class Player {
             private List<Robot> robots;
 
             public GameState(List<Robot> robots) {
+                log("constructed game state");
                 this.robots = robots;
             }
 
@@ -599,6 +643,7 @@ public class Player {
                 int[][] cells;
 
                 public GameStatistics(int[][] cells) {
+                    log("constructed GameStatistics(cells)");
                     this.cells = cells;
                 }
 
@@ -724,6 +769,7 @@ public class Player {
                 }
             }
         }
+
         class Robot {
 
             private List<Robot> neighbors = new ArrayList<>();
@@ -740,7 +786,7 @@ public class Player {
             }
 
             public Robot(int[][] cells) {
-                this(RobotType.ALLY, new Point(2,2), new GameBoard(cells));
+                this(RobotType.ALLY, new Point(2, 2), new GameBoard(cells));
             }
 
             public double distanceTo(Robot target) {
@@ -1028,13 +1074,14 @@ public class Player {
 
         }
 
-        class Queue <T extends Comparable<T>> implements Iterable<T> {
+        class Queue<T extends Comparable<T>> implements Iterable<T> {
             private final int size;
             private final T[] elements;
 
             public Queue() {
                 this(100);
             }
+
             public Queue(int size) {
                 this.size = size;
                 this.elements = (T[]) new Comparable[size];
@@ -1042,6 +1089,7 @@ public class Player {
 
             /**
              * Adds an element to the queue.
+             *
              * @param element
              */
             public void enqueue(T element) {
@@ -1090,6 +1138,7 @@ public class Player {
 
             /**
              * Check if the queue is full
+             *
              * @return true if the queue is full, false otherwise
              */
             public boolean isFull() {
@@ -1102,8 +1151,8 @@ public class Player {
             }
 
             /**
-             *
              * Look at the first element in the queue without removing it.
+             *
              * @return
              */
             public T peek() {
@@ -1122,10 +1171,12 @@ public class Player {
             public Iterator<T> iterator() {
                 return new Iterator<T>() {
                     private int index = 0;
+
                     @Override
                     public boolean hasNext() {
                         return index < size;
                     }
+
                     @Override
                     public T next() {
                         return elements[index++];
