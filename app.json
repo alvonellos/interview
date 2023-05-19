@@ -1,5 +1,5 @@
 {
-  "name": "alvonellos.com website",
-  "description": "alvonellos.com, on heroku",
+  "name": "Interview API Website",
+  "description": "interview.alvonellos.com, on heroku",
   "addons": [ "heroku-postgresql" ]
 }

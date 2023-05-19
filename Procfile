@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/website-1.0.jar --server.port=$PORT --spring.profiles.active=heroku
+web: java $JAVA_OPTS -jar target/interview-0.0.1-SNAPSHOT.war --server.port=$PORT --spring.profiles.active=heroku,default
