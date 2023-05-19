@@ -1,0 +1,5 @@
+{
+  "name": "alvonellos.com website",
+  "description": "alvonellos.com, on heroku",
+  "addons": [ "heroku-postgresql" ]
+}
