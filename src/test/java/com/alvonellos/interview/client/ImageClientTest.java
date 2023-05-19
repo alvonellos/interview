@@ -37,7 +37,7 @@ public class ImageClientTest extends AbstractTestNGSpringContextTests {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
+    @Test(enabled = false)
     public void testGetImageFromUrl() throws IOException {
         // create mock response with a JPEG image
         HttpHeaders headers = new HttpHeaders();

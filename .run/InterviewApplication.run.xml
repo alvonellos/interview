@@ -1,5 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="InterviewApplication" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <envs>
       <env name="IMGFLIP_USERNAME" value="AlexanderAlvonellos" />
       <env name="IMGFLIP_KEY" value="MemesHaha123!!!" />

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -33,6 +34,6 @@ public class PersonAddressDTO {
     }
 
     public static List<PersonAddressDTO> fromPersonList(List<Person> personList) {
-        return personList.stream().map(PersonAddressDTO::fromPerson).toList();
+        return personList.stream().map(PersonAddressDTO::fromPerson).collect(Collectors.toList());
     }
 }
