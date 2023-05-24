@@ -1,6 +1,7 @@
 package com.alvonellos.interview.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "person")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Person {
 
     @Id

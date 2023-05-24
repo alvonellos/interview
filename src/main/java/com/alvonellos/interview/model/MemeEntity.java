@@ -7,7 +7,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 
-@Entity(name = "MemeEntity")
+@Table(name = "MemeEntity")
 @Data
 @Getter
 @Setter
