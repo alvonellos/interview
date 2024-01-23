@@ -1,7 +1,6 @@
 package com.alvonellos.interview.Interviews.Walmart;
 
 import com.alvonellos.interview.repository.KVDatabase;
-import com.alvonellos.interview.repository.PersonRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@MockBean({KVDatabase.class, PersonRepository.class})
+@MockBean(KVDatabase.class)
 class SolutionTest {
 
     @BeforeEach

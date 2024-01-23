@@ -1,7 +1,6 @@
 package com.alvonellos.interview.service;
 
 import com.alvonellos.interview.repository.KVDatabase;
-import com.alvonellos.interview.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,7 +16,7 @@ import static org.mockito.Mockito.mock;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@MockBean({KVDatabase.class, PersonRepository.class})
+@MockBean(KVDatabase.class)
 class SortingAlgorithmServiceTest {
     @InjectMocks
     SortingAlgorithmService sortingAlgorithmService = mock(SortingAlgorithmService.class);

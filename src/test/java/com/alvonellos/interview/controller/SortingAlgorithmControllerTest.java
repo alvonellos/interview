@@ -1,10 +1,8 @@
 package com.alvonellos.interview.controller;
 
 import com.alvonellos.interview.repository.KVDatabase;
-import com.alvonellos.interview.repository.PersonRepository;
 import com.alvonellos.interview.service.SortingAlgorithmService;
-import com.alvonellos.interview.util.sorting.SortingAlgorithm;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.alvonellos.utilities.sorting.SortingAlgorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,16 +18,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -37,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@MockBean({PersonRepository.class, KVDatabase.class})
+@MockBean(KVDatabase.class)
 class SortingAlgorithmControllerTest {
     private static final ObjectMapper mapper = new ObjectMapper();
     private static final SecureRandom random = new SecureRandom();

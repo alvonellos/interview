@@ -1,6 +1,6 @@
 package com.alvonellos.interview.Interviews.Walmart;
 
-import static com.alvonellos.interview.util.java.AddressUtil.addrString;
+import static com.alvonellos.utilities.java.AddressUtil.addrString;
 
 public class Solution {
 

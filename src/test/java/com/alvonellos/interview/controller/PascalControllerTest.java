@@ -1,7 +1,6 @@
 package com.alvonellos.interview.controller;
 
 import com.alvonellos.interview.repository.KVDatabase;
-import com.alvonellos.interview.repository.PersonRepository;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@MockBean({PersonRepository.class, KVDatabase.class})
+@MockBean(KVDatabase.class)
 public class PascalControllerTest {
     @Autowired
     MockMvc mockMvc;
