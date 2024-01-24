@@ -150,6 +150,13 @@
 			<version>1.0.0</version>
 		</dependency>
     </dependencies>
+<repositories>
+	<repository>
+		<id>maven-nexus-repo</id>
+		<name>maven-nexus-repo</name>
+		<url>https://nexus.home.alvonellos.com/repository/maven-nexus-repo/</url>
+	</repository>
+</repositories>
 
 	<build>
 		<plugins>
