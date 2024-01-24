@@ -3,12 +3,10 @@ package com.alvonellos.interview.service;
 import com.alvonellos.interview.exceptions.InterviewAPIException;
 import com.alvonellos.interview.model.KVEntity;
 import com.alvonellos.interview.repository.KVDatabase;
-import com.alvonellos.interview.repository.PersonRepository;
 import lombok.val;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Answers;
 import org.mockito.InjectMocks;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,13 +17,14 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@MockBean({KVDatabase.class, PersonRepository.class})
+@MockBean(KVDatabase.class)
 class KVServiceTest {
 
     @MockBean

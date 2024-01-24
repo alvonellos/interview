@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>com.alvonellos</groupId>
 	<artifactId>interview</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
 	<name>Interview</name>
 	<description>Interview Spring Project</description>
 	<properties>
@@ -144,7 +144,19 @@
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.alvonellos</groupId>
+			<artifactId>utilities</artifactId>
+			<version>1.0.0</version>
+		</dependency>
     </dependencies>
+<repositories>
+	<repository>
+		<id>maven-nexus-repo</id>
+		<name>maven-nexus-repo</name>
+		<url>https://nexus.home.alvonellos.com/repository/maven-nexus-repo/</url>
+	</repository>
+</repositories>
 
 	<build>
 		<plugins>

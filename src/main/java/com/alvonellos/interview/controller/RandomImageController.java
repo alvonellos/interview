@@ -1,6 +1,6 @@
 package com.alvonellos.interview.controller;
 
-import com.alvonellos.interview.util.images.RandomImage;
+import com.alvonellos.utilities.images.RandomImage;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;

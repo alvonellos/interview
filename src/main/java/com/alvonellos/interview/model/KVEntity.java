@@ -10,8 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-@Table(name = "KVEntity")
-@Data
+@Entity(name = "KVEntity")
 @Getter
 @Setter
 @Builder

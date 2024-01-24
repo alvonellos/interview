@@ -1,7 +1,7 @@
 package com.alvonellos.interview.controller;
 
 import com.alvonellos.interview.service.SortingAlgorithmService;
-import com.alvonellos.interview.util.sorting.SortingAlgorithm;
+import com.alvonellos.utilities.sorting.SortingAlgorithm;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
