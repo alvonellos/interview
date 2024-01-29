@@ -23,7 +23,6 @@ import static org.mockito.Mockito.*;
 
 
 @SpringBootTest
-@AutoConfigureMockMvc
 @MockBean(KVDatabase.class)
 class KVServiceTest {
 
