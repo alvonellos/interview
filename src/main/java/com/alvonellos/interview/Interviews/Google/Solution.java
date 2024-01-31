@@ -1,7 +1,5 @@
 package com.alvonellos.interview.Interviews.Google;
 
-import java.util.List;
-
 public class Solution {
     String[] topics = {"DataWarehousing: Fact N Dimension Tables, Star Schema",
                         "snowflake schema, slowly changing dimensions"};
