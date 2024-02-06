@@ -19,6 +19,23 @@ public class Solution {
 
             //analyze the string into two datastructures. One is a bitset and the other is a hashset
             HashSet<Character> set = new HashSet<Character>();
+            //why did I use a bitset?
+            // this algorithm is O(n)
+            BitSet bitSet = new BitSet(s.length());
+            for (int i = 0; i < s.length(); i++) {
+                if (set.contains(s.charAt(i)) || s.indexOf(s.charAt(i))!= s.lastIndexOf(s.charAt(i))) {
+                    bitSet.set(i);
+                } else {
+                    set.add(s.charAt(i));
+                }
+            }
+
+            // iterate through the bitset and find the first non-duplicated character
+            for (int i = 0; i < s.length(); i++) {
+                if (!bitSet.get(i)) {
+                    return String.valueOf(s.charAt(i));
+                }
+            }
             BitSet duplicated = new BitSet(s.length());
             for (int i = 0; i < s.length(); i++) {
                 if (set.contains(s.charAt(i)) || s.indexOf(s.charAt(i)) != s.lastIndexOf(s.charAt(i))) {
