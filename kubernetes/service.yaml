@@ -7,9 +7,9 @@ spec:
     app: interview
   type: LoadBalancer #Type of the Kubernetes Service
   externalIPs:
-    - 192.168.0.79
-  loadBalancerIP: 192.168.0.79
+    - 172.16.253.9
+  loadBalancerIP: 172.16.253.9
   ports:
     - port: 80 #Service port
-      targetPort: 8089
+      targetPort: 8009
       protocol: TCP #The port for the container
