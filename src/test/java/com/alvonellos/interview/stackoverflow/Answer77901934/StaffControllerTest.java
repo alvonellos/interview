@@ -1,5 +1,6 @@
 package com.alvonellos.interview.stackoverflow.Answer77901934;
 
+import com.alvonellos.interview.Interviews.victory.VictoryRepo;
 import com.alvonellos.interview.repository.KVDatabase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.java.Log;
@@ -32,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest
 @AutoConfigureMockMvc
 @RunWith(SpringJUnit4ClassRunner.class)
-@MockBean({KVDatabase.class, StaffRepository.class})
+@MockBean({KVDatabase.class, StaffRepository.class, VictoryRepo.class})
 public class StaffControllerTest {
 
     @Autowired

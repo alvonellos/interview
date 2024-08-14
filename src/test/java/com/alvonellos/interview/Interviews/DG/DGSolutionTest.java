@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -50,7 +51,7 @@ public class DGSolutionTest {
     public void testIsConsecutiveArmStrong() throws Exception {
         String requestJson = objectMapper.writeValueAsString(THREE_CONSECUTIVE_AMIGOS_HAPPY);
 
-        val result = mockMvc.perform(get("/armstrong")
+        val result = mockMvc.perform(post("/armstrong")
                         .content(requestJson)
                         .contentType("application/json")
                 )
